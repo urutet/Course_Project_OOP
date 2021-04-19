@@ -7,7 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Logo16x16.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MVVM\Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Logo16x16.ico" />
   </ItemGroup>
 
 </Project>

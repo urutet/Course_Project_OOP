@@ -7,16 +7,16 @@
         xmlns:viewmodels="clr-namespace:JParts.MVVM.ViewModel"
         xmlns:views="clr-namespace:JParts.MVVM.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="JParts" Height="450" Width="800"
         Style="{StaticResource WindowStyle}">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -35,7 +35,8 @@
             <RadioButton Content="Настройки"
                          Style="{StaticResource MenuButtonStyle}"/>
             <RadioButton Content="Контакты"
-                         Style="{StaticResource MenuButtonStyle}"/>
+                         Style="{StaticResource MenuButtonStyle}"
+                         Command="{Binding ContactsViewCommand}"/>
             <RadioButton Content="Добавить товары"
                          Style="{StaticResource MenuButtonStyle}"/>
         </StackPanel>

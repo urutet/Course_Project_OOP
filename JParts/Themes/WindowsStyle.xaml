@@ -6,5 +6,6 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontFamily" Value="Montserrat"/>
         <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Icon" Value="/Images/Logo16x16.ico"/>
     </Style>
 </ResourceDictionary>

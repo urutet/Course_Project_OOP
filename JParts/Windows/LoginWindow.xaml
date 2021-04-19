@@ -38,7 +38,7 @@
 
         <!--Main image-->
         <Image Grid.ColumnSpan="2" Grid.Row="1"
-               Grid.Column="2"></Image>
+               Grid.Column="2" Source="/Images/Logo200x75.png"/>
         <!--Login textblock-->
         <!--<TextBlock Grid.Row="1" Grid.ColumnSpan="2"
                    Grid.Column="2" Text="Логин"

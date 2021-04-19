@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="JParts.MVVM.View.ContactsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             xmlns:local="clr-namespace:JParts.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <m:Map x:Name="myMap" CredentialsProvider="AqCHwUNJzyXJLeqxjFOsUjxUTfvHu1Ed3rC8DK4h35ChcldGbr-JhimK3cLHix51"
+               Mode="Road"
+               Center="53.935599, 27.583907" ZoomLevel="13"
+               Grid.Column="2"
+               Grid.ColumnSpan="4"
+               Grid.Row="1"
+               Grid.RowSpan="4"/>
+    </Grid>
+</UserControl>

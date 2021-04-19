@@ -12,6 +12,8 @@ namespace JParts.MVVM.ViewModel
 
         public OrdersViewModel OrdersVM { get; set; }
 
+        public ContactsViewModel ContactsVM { get; set; }
+
         private object _currentView;
 
         public object CurrentView
@@ -28,10 +30,14 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand OrdersViewCommand { get; set; }
 
+        public RelayCommand ContactsViewCommand { get; set; }
+
         public MainViewModel()
         {
             CatalogVM = new CatalogViewModel();
             OrdersVM = new OrdersViewModel();
+            ContactsVM = new ContactsViewModel();
+
             CurrentView = CatalogVM;
 
             CatalogViewCommand = new RelayCommand(o =>
@@ -42,6 +48,11 @@ namespace JParts.MVVM.ViewModel
             OrdersViewCommand = new RelayCommand(o =>
             {
                 CurrentView = OrdersVM;
+            });
+            
+            ContactsViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ContactsVM;
             });
         }
     }
