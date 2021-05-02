@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using JParts.DBContext;
 
 namespace JParts.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _context;
+        private readonly JPartsContext _context;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(JPartsContext context)
         {
             _context = context;
             Addresses = new AddressRepository(_context);
