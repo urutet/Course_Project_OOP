@@ -20,6 +20,7 @@ namespace JParts.Windows
         public MainWindowAdmin()
         {
             InitializeComponent();
+            //DataContext = new MVVM.ViewModel.MainViewModel(); Работает без этого???
         }
     }
 }

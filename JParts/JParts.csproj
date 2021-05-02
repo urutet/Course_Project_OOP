@@ -8,18 +8,23 @@
 
   <ItemGroup>
     <None Remove="Images\Logo16x16.ico" />
+    <None Remove="Images\Logo200x75.png" />
+    <None Remove="Images\Search.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MVVM\Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
     <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\Logo16x16.ico" />
+    <Resource Include="Images\Logo200x75.png" />
+    <Resource Include="Images\Search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:JParts"
         mc:Ignorable="d"
         Title="JParts" Height="450" Width="800"
@@ -46,23 +47,21 @@
                    Style="{StaticResource Font}"
                    FontSize="30" FontWeight="SemiBold"/>-->
         <!--Login textbox-->
-        <TextBox x:Name="usernameBox" Grid.Row="2"
+        <xceed:WatermarkTextBox x:Name="usernameBox" Grid.Row="2"
                  Grid.Column="2" Grid.ColumnSpan="2"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Stretch"
                  FontFamily="Montserrat"
                  FontSize="11"
-                 Text="Логин"
-                 Style="{StaticResource TextBoxWithHelper}"/>
+                 Watermark="Логин"/>
 
-        <TextBox x:Name="passwordBox" Grid.Row="3"
+        <xceed:WatermarkPasswordBox x:Name="passwordBox" Grid.Row="3"
                  Grid.Column="2" Grid.ColumnSpan="2"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Stretch"
                  FontSize="11"
                  FontFamily="Montserrat"
-                 Text="Пароль"
-                 Style="{StaticResource TextBoxWithHelper}">
+                 Watermark="Пароль">
             <!--<TextBox.Style>
                 <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                     <Style.Resources>
@@ -85,7 +84,7 @@
                     </Style.Triggers>
                 </Style>
             </TextBox.Style>-->
-        </TextBox>
+        </xceed:WatermarkPasswordBox>
 
         <Button x:Name="loginButton" Grid.Row="4"
                 Grid.Column="2" Grid.ColumnSpan="2"

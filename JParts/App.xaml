@@ -9,7 +9,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/MainButtonStyle.xaml"/>
-                <ResourceDictionary Source="Themes/TextBoxWithHelperStyle.xaml"/>
                 <ResourceDictionary Source="Themes/WindowsStyle.xaml"/>
                 <ResourceDictionary Source="Themes/MenuButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>

@@ -26,6 +26,57 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <TextBlock Text="Контакты"
+                   FontSize="30"
+                   FontWeight="SemiBold"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Center"/>
+        <TextBlock Text="Телефон:"
+                   FontSize="20"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="2"/>
+        <TextBlock Text="+375296831273"
+                   FontSize="20"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   Margin="0,25,0,0"/>
+        <TextBlock Text="Время работы: "
+                   FontSize="20"
+                   Grid.Column="0"
+                   Grid.Row="2"
+                   Grid.ColumnSpan="2"/>
+        <TextBlock Text="9:00 - 20:00"
+                   FontSize="20"
+                   Grid.Column="0"
+                   Grid.Row="2"
+                   Margin="0,25,0,0"
+                   Grid.ColumnSpan="2"/>
+        <TextBlock Text="Адреса магазинов: "
+                   FontSize="20"
+                   Grid.Column="0"
+                   Grid.Row="3"
+                   Grid.ColumnSpan="2"/>
+        <TextBlock Text="Адрес 1"
+                   FontSize="20"
+                   Grid.Column="0"
+                   Grid.Row="3"
+                   Margin="0,25,0,0"
+                   Grid.ColumnSpan="2"/>
+        <TextBlock Text="Адрес 2"
+                   FontSize="20"
+                   Grid.Column="0"
+                   Grid.Row="4"
+                   Grid.ColumnSpan="2"/>
+        <TextBlock Text="Адрес 3"
+                   FontSize="20"
+                   Grid.Column="0"
+                   Grid.Row="4"
+                   Margin="0,25,0,0"
+                   Grid.ColumnSpan="2"/>
         <m:Map x:Name="myMap" CredentialsProvider="AqCHwUNJzyXJLeqxjFOsUjxUTfvHu1Ed3rC8DK4h35ChcldGbr-JhimK3cLHix51"
                Mode="Road"
                Center="53.935599, 27.583907" ZoomLevel="13"

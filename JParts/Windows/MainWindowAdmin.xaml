@@ -22,23 +22,23 @@
 
         <Image Grid.Column="0" Grid.Row="0"
                HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
+               VerticalAlignment="Center"
+               Source="/Images/Logo200x75.png"/>
 
         <StackPanel Grid.Row="1">
             <RadioButton Content="Каталог"
                          Style="{StaticResource MenuButtonStyle}"
                          IsChecked="True"
                          Command="{Binding CatalogViewCommand}"/>
-            <RadioButton Content="Заказы"
+            <RadioButton Content="Обработка заказов"
                          Style="{StaticResource MenuButtonStyle}"
                          Command="{Binding OrdersViewCommand}"/>
-            <RadioButton Content="Настройки"
+            <RadioButton Content="Добавить товары"
                          Style="{StaticResource MenuButtonStyle}"/>
             <RadioButton Content="Контакты"
                          Style="{StaticResource MenuButtonStyle}"
                          Command="{Binding ContactsViewCommand}"/>
-            <RadioButton Content="Добавить товары"
-                         Style="{StaticResource MenuButtonStyle}"/>
+
         </StackPanel>
 
         <ContentControl Grid.Row="1" Grid.Column="1" 
