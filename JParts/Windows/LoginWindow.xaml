@@ -71,14 +71,18 @@
                 Grid.Column="2" Grid.ColumnSpan="2"
                 Template="{StaticResource btTemplate}"
                 Content="Войти"
+                FontSize="25"
                 VerticalAlignment="Top"
                 Command="{Binding MainViewCommand}"/>
         <TextBlock Grid.Row="4" Grid.Column="2"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Bottom">
-            <Hyperlink NavigateUri="">
+            <Hyperlink Command="">
                 <TextBlock Text="Забыли пароль?"/>
+            </Hyperlink>
+            <Hyperlink Command="{Binding RegisterViewCommand}">
+                <TextBlock Text="Регистрация"/>
             </Hyperlink>
         </TextBlock>
     </Grid>

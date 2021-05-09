@@ -9,9 +9,11 @@ namespace JParts.MVVM.Model
     {
         public string ShopID { get; set; }
 
-        [ForeignKey("Address")]
+        [ForeignKey("AddressOf")]
         public string AddressID { get; set; }
         public string Phone_Num { get; set; }
+
+        public Address AddressOf { get; set; }
 
         public Shop()
         {
@@ -23,6 +25,14 @@ namespace JParts.MVVM.Model
             ShopID = shop_ID;
             AddressID = address;
             Phone_Num = phone_Num;
+        }
+
+        public Shop(string shopID, string addressID, string phone_Num, Address addressOf)
+        {
+            ShopID = shopID;
+            AddressID = addressID;
+            Phone_Num = phone_Num;
+            AddressOf = addressOf;
         }
     }
 }

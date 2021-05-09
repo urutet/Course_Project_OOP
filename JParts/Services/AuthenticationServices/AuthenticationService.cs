@@ -35,7 +35,7 @@ namespace JParts.Services.AuthenticationServices
                 Client client = new Client(client_ID, name, phone_Num, address, email, login, password);
 
                 _unitOfWork.Clients.Add(client);
-                _unitOfWork.Complete();
+                await _unitOfWork.CompleteAsync();
             }
 
             return status;

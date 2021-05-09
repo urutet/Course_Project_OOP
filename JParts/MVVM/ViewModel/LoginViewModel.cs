@@ -11,6 +11,10 @@ namespace JParts.MVVM.ViewModel
     {
         public RelayCommand MainViewCommand { get; set; }
 
+        public RelayCommand RegisterViewCommand { get; set; }
+
+        public RelayCommand ForgotPasswordCommand { get; set; }
+
         public LoginViewModel()
         {
             MainViewCommand = new RelayCommand(obj =>
@@ -22,6 +26,17 @@ namespace JParts.MVVM.ViewModel
                 windowAdmin.Show();
                 CloseWindow();
             });
+
+            RegisterViewCommand = new RelayCommand(obj =>
+            {
+                RegisterWindow regWindow = new RegisterWindow()
+                {
+                    DataContext = new RegisterViewModel()
+                };
+                regWindow.Show();
+                CloseWindow();
+            });
+
         }
 
         void CloseWindow()

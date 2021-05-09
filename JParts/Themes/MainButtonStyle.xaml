@@ -7,7 +7,7 @@
                             VerticalAlignment="Center"
                             CornerRadius="10">
             <ContentControl Foreground="White"
-                                   FontSize="25"
+                                   FontSize="{TemplateBinding FontSize}"
                                    FontFamily="Montserrat"
                                    FontWeight="SemiBold"
                                    Margin="5" Content="{TemplateBinding Content}"/>

@@ -16,11 +16,11 @@ namespace JParts
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            using (var jpContext = new DBContext.JPartsContext())
-            {
-                IAuthenticationService authentication = new AuthenticationService(new UnitOfWork.UnitOfWork(jpContext));
-                authentication.Register("test", "John Doe", "+375296417774", "Melezha-4", "test@gmail.com", "test", "1234567", "1234567");
-            }
+            //using (var jpContext = new DBContext.JPartsContext())
+            //{
+            //    IAuthenticationService authentication = new AuthenticationService(new UnitOfWork.UnitOfWork(jpContext));
+            //    authentication.Register("test", "John Doe", "+375296417774", "Melezha-4", "test@gmail.com", "test", "1234567", "1234567");
+            //}
             base.OnStartup(e);
         }
     }
