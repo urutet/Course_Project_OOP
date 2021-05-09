@@ -36,7 +36,7 @@ namespace JParts.UnitOfWork
 
         public IShopRepository Shops { get; private set; }
 
-        int IUnitOfWork.Complete()
+        public int Complete()
         {
             return _context.SaveChanges();
         }

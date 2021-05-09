@@ -9,7 +9,7 @@ namespace JParts.DBContext
 {
     public class JPartsContext : DbContext
     {
-        public JPartsContext() : base("name=EFConnection")
+        public JPartsContext() : base("EFConnection")
         {
         }
 

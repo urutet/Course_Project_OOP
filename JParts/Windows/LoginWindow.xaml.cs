@@ -1,5 +1,6 @@
 ﻿using JParts.MVVM.ViewModel;
 using JParts.Windows;
+using JParts.Windows.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,15 +28,18 @@ namespace JParts
             InitializeComponent();
         }
 
-        //ADD LOGIN AND PASSWORD CHECK!!!!!!!!!!
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MainWindowAdmin windowAdmin = new MainWindowAdmin()
+            if(DataContext is ICloseWindows vm)
             {
-                DataContext = new MainViewModel()
-            };
-            windowAdmin.Show();
-            this.Close();
+                vm.Close += () =>
+                {
+                    this.Close();
+                };
+            }
         }
+
+        //ADD LOGIN AND PASSWORD CHECK!!!!!!!!!!
+
     }
 }

@@ -9,6 +9,9 @@
         mc:Ignorable="d"
         Title="JParts" Height="450" Width="800"
         Style="{StaticResource WindowStyle}">
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
 
     <Grid>
         <Grid.ColumnDefinitions>

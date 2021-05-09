@@ -7,11 +7,12 @@ namespace JParts.MVVM.Model
 {
     public class Order
     {
-        public string Order_ID { get; set; }
-        public Client Client_ID { get; set; }
+        public string OrderID { get; set; }
+        public Client ClientID { get; set; }
         public List<Part> OrderedParts { get; set; }
-        public Shop shop { get; set; }
-        public double Price { get; set; }
-        public StatusEnum Status { get; set; }
+        public string ShopID { get; set; }
+        public decimal Price { get; set; }
+        public bool Status { get; set; }        //0 - in process, 1 - delivered
+        public DateTime OrderDate { get; set; }
     }
 }

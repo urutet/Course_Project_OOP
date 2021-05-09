@@ -1,33 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace JParts.MVVM.Model
 {
     public class Client
     {
-        public string Client_ID { get; set; }
+        public string ClientID { get; set; }
         public string Name { get; set; }
         public string Phone_Num { get; set; }
-        public Address address { get; set; }
+
+        [ForeignKey("Address")]
+        public string AddressID { get; set; }
+        public ICollection<Order> Orders { get; set; }
         public string Email { get; set; }
         private string Login { get; set; }
-        private string Password { get; set; }
+        private string PasswordHash { get; set; }
 
         public Client()
         {
 
         }
 
-        public Client(string client_ID, string name, string phone_Num, Address address, string email, string login, string password)
+        public Client(string client_ID, string name, string phone_Num, string address, string email, string login, string password)
         {
-            Client_ID = client_ID;
+            ClientID = client_ID;
             Name = name;
             Phone_Num = phone_Num;
-            this.address = address;
+            AddressID = address;
             Email = email;
             Login = login;
-            Password = password;
+            PasswordHash = password;
         }
     }
 }

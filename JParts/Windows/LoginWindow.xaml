@@ -4,11 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:wmtextbox="clr-namespace:JParts.UserControls"
         xmlns:local="clr-namespace:JParts"
+        xmlns:vm="clr-namespace:JParts.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="JParts" Height="450" Width="800"
         MinHeight="450" MinWidth="800"
-        Style="{StaticResource WindowStyle}">
+        Style="{StaticResource WindowStyle}"
+        Loaded="Window_Loaded">
 
     <Window.Resources>
         <Style x:Key="Font">
@@ -18,6 +21,9 @@
 
         
     </Window.Resources>
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -47,51 +53,26 @@
                    Style="{StaticResource Font}"
                    FontSize="30" FontWeight="SemiBold"/>-->
         <!--Login textbox-->
-        <xceed:WatermarkTextBox x:Name="usernameBox" Grid.Row="2"
-                 Grid.Column="2" Grid.ColumnSpan="2"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Stretch"
-                 FontFamily="Montserrat"
-                 FontSize="11"
-                 Watermark="Логин"/>
 
-        <xceed:WatermarkPasswordBox x:Name="passwordBox" Grid.Row="3"
-                 Grid.Column="2" Grid.ColumnSpan="2"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Stretch"
-                 FontSize="11"
-                 FontFamily="Montserrat"
-                 Watermark="Пароль">
-            <!--<TextBox.Style>
-                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-                    <Style.Resources>
-                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
-                            <VisualBrush.Visual>
-                                <Label Content="Пароль" Foreground="LightGray" />
-                            </VisualBrush.Visual>
-                        </VisualBrush>
-                    </Style.Resources>
-                    <Style.Triggers>
-                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                        </Trigger>
-                        <Trigger Property="Text" Value="{x:Null}">
-                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="Background" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>-->
-        </xceed:WatermarkPasswordBox>
+        <wmtextbox:WatermarkTextBox Watermark="Логин" Grid.Column="2"
+                                    Grid.ColumnSpan="2" Grid.Row="2"
+                                    VerticalAlignment="Center"
+                                    Height="30"/>
+        <wmtextbox:BindableWatermarkPasswordBox Grid.Column="2"
+                                                Grid.Row="3"
+                                                Grid.ColumnSpan="2"
+                                                VerticalAlignment="Center"
+                                                Watermark="Пароль"
+                                                FontFamily="Montserrat"
+                                                BorderThickness="0"
+                                                Height="30"/>
 
         <Button x:Name="loginButton" Grid.Row="4"
                 Grid.Column="2" Grid.ColumnSpan="2"
                 Template="{StaticResource btTemplate}"
                 Content="Войти"
                 VerticalAlignment="Top"
-                Click="loginButton_Click"/>
+                Command="{Binding MainViewCommand}"/>
         <TextBlock Grid.Row="4" Grid.Column="2"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
