@@ -4,10 +4,10 @@ using System.Text;
 
 namespace JParts.Enums
 {
-    public enum StatusEnum
+    public enum RegistrationResult
     {
-        Accepted,
-        InProcess,
-        Delivered
+        Success,
+        PasswordDoNotMatch,
+        LoginAlreadyExists
     }
 }

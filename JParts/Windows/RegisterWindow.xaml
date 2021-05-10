@@ -23,22 +23,24 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Регистрация" TextAlignment="Center" FontFamily="Montserrat" FontSize="20" FontWeight="Bold" Grid.Row="0"/>
-        <usercontrols:WatermarkTextBox Watermark="ФИО" Grid.Row="1" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Name}"/>
-        <usercontrols:WatermarkTextBox Watermark="Email" Grid.Row="2" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Email}"/>
-        <usercontrols:WatermarkTextBox Watermark="Логин" Grid.Row="3" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Login}"/>
-        <usercontrols:BindableWatermarkPasswordBox Watermark="Пароль" Grid.Row="4" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Password="{Binding Password}"/>
-        <usercontrols:BindableWatermarkPasswordBox Watermark="Подтвердите пароль" Grid.Row="5" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Password="{Binding ConfirmPassword}"/>
-        <usercontrols:WatermarkTextBox Watermark="Номер телефона" Grid.Row="6" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Phone_Num}"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="7">
-            <usercontrols:WatermarkTextBox Watermark="Город" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Margin="5, 0, 5, 0" Width="85" TextBind="{Binding City}"/>
-            <usercontrols:WatermarkTextBox Watermark="Улица" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Width="85" TextBind="{Binding Street}"/>
-            <usercontrols:WatermarkTextBox Watermark="Дом" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Width="40" TextBind="{Binding House_Num}"/>
-            <usercontrols:WatermarkTextBox Watermark="Квартира" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Width="50" TextBind="{Binding Flat_Num}"/>
+        <usercontrols:WatermarkTextBox Watermark="ФИО" Grid.Row="1" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Name, Mode=TwoWay}"/>
+        <usercontrols:WatermarkTextBox Watermark="Email" Grid.Row="2" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Email, Mode=TwoWay}"/>
+        <usercontrols:WatermarkTextBox Watermark="Логин" Grid.Row="3" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Login, Mode=TwoWay}"/>
+        <usercontrols:BindableWatermarkPasswordBox Watermark="Пароль" Grid.Row="4" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Password="{Binding Password, Mode=TwoWay}"/>
+        <usercontrols:BindableWatermarkPasswordBox Watermark="Подтвердите пароль" Grid.Row="5" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Password="{Binding ConfirmPassword, Mode=TwoWay}"/>
+        <usercontrols:WatermarkTextBox Watermark="Номер телефона" Grid.Row="6" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Phone_Num, Mode=TwoWay}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="5, 0, 5, 0">
+            <usercontrols:WatermarkTextBox Watermark="Город" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Margin="5, 0, 0, 0" Width="85" TextBind="{Binding City, Mode=TwoWay}"/>
+            <usercontrols:WatermarkTextBox Watermark="Улица" VerticalAlignment="Center" Height="20" Margin="5, 0, 0, 0" Width="85" TextBind="{Binding Street, Mode=TwoWay}"/>
+            <usercontrols:WatermarkTextBox Watermark="Дом" VerticalAlignment="Center" Height="20" Margin="5, 0, 0, 0" Width="40" TextBind="{Binding House_Num, Mode=TwoWay}"/>
+            <usercontrols:WatermarkTextBox Watermark="Квартира" VerticalAlignment="Center" Height="20" Margin="5, 0, 0, 0" Width="50" TextBind="{Binding Flat_Num, Mode=TwoWay}"/>
         </StackPanel>
-        <Button x:Name="loginButton" Grid.Row="8"
+        <CheckBox Content="Администратор" Grid.Row="8" VerticalAlignment="Center" Margin="5, 0, 0, 0" IsChecked="{Binding IsAdmin}"/>
+        <Button x:Name="loginButton" Grid.Row="9"
                 Template="{StaticResource btTemplate}"
                 Content="Зарегистрироваться"
                 VerticalAlignment="Center"

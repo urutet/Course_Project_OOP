@@ -8,7 +8,6 @@ namespace JParts.MVVM.Model
 {
     public class Client
     {
-        [Key]
         public string ClientID { get; set; }
         public string Name { get; set; }
         public string Phone_Num { get; set; }
@@ -17,8 +16,12 @@ namespace JParts.MVVM.Model
         public string AddressID { get; set; }
         public ICollection<Order> Orders { get; set; }
         public string Email { get; set; }
+
+        [Key]
         public string Login { get; set; }
         public string PasswordHash { get; set; }
+
+        public bool IsAdmin { get; set; }
 
         public Address AddressOf { get; set; }
 

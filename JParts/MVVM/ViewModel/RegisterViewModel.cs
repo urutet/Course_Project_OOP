@@ -5,11 +5,15 @@ using JParts.Services.AuthenticationServices;
 using JParts.Windows.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows;
+using JParts.Enums;
 
 namespace JParts.MVVM.ViewModel
 {
-    class RegisterViewModel : ViewModelBase
+    class RegisterViewModel : ViewModelBase, IDataErrorInfo
     {
         //Client
         private string clientID;
@@ -30,16 +34,19 @@ namespace JParts.MVVM.ViewModel
         private string confirmPassword;
         public string ConfirmPassword { get => confirmPassword; set { confirmPassword = value; OnPropertyChanged(); } }
 
+        private bool isAdmin;
+        public bool IsAdmin { get => isAdmin; set { isAdmin = value; OnPropertyChanged(); } }
+
 
         //Address
         private string city;
         public string City { get => city; set { city = value; OnPropertyChanged(); } }
         private string street;
         public string Street { get => street; set { street = value; OnPropertyChanged(); } }
-        private int house_Num;
-        public int House_Num { get => house_Num; set { house_Num = value; OnPropertyChanged(); } }
-        private int flat_Num;
-        public int Flat_Num { get => flat_Num; set { flat_Num = value; OnPropertyChanged(); } }
+        private int? house_Num;
+        public int? House_Num { get => house_Num; set { house_Num = value; OnPropertyChanged(); } }
+        private int? flat_Num;
+        public int? Flat_Num { get => flat_Num; set { flat_Num = value; OnPropertyChanged(); } }
 
 
 
@@ -52,17 +59,17 @@ namespace JParts.MVVM.ViewModel
                 UnitOfWork.UnitOfWork unitOfWork = new UnitOfWork.UnitOfWork(new JPartsContext());
                 IAuthenticationService authentication = new AuthenticationService(unitOfWork);
 
-                Address address = new Address(Convert.ToString(House_Num + Flat_Num), City, Street, House_Num, Flat_Num);
-                unitOfWork.Addresses.Add(address);
-                unitOfWork.Complete();
-
-                if (authentication.Register(Name + Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num), Email, Login, Password, ConfirmPassword).Result)
+                if (authentication.Register(Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num) + Street, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword).Result == RegistrationResult.Success)
                 {
                     CloseWindow();
                 }
-                else
+                if (authentication.Register(Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num) + Street, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword).Result == RegistrationResult.LoginAlreadyExists)
                 {
-                    //add logic here
+                    MessageBox.Show("Пользователь с таким именем уже существует");
+                }
+                if (authentication.Register(Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num) + Street, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword).Result == RegistrationResult.PasswordDoNotMatch)
+                {
+                    MessageBox.Show("Пароли не совпадают");
                 }
             });
         }
@@ -73,5 +80,60 @@ namespace JParts.MVVM.ViewModel
         }
 
         public Action Close { get; set; }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch(columnName)
+                {
+                    case "Name":
+                        Regex regex = new Regex("^[A-Za-z0-9]+$");
+                        if (!regex.IsMatch(Name))
+                        {
+                            error = "Используйте только символы латинского алфавита";
+                        }
+                        break;
+                    case "Phone_Num":
+                        Regex phRegex = new Regex("^(\\+375|80)(29|25|44|33)(\\d{3})(\\d{2})(\\d{2})$");
+                        if(!phRegex.IsMatch(Phone_Num))
+                        {
+                            error = "Введите корректный номер";
+                        }
+                        break;
+                    case "Email":
+                        Regex eRegex = new Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+                        if(!eRegex.IsMatch(Email))
+                        {
+                            error = "Введите корректный Email";
+                        }
+                        break;
+                    case "Login":
+                        Regex lRegex = new Regex("^[A-Za-z0-9]+$");
+                        if (!lRegex.IsMatch(Login))
+                        {
+                            error = "Используйте только символы латинского алфавита";
+                        }
+                        break;
+                    case "Password":
+                        Regex pRegex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+                        if(!pRegex.IsMatch(Password))
+                        {
+                            error = "Введите верный пароль";
+                        }
+                        break;
+                    case "ConfirmPassword":
+                        if(ConfirmPassword != Password)
+                        {
+                            error = "Пароли не совпадают";
+                        }
+                        break;
+                }
+                return error;
+            }
+        }
     }
 }

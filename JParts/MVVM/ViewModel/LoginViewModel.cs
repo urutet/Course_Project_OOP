@@ -34,7 +34,6 @@ namespace JParts.MVVM.ViewModel
                     DataContext = new RegisterViewModel()
                 };
                 regWindow.Show();
-                CloseWindow();
             });
 
         }

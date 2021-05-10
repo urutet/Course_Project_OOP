@@ -1,4 +1,5 @@
 ﻿using JParts.Services.AuthenticationServices;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,7 +20,7 @@ namespace JParts
             //using (var jpContext = new DBContext.JPartsContext())
             //{
             //    IAuthenticationService authentication = new AuthenticationService(new UnitOfWork.UnitOfWork(jpContext));
-            //    authentication.Register("test", "John Doe", "+375296417774", "Melezha-4", "test@gmail.com", "test", "1234567", "1234567");
+            //    authentication.Login("urutet", "2876544Iy");
             //}
             base.OnStartup(e);
         }
