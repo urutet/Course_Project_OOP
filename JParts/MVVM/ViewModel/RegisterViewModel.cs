@@ -58,16 +58,18 @@ namespace JParts.MVVM.ViewModel
             {
                 UnitOfWork.UnitOfWork unitOfWork = new UnitOfWork.UnitOfWork(new JPartsContext());
                 IAuthenticationService authentication = new AuthenticationService(unitOfWork);
+                RegistrationResult result = authentication.Register(Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num) + Street, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword, IsAdmin);
 
-                if (authentication.Register(Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num) + Street, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword).Result == RegistrationResult.Success)
+                if (result == RegistrationResult.Success)
                 {
+                    MessageBox.Show("Регистрация прошла успешно");
                     CloseWindow();
                 }
-                if (authentication.Register(Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num) + Street, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword).Result == RegistrationResult.LoginAlreadyExists)
+                if (result == RegistrationResult.LoginAlreadyExists)
                 {
                     MessageBox.Show("Пользователь с таким именем уже существует");
                 }
-                if (authentication.Register(Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num) + Street, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword).Result == RegistrationResult.PasswordDoNotMatch)
+                if (result == RegistrationResult.PasswordDoNotMatch)
                 {
                     MessageBox.Show("Пароли не совпадают");
                 }

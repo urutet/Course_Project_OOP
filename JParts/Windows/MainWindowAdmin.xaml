@@ -33,11 +33,11 @@
                          Style="{StaticResource MenuButtonStyle}"
                          IsChecked="True"
                          Command="{Binding CatalogViewCommand}"/>
-            <RadioButton Content="Обработка заказов"
+            <RadioButton Content="Заказы"
                          Style="{StaticResource MenuButtonStyle}"
                          Command="{Binding OrdersViewCommand}"/>
-            <RadioButton Content="Добавить товары"
-                         Style="{StaticResource MenuButtonStyle}"/>
+            <!--<RadioButton Content="Добавить товары"
+                         Style="{StaticResource MenuButtonStyle}"/>-->
             <RadioButton Content="Контакты"
                          Style="{StaticResource MenuButtonStyle}"
                          Command="{Binding ContactsViewCommand}"/>

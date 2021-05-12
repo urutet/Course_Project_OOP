@@ -8,6 +8,7 @@
         xmlns:viewmodels="clr-namespace:JParts.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="RegisterWindow" Height="350" Width="310"
+        Loaded="Window_Loaded"
         Style="{StaticResource WindowStyle}">
     <Window.DataContext>
         <viewmodels:RegisterViewModel/>
@@ -39,7 +40,7 @@
             <usercontrols:WatermarkTextBox Watermark="Дом" VerticalAlignment="Center" Height="20" Margin="5, 0, 0, 0" Width="40" TextBind="{Binding House_Num, Mode=TwoWay}"/>
             <usercontrols:WatermarkTextBox Watermark="Квартира" VerticalAlignment="Center" Height="20" Margin="5, 0, 0, 0" Width="50" TextBind="{Binding Flat_Num, Mode=TwoWay}"/>
         </StackPanel>
-        <CheckBox Content="Администратор" Grid.Row="8" VerticalAlignment="Center" Margin="5, 0, 0, 0" IsChecked="{Binding IsAdmin}"/>
+        <CheckBox Content="Администратор" Grid.Row="8" VerticalAlignment="Center" Margin="5, 0, 0, 0" IsChecked="{Binding IsAdmin, Mode=TwoWay}"/>
         <Button x:Name="loginButton" Grid.Row="9"
                 Template="{StaticResource btTemplate}"
                 Content="Зарегистрироваться"

@@ -9,7 +9,7 @@ namespace JParts.Repositories.Interfaces
 {
     public interface IClientRepository : IRepository<Client>
     {
-        Task<Client> GetByUsername(string username);
-        Task<Client> GetByEmail(string email);
+        Client GetByUsername(string username);
+        Client GetByEmail(string email);
     }
 }

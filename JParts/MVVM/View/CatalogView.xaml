@@ -25,6 +25,15 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <!--Add Button-->
+        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40">
+            <Image Source="/Images/Add.png"/>
+        </Button>
+        <!--Delete Button-->
+        <Button Grid.Row="0" Grid.Column="3" Width="40" Height="40">
+            <Image Source="/Images/Remove.png"/>
+        </Button>
+
         <!--Search-->
         <textboxes:WatermarkTextBox Watermark="Поиск"
                                 Grid.Row="0"

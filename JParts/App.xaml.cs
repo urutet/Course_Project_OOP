@@ -17,11 +17,7 @@ namespace JParts
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            //using (var jpContext = new DBContext.JPartsContext())
-            //{
-            //    IAuthenticationService authentication = new AuthenticationService(new UnitOfWork.UnitOfWork(jpContext));
-            //    authentication.Login("urutet", "2876544Iy");
-            //}
+
             base.OnStartup(e);
         }
     }

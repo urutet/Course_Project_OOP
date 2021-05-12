@@ -57,7 +57,8 @@
         <wmtextbox:WatermarkTextBox Watermark="Логин" Grid.Column="2"
                                     Grid.ColumnSpan="2" Grid.Row="2"
                                     VerticalAlignment="Center"
-                                    Height="30"/>
+                                    Height="30"
+                                    TextBind="{Binding Login, Mode=TwoWay}"/>
         <wmtextbox:BindableWatermarkPasswordBox Grid.Column="2"
                                                 Grid.Row="3"
                                                 Grid.ColumnSpan="2"
@@ -65,7 +66,8 @@
                                                 Watermark="Пароль"
                                                 FontFamily="Montserrat"
                                                 BorderThickness="0"
-                                                Height="30"/>
+                                                Height="30"
+                                                Password="{Binding Password, Mode=TwoWay}"/>
 
         <Button x:Name="loginButton" Grid.Row="4"
                 Grid.Column="2" Grid.ColumnSpan="2"
@@ -73,7 +75,7 @@
                 Content="Войти"
                 FontSize="25"
                 VerticalAlignment="Top"
-                Command="{Binding MainViewCommand}"/>
+                Command="{Binding LoginCommand}"/>
         <TextBlock Grid.Row="4" Grid.Column="2"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"

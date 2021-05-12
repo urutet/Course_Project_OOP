@@ -30,7 +30,7 @@ namespace JParts.MVVM.Model
 
         }
 
-        public Client(string client_ID, string name, string phone_Num, string address, string email, string login, string password)
+        public Client(string client_ID, string name, string phone_Num, string address, string email, string login, string password, bool isAdmin)
         {
             ClientID = client_ID;
             Name = name;
@@ -39,6 +39,7 @@ namespace JParts.MVVM.Model
             Email = email;
             Login = login;
             PasswordHash = password;
+            IsAdmin = isAdmin;
         }
 
         public Client(string clientID, string name, string phone_Num, string addressID, ICollection<Order> orders, string email, string login, string passwordHash, Address addressOf)

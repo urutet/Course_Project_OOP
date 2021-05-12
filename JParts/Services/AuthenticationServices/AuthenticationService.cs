@@ -21,9 +21,9 @@ namespace JParts.Services.AuthenticationServices
             _passwordHasher = new PasswordHasher();
         }
 
-        public async Task<Client> Login(string username, string password)
+        public Client Login(string username, string password)
         {
-            Client storedClient = await _unitOfWork.Clients.GetByUsername(username);
+            Client storedClient = _unitOfWork.Clients.GetByUsername(username);
 
             PasswordVerificationResult passwordsMatch = _passwordHasher.VerifyHashedPassword(storedClient.PasswordHash, password);
 
@@ -35,12 +35,12 @@ namespace JParts.Services.AuthenticationServices
             return storedClient;
         }
 
-        public async Task<RegistrationResult> Register(string client_ID, string name, string phone_Num,
-            string addressID, int? House_Num, int? Flat_Num, string Street, string City, string email, string login, string password, string confirmPassword)
+        public RegistrationResult Register(string client_ID, string name, string phone_Num,
+            string addressID, int? House_Num, int? Flat_Num, string Street, string City, string email, string login, string password, string confirmPassword, bool isAdmin)
         {
             RegistrationResult result = RegistrationResult.Success;
 
-            if (await _unitOfWork.Clients.GetByUsername(login) != null)
+            if (_unitOfWork.Clients.GetByUsername(login) != null)     //не зависает при удалении await, но возвращает !null при верных данных
             {
                 result = RegistrationResult.LoginAlreadyExists;
             }
@@ -52,10 +52,10 @@ namespace JParts.Services.AuthenticationServices
 
                 string hashedPassword = _passwordHasher.HashPassword(password);
 
-                Client client = new Client(client_ID, name, phone_Num, addressID, email, login, hashedPassword);
+                Client client = new Client(client_ID, name, phone_Num, addressID, email, login, hashedPassword, isAdmin);
 
                 _unitOfWork.Clients.Add(client);
-                await _unitOfWork.CompleteAsync();
+                _unitOfWork.Complete();
             }
             else if(password != confirmPassword)
             {
