@@ -1,10 +1,12 @@
 ﻿using JParts.MVVM.Commands;
+using JParts.MVVM.Model;
 using JParts.Services.AuthenticationServices;
 using JParts.Windows;
 using JParts.Windows.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -20,8 +22,6 @@ namespace JParts.MVVM.ViewModel
 
         public UnitOfWork.UnitOfWork _unitOfWork { get; }
 
-        public RelayCommand MainViewCommand { get; set; }
-
         public RelayCommand RegisterViewCommand { get; set; }
 
         public RelayCommand ForgotPasswordCommand { get; set; }
@@ -32,16 +32,6 @@ namespace JParts.MVVM.ViewModel
         {
             _unitOfWork = new UnitOfWork.UnitOfWork(new DBContext.JPartsContext());
             authenticationService = new AuthenticationService(_unitOfWork);
-
-            MainViewCommand = new RelayCommand(obj =>
-            {
-                MainWindowAdmin windowAdmin = new MainWindowAdmin()
-                {
-                    DataContext = new MainViewModel()
-                };
-                windowAdmin.Show();
-                CloseWindow();
-            });
 
             RegisterViewCommand = new RelayCommand(obj =>
             {
@@ -54,15 +44,27 @@ namespace JParts.MVVM.ViewModel
 
             LoginCommand = new RelayCommand(obj =>
             {
-                
-                if(authenticationService.Login(Login, Password).IsAdmin == true)
+                try
                 {
-                    MainWindowAdmin windowAdmin = new MainWindowAdmin()
+                    Client result = authenticationService.Login(Login, Password);
+                    if (result.IsAdmin == true)
                     {
-                        DataContext = new MainViewModel()
-                    };
-                    windowAdmin.Show();
-                    CloseWindow();
+                        MainWindowAdmin windowAdmin = new MainWindowAdmin()
+                        {
+                            DataContext = new MainViewModel(result)
+                        };
+                        windowAdmin.Show();
+                        CloseWindow();
+                    }
+                    else if (result.IsAdmin == false)
+                    {
+                        //Add default user implementation
+                        CloseWindow();
+                    }
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show(e.Message);
                 }
             });
 

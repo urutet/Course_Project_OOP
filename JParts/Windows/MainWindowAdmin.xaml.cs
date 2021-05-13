@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JParts.Windows.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -20,7 +21,17 @@ namespace JParts.Windows
         public MainWindowAdmin()
         {
             InitializeComponent();
-            //DataContext = new MVVM.ViewModel.MainViewModel(); Работает без этого???
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ICloseWindows vm)
+            {
+                vm.Close += () =>
+                {
+                    this.Close();
+                };
+            }
         }
     }
 }

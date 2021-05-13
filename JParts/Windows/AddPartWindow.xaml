@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JParts.Windows"
         xmlns:watermark="clr-namespace:JParts.UserControls"
+        xmlns:vm="clr-namespace:JParts.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="AddPartWindow" Height="450" Width="800"
         Style="{StaticResource WindowStyle}">
+    <Window.DataContext>
+        <vm:AddPartViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -28,24 +32,24 @@
         <Image Source="/Images/Logo200x75.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
         <TextBlock Text="Добавление запчасти" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontFamily="Montserrat" FontSize="30" FontWeight="Bold"/>
-        <GroupBox Header="Запчасть" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" FontFamily="Montserrat" FontSize="20">
+        <GroupBox Header="Запчасть" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Montserrat" FontSize="14">
             <ItemsControl>
-                <watermark:WatermarkTextBox Watermark="Название" Margin="5" Height="20" VerticalAlignment="Top"/>
-                <watermark:WatermarkTextBox Watermark="Тип" Margin="5" Height="20" VerticalAlignment="Top"/>
-                <watermark:WatermarkTextBox Watermark="Стоимость" Margin="5" Height="20" VerticalAlignment="Top"/>
-                <CheckBox Content="В наличии" Margin="5"/>
+                <watermark:WatermarkTextBox Watermark="Название" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Name, Mode=TwoWay}"/>
+                <watermark:WatermarkTextBox Watermark="Тип" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Type, Mode=TwoWay}"/>
+                <watermark:WatermarkTextBox Watermark="Стоимость, руб" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Price, Mode=TwoWay}"/>
+                <CheckBox Content="В наличии" Margin="5" IsChecked="{Binding Availability, Mode=TwoWay}"/>
             </ItemsControl>
         </GroupBox>
-        <GroupBox Header="Машина" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Montserrat" FontSize="20">
+        <GroupBox Header="Машина" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Montserrat" FontSize="14">
             <ItemsControl>
-                <watermark:WatermarkTextBox Watermark="Марка" Margin="5" Height="20" VerticalAlignment="Top"/>
-                <watermark:WatermarkTextBox Watermark="Модель" Margin="5" Height="20" VerticalAlignment="Top"/>
-                <watermark:WatermarkTextBox Watermark="Год" Margin="5" Height="20" VerticalAlignment="Top"/>
+                <watermark:WatermarkTextBox Watermark="Марка" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Manufacturer, Mode=TwoWay}"/>
+                <watermark:WatermarkTextBox Watermark="Модель" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Model, Mode=TwoWay}"/>
+                <watermark:WatermarkTextBox Watermark="Год" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Year, Mode=TwoWay}"/>
             </ItemsControl>
         </GroupBox>
         <Image Source="{Binding Image}" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2"/>
-        <Button Content="Добавить картинку" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" FontSize="20" Margin="10"/>
-        <Button Content="Добавить запчасть" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontSize="20" Margin="10"/>
+        <Button Content="Добавить картинку" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10" Command="{Binding AddImage}"/>
+        <Button Content="Добавить запчасть" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10"/>
         
     </Grid>
 </Window>

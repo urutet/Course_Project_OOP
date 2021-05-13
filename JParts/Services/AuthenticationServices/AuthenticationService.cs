@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace JParts.Services.AuthenticationServices
 {
@@ -24,15 +25,22 @@ namespace JParts.Services.AuthenticationServices
         public Client Login(string username, string password)
         {
             Client storedClient = _unitOfWork.Clients.GetByUsername(username);
-
-            PasswordVerificationResult passwordsMatch = _passwordHasher.VerifyHashedPassword(storedClient.PasswordHash, password);
-
-            if(passwordsMatch != PasswordVerificationResult.Success)
+            try
             {
-                throw new Exception();
-            }
+                PasswordVerificationResult passwordsMatch = _passwordHasher.VerifyHashedPassword(storedClient.PasswordHash, password);
 
-            return storedClient;
+                if (passwordsMatch != PasswordVerificationResult.Success)
+                {
+                    throw new Exception();
+                }
+
+                return storedClient;
+            }
+            catch
+            {
+                MessageBox.Show("Неверный логин или пароль!");
+                return null;
+            }
         }
 
         public RegistrationResult Register(string client_ID, string name, string phone_Num,
