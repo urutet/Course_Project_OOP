@@ -24,6 +24,15 @@
             <DataTemplate DataType="{x:Type viewmodels:ContactsViewModel}">
                 <views:ContactsView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AddCarViewModel}">
+                <windows:AddCarWindow/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:RegisterViewModel}">
+                <windows:RegisterWindow/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AddPartViewModel}">
+                <windows:AddPartWindow/>
+            </DataTemplate>
 
         </ResourceDictionary>
     </Application.Resources>

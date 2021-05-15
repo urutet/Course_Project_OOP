@@ -9,6 +9,6 @@ namespace JParts.Repositories.Interfaces
 {
     public interface IPartRepository : IRepository<Part>
     {
-        public Task<List<Part>> GetAllParts();
+        public List<Part> GetAllParts();
     }
 }

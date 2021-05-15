@@ -87,7 +87,7 @@
                   Watermark="Модель"
                   FontFamily="Montserrat"
                   Height="20"/>
-
+        
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                       Grid.RowSpan="5"
@@ -95,62 +95,30 @@
                       Grid.ColumnSpan="5"
                       FontFamily="Montserrat">
             <ListBox x:Name="catalogList" Background="Transparent"
-                     BorderThickness="0">
+                     BorderThickness="0" ItemsSource="{Binding PartsList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="PartTemplate"
                                 Background="#f0f0f0"
-                                Orientation="Horizontal">
-                            <Grid>
+                                Orientation="Horizontal" Grid.Column="1">
+                            <Grid Width="500">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition MinWidth="150" />
-                                    <ColumnDefinition MinWidth="300" />
-                                    <ColumnDefinition MinWidth="100" />
-                                    <ColumnDefinition MinWidth="50" />
-                                    <ColumnDefinition MinWidth="50" />
-                                    <ColumnDefinition MinWidth="50" />
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="0.5*" />
+                                    <ColumnDefinition Width="0.5*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition MaxHeight="50"/>
+                                    <RowDefinition Height="70"/>
                                 </Grid.RowDefinitions>
                                 <Image  MinWidth="50" MaxWidth="50"
-                                                MinHeight="50" MaxHeight="50"
-                               Grid.Column="0" Source="{Binding Path=image}"></Image>
-                                <TextBlock Margin="5" 
-                                   VerticalAlignment="Center"
-                                   Grid.Column="1"
-                                   TextWrapping="Wrap" Text="{Binding Path=Name}"></TextBlock>
-                                <TextBlock 
-                                   VerticalAlignment="Center"
-                                   Grid.Column="2"
-                                   MaxWidth="300"
-                                   TextWrapping="Wrap" Text="{Binding Path=ShortDef}"></TextBlock>
-                                <TextBlock Margin="20" 
-                                   VerticalAlignment="Center"
-                                   Grid.Column="3"
-                                   TextWrapping="Wrap" Text="{Binding Path=Price}"></TextBlock>
-                                <Button       Margin="5"
-                                   Grid.Column="4"
-                                   Background="#b6002c">
-                                    <Image Source="/Images/Cart.png"
-                                       Width="50"
-                                       Height="50"/>
-                                </Button>
-                                <Button       Margin="5"
-                                   Grid.Column="5"
-                                   Background="#b6002c">
-                                    <Image Source="/Images/Cart.png"
-                                       Width="50"
-                                       Height="50"/>
-                                </Button>
-                                <Button       Margin="5"
-                                   Grid.Column="6"
-                                   Background="#b6002c">
-                                    <Image Source="/Images/Cart.png"
-                                       Width="50"
-                                       Height="50"/>
-                                </Button>
+                        MinHeight="50" MaxHeight="50"
+                        Grid.Column="0" Margin="5" Source="{Binding Image}"/>
+                                <TextBlock Text="{Binding Name}" Grid.Column="1" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Center"/>
+                                <Button Content="Add To Cart" Grid.Column="3" Margin="5"/>
+                                <Button Content="Update" Grid.Column="4" Margin="5"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

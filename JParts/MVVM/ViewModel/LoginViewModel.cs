@@ -70,7 +70,7 @@ namespace JParts.MVVM.ViewModel
                 }
                 catch(Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    MessageBox.Show("Неверный логин или пароль!");
                 }
             });
 

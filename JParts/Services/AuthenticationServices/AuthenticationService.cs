@@ -38,7 +38,6 @@ namespace JParts.Services.AuthenticationServices
             }
             catch
             {
-                MessageBox.Show("Неверный логин или пароль!");
                 return null;
             }
         }

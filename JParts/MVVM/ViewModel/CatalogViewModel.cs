@@ -42,7 +42,7 @@ namespace JParts.MVVM.ViewModel
 
             uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
 
-            PartsList = uoW.Parts.GetAllParts().Result;
+            PartsList = uoW.Parts.GetAllParts();
         }
     }
 }

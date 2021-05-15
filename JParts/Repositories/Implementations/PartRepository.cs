@@ -20,9 +20,9 @@ namespace JParts.Repositories.Implementations
 
         public JPartsContext JpartsContext { get { return Context as JPartsContext; } private set { } }
 
-        public async Task<List<Part>> GetAllParts()
+        public List<Part> GetAllParts()
         {
-            return await JpartsContext.Parts.Distinct().ToListAsync();
+            return JpartsContext.Parts.Distinct().ToList();
         }
     }
 }

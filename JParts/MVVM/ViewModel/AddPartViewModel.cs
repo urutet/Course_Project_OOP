@@ -1,11 +1,13 @@
 ﻿using JParts.DBContext;
 using JParts.MVVM.Commands;
 using JParts.MVVM.Model;
+using JParts.Windows;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -90,6 +92,8 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand AddPartCommand { get; set; }
 
+        public RelayCommand AddCarCommand { get; set; }
+
         public AddPartViewModel()
         {
             AddImageCommand = new RelayCommand(o =>
@@ -110,6 +114,13 @@ namespace JParts.MVVM.ViewModel
                 UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
                 uoW.Parts.Add(part);
                 uoW.Complete();
+                MessageBox.Show("Деталь успешно добавлена");
+            });
+
+            AddCarCommand = new RelayCommand(o =>
+            {
+                AddCarWindow window = new AddCarWindow();
+                window.Show();
             });
 
             LoadManufacturers();
