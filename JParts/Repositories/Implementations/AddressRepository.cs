@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Text;
+using System.Linq;
 
 namespace JParts.Repositories.Implementations
 {
@@ -17,5 +18,10 @@ namespace JParts.Repositories.Implementations
         }
 
         public JPartsContext JpartsContext { get { return Context as JPartsContext; } private set { } }
+
+        public Address GetAddressByObj(Address address)
+        {
+            return JpartsContext.Adresses.AsNoTracking().First(a => a.City == address.City && a.Street == address.Street && a.House_Num == address.House_Num && a.Flat_Num == address.Flat_Num);
+        }
     }
 }

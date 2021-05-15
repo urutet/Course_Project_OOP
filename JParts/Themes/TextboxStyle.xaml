@@ -1,5 +1,64 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:JParts.Themes">
-    
+                    xmlns:local="clr-namespace:JParts.Themes"
+                    xmlns:usercontrols="clr-namespace:JParts.UserControls">
+    <Style x:Key="WaterMarkTextBoxValidationStyle" TargetType="{x:Type usercontrols:WatermarkTextBox}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},  Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="WaterMarkTextboxErrorBubbleStyle" TargetType="{x:Type usercontrols:WatermarkTextBox}" BasedOn="{StaticResource ResourceKey=WaterMarkTextBoxValidationStyle}">
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <DockPanel LastChildFill="true">
+
+                        <Border Background="Red" DockPanel.Dock="right" Margin="5,0,0,0" Width="10" Height="10" CornerRadius="10"
+                        ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+
+                            <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" FontWeight="Bold" Foreground="white"/>
+                        </Border>
+
+                        <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                            <Border BorderBrush="red" BorderThickness="1" />
+                        </AdornedElementPlaceholder>
+
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PasswordBoxValidationStyle" TargetType="{x:Type usercontrols:BindableWatermarkPasswordBox}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},  Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="PasswordBoxErrorBubbleStyle" TargetType="{x:Type usercontrols:WatermarkTextBox}" BasedOn="{StaticResource ResourceKey=PasswordBoxValidationStyle}">
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <DockPanel LastChildFill="true">
+
+                        <Border Background="Red" DockPanel.Dock="right" Margin="5,0,0,0" Width="10" Height="10" CornerRadius="10"
+                        ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+
+                            <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" FontWeight="Bold" Foreground="white"/>
+                        </Border>
+
+                        <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                            <Border BorderBrush="red" BorderThickness="1" />
+                        </AdornedElementPlaceholder>
+
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

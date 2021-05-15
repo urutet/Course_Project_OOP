@@ -60,18 +60,18 @@
                    Grid.Column="0"
                    Grid.Row="3"
                    Grid.ColumnSpan="2"/>
-        <TextBlock Text="Адрес 1"
+        <TextBlock Text="Сурганова 37"
                    FontSize="20"
                    Grid.Column="0"
                    Grid.Row="3"
                    Margin="0,25,0,0"
                    Grid.ColumnSpan="2"/>
-        <TextBlock Text="Адрес 2"
+        <TextBlock Text="Сурганова 66"
                    FontSize="20"
                    Grid.Column="0"
                    Grid.Row="4"
                    Grid.ColumnSpan="2"/>
-        <TextBlock Text="Адрес 3"
+        <TextBlock Text="Мележа 1"
                    FontSize="20"
                    Grid.Column="0"
                    Grid.Row="4"
@@ -79,10 +79,41 @@
                    Grid.ColumnSpan="2"/>
         <m:Map x:Name="myMap" CredentialsProvider="AqCHwUNJzyXJLeqxjFOsUjxUTfvHu1Ed3rC8DK4h35ChcldGbr-JhimK3cLHix51"
                Mode="Road"
-               Center="53.935599, 27.583907" ZoomLevel="13"
+               Center="53.935599, 27.583907" ZoomLevel="14"
                Grid.Column="2"
-               Grid.ColumnSpan="4"
+               Grid.ColumnSpan="5"
                Grid.Row="1"
-               Grid.RowSpan="4"/>
+               Grid.RowSpan="5"
+               Margin="10">
+                <Canvas Width="50" Height="80" 
+              m:MapLayer.Position="53.92582355483133, 27.592616816662996" 
+              m:MapLayer.PositionOrigin="BottomCenter" Opacity="0.7">
+                <Path Data="M 0,0 L 50,0 50,50 25,80 0,50 0,0" Fill="Red" Stroke="Wheat" StrokeThickness="2" />
+                <TextBlock FontSize="8" Foreground="White" Margin="5" TextAlignment="Center">
+                        Сурганова <LineBreak />
+                        37 <LineBreak />
+                </TextBlock>
+            </Canvas>
+
+            <Canvas Width="50" Height="80" 
+              m:MapLayer.Position="53.92862797950759, 27.58318391189564" 
+              m:MapLayer.PositionOrigin="BottomCenter" Opacity="0.7">
+                <Path Data="M 0,0 L 50,0 50,50 25,80 0,50 0,0" Fill="Red" Stroke="Wheat" StrokeThickness="2" />
+                <TextBlock FontSize="8" Foreground="White" Margin="5" TextAlignment="Center">
+                        Сурганова <LineBreak />
+                        66 <LineBreak />
+                </TextBlock>
+            </Canvas>
+
+            <Canvas Width="50" Height="80" 
+              m:MapLayer.Position="53.93943169397835, 27.60107825068192" 
+              m:MapLayer.PositionOrigin="BottomCenter" Opacity="0.7">
+                <Path Data="M 0,0 L 50,0 50,50 25,80 0,50 0,0" Fill="Red" Stroke="Wheat" StrokeThickness="2" />
+                <TextBlock FontSize="8" Foreground="White" Margin="5" TextAlignment="Center">
+                        Мележа <LineBreak />
+                        1 <LineBreak />
+                </TextBlock>
+            </Canvas>
+        </m:Map>
     </Grid>
 </UserControl>

@@ -8,17 +8,18 @@ namespace JParts.MVVM.Model
     public class Car
     {
         [Key]
-        public string CarID { get; set; }
+        public int CarID { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }
         public int? Year { get; set; }
+        public List<Part> Parts { get; set; }
 
-        public Car(string car_ID, string manufacturer, string model, int? year)
+        public Car(string manufacturer, string model, int? year)
         {
-            CarID = car_ID;
             Manufacturer = manufacturer;
             Model = model;
             Year = year;
+            Parts = new List<Part>();
         }
 
         public Car()

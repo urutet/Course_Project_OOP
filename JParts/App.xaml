@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Themes/MainButtonStyle.xaml"/>
                 <ResourceDictionary Source="Themes/WindowsStyle.xaml"/>
                 <ResourceDictionary Source="Themes/MenuButtonStyle.xaml"/>
+                <ResourceDictionary Source="Themes/TextBoxStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewmodels:CatalogViewModel}">

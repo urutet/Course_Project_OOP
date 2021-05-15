@@ -8,12 +8,12 @@ namespace JParts.MVVM.Model
 {
     public class Client
     {
-        public string ClientID { get; set; }
+        public int ClientID { get; set; }
         public string Name { get; set; }
         public string Phone_Num { get; set; }
 
         [ForeignKey("AddressOf")]
-        public string AddressID { get; set; }
+        public int AddressID { get; set; }
         public ICollection<Order> Orders { get; set; }
         public string Email { get; set; }
 
@@ -30,9 +30,8 @@ namespace JParts.MVVM.Model
 
         }
 
-        public Client(string client_ID, string name, string phone_Num, string address, string email, string login, string password, bool isAdmin)
+        public Client(string name, string phone_Num, int address, string email, string login, string password, bool isAdmin)
         {
-            ClientID = client_ID;
             Name = name;
             Phone_Num = phone_Num;
             AddressID = address;
@@ -42,9 +41,8 @@ namespace JParts.MVVM.Model
             IsAdmin = isAdmin;
         }
 
-        public Client(string clientID, string name, string phone_Num, string addressID, ICollection<Order> orders, string email, string login, string passwordHash, Address addressOf)
+        public Client(string name, string phone_Num, int addressID, ICollection<Order> orders, string email, string login, string passwordHash, Address addressOf)
         {
-            ClientID = clientID;
             Name = name;
             Phone_Num = phone_Num;
             AddressID = addressID;

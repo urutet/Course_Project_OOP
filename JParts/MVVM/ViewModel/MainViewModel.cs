@@ -101,6 +101,41 @@ namespace JParts.MVVM.ViewModel
 
         }
 
+        public MainViewModel()
+        {
+            CatalogVM = new CatalogViewModel();
+            OrdersVM = new OrdersViewModel();
+            ContactsVM = new ContactsViewModel();
+
+            CurrentView = CatalogVM;
+
+            CatalogViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = CatalogVM;
+            });
+
+            OrdersViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = OrdersVM;
+            });
+
+            ContactsViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ContactsVM;
+            });
+
+            ExitToLoginCommand = new RelayCommand(o =>
+            {
+                LoginWindow loginWindow = new LoginWindow()
+                {
+                    DataContext = new LoginViewModel()
+                };
+                loginWindow.Show();
+                CloseWindow();
+            });
+
+        }
+
         void CloseWindow()
         {
             Close?.Invoke();

@@ -61,6 +61,12 @@ namespace JParts.MVVM.ViewModel
                         //Add default user implementation
                         CloseWindow();
                     }
+                    //MainWindowAdmin windowAdmin = new MainWindowAdmin()
+                    //{
+                    //    DataContext = new MainViewModel()
+                    //};
+                    //windowAdmin.Show();
+                    //CloseWindow();
                 }
                 catch(Exception e)
                 {

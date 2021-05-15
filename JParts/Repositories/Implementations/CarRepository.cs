@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace JParts.Repositories.Implementations
 {
@@ -17,5 +19,25 @@ namespace JParts.Repositories.Implementations
         }
 
         public JPartsContext JpartsContext { get { return Context as JPartsContext; } private set { } }
+
+        public async Task<List<string>> GetAllManufacturers()
+        {
+            return await JpartsContext.Cars.Select(c => c.Manufacturer).Distinct().ToListAsync();
+        }
+
+        public Car GetCar(string manufacturer, string model, int? year)
+        {
+            return JpartsContext.Cars.AsNoTracking().First(c => c.Manufacturer == manufacturer && c.Model == model && c.Year == year);
+        }
+
+        public async Task<List<string>> GetManufacturerModels(string manufacturer)
+        {
+            return await JpartsContext.Cars.Where(c => c.Manufacturer == manufacturer).Select(c => c.Model).Distinct().ToListAsync();
+        }
+
+        public async Task<List<int?>> GetModelsYears(string manufacturer, string model)
+        {
+            return await JpartsContext.Cars.Where(c => c.Manufacturer == manufacturer && c.Model == model).Select(c => c.Year).ToListAsync();
+        }
     }
 }

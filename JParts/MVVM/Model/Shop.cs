@@ -10,7 +10,7 @@ namespace JParts.MVVM.Model
         public string ShopID { get; set; }
 
         [ForeignKey("AddressOf")]
-        public string AddressID { get; set; }
+        public int AddressID { get; set; }
         public string Phone_Num { get; set; }
 
         public Address AddressOf { get; set; }
@@ -20,16 +20,14 @@ namespace JParts.MVVM.Model
 
         }
 
-        public Shop(string shop_ID, string address, string phone_Num)
+        public Shop(int address, string phone_Num)
         {
-            ShopID = shop_ID;
             AddressID = address;
             Phone_Num = phone_Num;
         }
 
-        public Shop(string shopID, string addressID, string phone_Num, Address addressOf)
+        public Shop(int addressID, string phone_Num, Address addressOf)
         {
-            ShopID = shopID;
             AddressID = addressID;
             Phone_Num = phone_Num;
             AddressOf = addressOf;

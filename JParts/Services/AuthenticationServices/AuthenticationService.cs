@@ -44,7 +44,7 @@ namespace JParts.Services.AuthenticationServices
         }
 
         public RegistrationResult Register(string client_ID, string name, string phone_Num,
-            string addressID, int? House_Num, int? Flat_Num, string Street, string City, string email, string login, string password, string confirmPassword, bool isAdmin)
+            int? House_Num, int? Flat_Num, string Street, string City, string email, string login, string password, string confirmPassword, bool isAdmin)
         {
             RegistrationResult result = RegistrationResult.Success;
 
@@ -54,13 +54,12 @@ namespace JParts.Services.AuthenticationServices
             }
             else if (password == confirmPassword && result == RegistrationResult.Success)
             {
-                Address addr = new Address(Convert.ToString(House_Num + Flat_Num) + Street, City, Street, House_Num, Flat_Num);
+                Address addr = new Address(City, Street, House_Num, Flat_Num);
                 _unitOfWork.Addresses.Add(addr);
                 _unitOfWork.Complete();
-
                 string hashedPassword = _passwordHasher.HashPassword(password);
 
-                Client client = new Client(client_ID, name, phone_Num, addressID, email, login, hashedPassword, isAdmin);
+                Client client = new Client(name, phone_Num, _unitOfWork.Addresses.GetAddressByObj(addr).AddressID, email, login, hashedPassword, isAdmin);
 
                 _unitOfWork.Clients.Add(client);
                 _unitOfWork.Complete();

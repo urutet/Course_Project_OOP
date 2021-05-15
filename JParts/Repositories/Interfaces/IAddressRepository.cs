@@ -8,5 +8,6 @@ namespace JParts.Repositories.Interfaces
 {
     public interface IAddressRepository : IRepository<Address>
     {
+        public Address GetAddressByObj(Address address);
     }
 }

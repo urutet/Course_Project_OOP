@@ -26,14 +26,13 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
         <TextBlock Text="Регистрация" TextAlignment="Center" FontFamily="Montserrat" FontSize="20" FontWeight="Bold" Grid.Row="0"/>
-        <usercontrols:WatermarkTextBox Watermark="ФИО" Grid.Row="1" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Name, Mode=TwoWay}"/>
-        <usercontrols:WatermarkTextBox Watermark="Email" Grid.Row="2" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Email, Mode=TwoWay}"/>
-        <usercontrols:WatermarkTextBox Watermark="Логин" Grid.Row="3" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Login, Mode=TwoWay}"/>
-        <usercontrols:BindableWatermarkPasswordBox Watermark="Пароль" Grid.Row="4" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Password="{Binding Password, Mode=TwoWay}"/>
-        <usercontrols:BindableWatermarkPasswordBox Watermark="Подтвердите пароль" Grid.Row="5" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Password="{Binding ConfirmPassword, Mode=TwoWay}"/>
-        <usercontrols:WatermarkTextBox Watermark="Номер телефона" Grid.Row="6" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Phone_Num, Mode=TwoWay}"/>
+        <usercontrols:WatermarkTextBox Watermark="ФИО" Grid.Row="1" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource WaterMarkTextBoxValidationStyle}"/>
+        <usercontrols:WatermarkTextBox Watermark="Email" Grid.Row="2" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource WaterMarkTextBoxValidationStyle}"/>
+        <usercontrols:WatermarkTextBox Watermark="Логин" Grid.Row="3" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Login, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource WaterMarkTextBoxValidationStyle}"/>
+        <usercontrols:BindableWatermarkPasswordBox Watermark="Пароль" Grid.Row="4" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Password="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource PasswordBoxValidationStyle}"/>
+        <usercontrols:BindableWatermarkPasswordBox Watermark="Подтвердите пароль" Grid.Row="5" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" Password="{Binding ConfirmPassword, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource PasswordBoxValidationStyle}"/>
+        <usercontrols:WatermarkTextBox Watermark="Номер телефона" Grid.Row="6" VerticalAlignment="Center" Height="20" Margin="5, 0, 5, 0" TextBind="{Binding Phone_Num, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource WaterMarkTextBoxValidationStyle}"/>
         <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="5, 0, 5, 0">
             <usercontrols:WatermarkTextBox Watermark="Город" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Margin="5, 0, 0, 0" Width="85" TextBind="{Binding City, Mode=TwoWay}"/>
             <usercontrols:WatermarkTextBox Watermark="Улица" VerticalAlignment="Center" Height="20" Margin="5, 0, 0, 0" Width="85" TextBind="{Binding Street, Mode=TwoWay}"/>

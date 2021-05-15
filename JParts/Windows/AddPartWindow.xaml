@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:JParts.Windows"
         xmlns:watermark="clr-namespace:JParts.UserControls"
         xmlns:vm="clr-namespace:JParts.MVVM.ViewModel"
+        xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="AddPartWindow" Height="450" Width="800"
         Style="{StaticResource WindowStyle}">
@@ -37,19 +38,42 @@
                 <watermark:WatermarkTextBox Watermark="Название" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Name, Mode=TwoWay}"/>
                 <watermark:WatermarkTextBox Watermark="Тип" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Type, Mode=TwoWay}"/>
                 <watermark:WatermarkTextBox Watermark="Стоимость, руб" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Price, Mode=TwoWay}"/>
+                <!--<xceed:DecimalUpDown Watermark="Стоимость" TextAlignment="Left"/>-->
                 <CheckBox Content="В наличии" Margin="5" IsChecked="{Binding Availability, Mode=TwoWay}"/>
             </ItemsControl>
         </GroupBox>
         <GroupBox Header="Машина" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Montserrat" FontSize="14">
             <ItemsControl>
-                <watermark:WatermarkTextBox Watermark="Марка" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Manufacturer, Mode=TwoWay}"/>
-                <watermark:WatermarkTextBox Watermark="Модель" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Model, Mode=TwoWay}"/>
-                <watermark:WatermarkTextBox Watermark="Год" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Year, Mode=TwoWay}"/>
+                <xceed:WatermarkComboBox x:Name="ManufacturerCB" Watermark="Марка" Margin="5" Height="20" VerticalAlignment="Top" ItemsSource="{Binding Manufacturer, Mode=TwoWay}" SelectedItem="{Binding SelectedManufacturer}"/>
+                <xceed:WatermarkComboBox x:Name="ModelCB" Watermark="Модель" Margin="5" Height="20" VerticalAlignment="Top" ItemsSource="{Binding Model, Mode=TwoWay}" SelectedItem="{Binding SelectedModel}">
+                    <xceed:WatermarkComboBox.Resources>
+                        <Style TargetType="{x:Type xceed:WatermarkComboBox}">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=ManufacturerCB, Path=SelectedItem}" Value="{x:Null}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </xceed:WatermarkComboBox.Resources>
+                </xceed:WatermarkComboBox>
+                <xceed:WatermarkComboBox Watermark="Год" Margin="5" Height="20" VerticalAlignment="Top" ItemsSource="{Binding Year, Mode=TwoWay}" SelectedItem="{Binding SelectedYear}">
+                    <xceed:WatermarkComboBox.Resources>
+                        <Style TargetType="{x:Type xceed:WatermarkComboBox}">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=ModelCB, Path=SelectedItem}" Value="{x:Null}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </xceed:WatermarkComboBox.Resources>
+                </xceed:WatermarkComboBox>
             </ItemsControl>
         </GroupBox>
         <Image Source="{Binding Image}" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2"/>
-        <Button Content="Добавить картинку" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10" Command="{Binding AddImage}"/>
-        <Button Content="Добавить запчасть" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10"/>
+        <Button Content="Добавить картинку" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10" Command="{Binding AddImageCommand}"/>
+        <Button Content="Добавить запчасть" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10" Command="{Binding AddPartCommand}"/>
         
     </Grid>
 </Window>

@@ -15,6 +15,7 @@ namespace JParts.MVVM.ViewModel
 {
     class RegisterViewModel : ViewModelBase, IDataErrorInfo
     {
+
         //Client
         private string clientID;
         public string ClientID { get => clientID; set { clientID = value; OnPropertyChanged(); } }
@@ -48,9 +49,73 @@ namespace JParts.MVVM.ViewModel
         private int? flat_Num;
         public int? Flat_Num { get => flat_Num; set { flat_Num = value; OnPropertyChanged(); } }
 
-
-
         public RelayCommand RegisterUserCommand { get; set; }
+
+
+        public Action Close { get; set; }
+
+        public string Error { get => null; }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    
+                    case "Phone_Num":
+                        Regex phRegex = new Regex("^(\\+375|80)(29|25|44|33)(\\d{3})(\\d{2})(\\d{2})$");
+                        if (!phRegex.IsMatch(Phone_Num))
+                        {
+                            error = "Введите корректный номер (прим. +375291111111)";
+                        }
+                        break;
+                    case "Email":
+                        Regex eRegex = new Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+                        if (!eRegex.IsMatch(Email))
+                        {
+                            error = "Введите корректный Email";
+                        }
+                        break;
+                    case "Login":
+                        Regex lRegex = new Regex("^[A-Za-z0-9]+$");
+                        if (!lRegex.IsMatch(Login))
+                        {
+                            error = "Используйте только символы латинского алфавита и цифры";
+                        }
+                        break;
+                    case "Password":
+                        Regex pRegex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+                        if (!pRegex.IsMatch(Password))
+                        {
+                            error = "Введите верный пароль (8 символов, из которых 2 - буквы латинского алфавита)";
+                        }
+                        break;
+                    case "ConfirmPassword":
+                        if (ConfirmPassword != Password)
+                        {
+                            error = "Пароли не совпадают";
+                        }
+                        break;
+                    default:
+                        error = null;
+                        break;
+                }
+                return error;
+            }
+        }
+
+        protected bool CanRegister
+        {
+            get
+            {
+                if (Error == String.Empty || Error == null)
+                    return true;
+                else
+                    return false;
+            }
+        }
 
         public RegisterViewModel()
         {
@@ -58,7 +123,7 @@ namespace JParts.MVVM.ViewModel
             {
                 UnitOfWork.UnitOfWork unitOfWork = new UnitOfWork.UnitOfWork(new JPartsContext());
                 IAuthenticationService authentication = new AuthenticationService(unitOfWork);
-                RegistrationResult result = authentication.Register(Login, Name, Phone_Num, Convert.ToString(House_Num + Flat_Num) + Street, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword, IsAdmin);
+                RegistrationResult result = authentication.Register(Login, Name, Phone_Num, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword, IsAdmin);
 
                 if (result == RegistrationResult.Success)
                 {
@@ -73,7 +138,7 @@ namespace JParts.MVVM.ViewModel
                 {
                     MessageBox.Show("Пароли не совпадают");
                 }
-            });
+            }/*, param => CanRegister*/);       //повисает при передаче параметра (StackOverflowException)
         }
 
         void CloseWindow()
@@ -81,61 +146,5 @@ namespace JParts.MVVM.ViewModel
             Close?.Invoke();
         }
 
-        public Action Close { get; set; }
-
-        public string Error => throw new NotImplementedException();
-
-        public string this[string columnName]
-        {
-            get
-            {
-                string error = String.Empty;
-                switch(columnName)
-                {
-                    case "Name":
-                        Regex regex = new Regex("^[A-Za-z0-9]+$");
-                        if (!regex.IsMatch(Name))
-                        {
-                            error = "Используйте только символы латинского алфавита";
-                        }
-                        break;
-                    case "Phone_Num":
-                        Regex phRegex = new Regex("^(\\+375|80)(29|25|44|33)(\\d{3})(\\d{2})(\\d{2})$");
-                        if(!phRegex.IsMatch(Phone_Num))
-                        {
-                            error = "Введите корректный номер";
-                        }
-                        break;
-                    case "Email":
-                        Regex eRegex = new Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-                        if(!eRegex.IsMatch(Email))
-                        {
-                            error = "Введите корректный Email";
-                        }
-                        break;
-                    case "Login":
-                        Regex lRegex = new Regex("^[A-Za-z0-9]+$");
-                        if (!lRegex.IsMatch(Login))
-                        {
-                            error = "Используйте только символы латинского алфавита";
-                        }
-                        break;
-                    case "Password":
-                        Regex pRegex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
-                        if(!pRegex.IsMatch(Password))
-                        {
-                            error = "Введите верный пароль";
-                        }
-                        break;
-                    case "ConfirmPassword":
-                        if(ConfirmPassword != Password)
-                        {
-                            error = "Пароли не совпадают";
-                        }
-                        break;
-                }
-                return error;
-            }
-        }
     }
 }

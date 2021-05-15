@@ -8,7 +8,7 @@
              Name="WatermarkWindow"
              d:DesignHeight="50" d:DesignWidth="800">
     <Grid>
-        <TextBox VerticalContentAlignment="Center" x:Name="WMTextBox" Text="{Binding TextBind, ElementName=WatermarkWindow}" TextChanged="TextBox_TextChanged" BorderThickness="0" TextAlignment="Center"/>
+        <TextBox VerticalContentAlignment="Center" x:Name="WMTextBox" Text="{Binding TextBind, ElementName=WatermarkWindow}" TextChanged="TextBox_TextChanged" BorderThickness="0"/>
         <TextBlock x:Name="WatermarkTextBlock" FontFamily="Montserrat" FontWeight="Light" Text="{Binding Watermark, ElementName=WatermarkWindow}" Margin="3, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" IsHitTestVisible="False"/>
     </Grid>
 </UserControl>
