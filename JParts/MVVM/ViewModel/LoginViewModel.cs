@@ -4,8 +4,6 @@ using JParts.Services.AuthenticationServices;
 using JParts.Windows;
 using JParts.Windows.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 
 namespace JParts.MVVM.ViewModel

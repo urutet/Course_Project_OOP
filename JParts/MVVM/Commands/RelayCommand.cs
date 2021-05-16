@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace JParts.MVVM.Commands
@@ -24,7 +22,7 @@ namespace JParts.MVVM.Commands
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || CanExecute(parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public void Execute(object parameter)

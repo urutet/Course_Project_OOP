@@ -1,12 +1,8 @@
 ﻿using JParts.DBContext;
 using JParts.MVVM.Commands;
-using JParts.MVVM.Model;
 using JParts.Services.AuthenticationServices;
-using JParts.Windows.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using JParts.Enums;
@@ -54,13 +50,12 @@ namespace JParts.MVVM.ViewModel
 
         public Action Close { get; set; }
 
-        public string Error { get => null; }
+        public string Error { get; set; }
 
         public string this[string columnName]
         {
             get
             {
-                string error = String.Empty;
                 switch (columnName)
                 {
                     
@@ -68,41 +63,41 @@ namespace JParts.MVVM.ViewModel
                         Regex phRegex = new Regex("^(\\+375|80)(29|25|44|33)(\\d{3})(\\d{2})(\\d{2})$");
                         if (!phRegex.IsMatch(Phone_Num))
                         {
-                            error = "Введите корректный номер (прим. +375291111111)";
+                            Error = "Введите корректный номер (прим. +375291111111)";
                         }
                         break;
                     case "Email":
                         Regex eRegex = new Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
                         if (!eRegex.IsMatch(Email))
                         {
-                            error = "Введите корректный Email";
+                            Error = "Введите корректный Email";
                         }
                         break;
                     case "Login":
                         Regex lRegex = new Regex("^[A-Za-z0-9]+$");
                         if (!lRegex.IsMatch(Login))
                         {
-                            error = "Используйте только символы латинского алфавита и цифры";
+                            Error = "Используйте только символы латинского алфавита и цифры";
                         }
                         break;
                     case "Password":
                         Regex pRegex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
                         if (!pRegex.IsMatch(Password))
                         {
-                            error = "Введите верный пароль (8 символов, из которых 2 - буквы латинского алфавита)";
+                            Error = "Введите верный пароль (8 символов, из которых 2 - буквы латинского алфавита)";
                         }
                         break;
                     case "ConfirmPassword":
                         if (ConfirmPassword != Password)
                         {
-                            error = "Пароли не совпадают";
+                            Error = "Пароли не совпадают";
                         }
                         break;
                     default:
-                        error = null;
+                        Error = null;
                         break;
                 }
-                return error;
+                return Error;
             }
         }
 
@@ -123,7 +118,8 @@ namespace JParts.MVVM.ViewModel
             {
                 UnitOfWork.UnitOfWork unitOfWork = new UnitOfWork.UnitOfWork(new JPartsContext());
                 IAuthenticationService authentication = new AuthenticationService(unitOfWork);
-                RegistrationResult result = authentication.Register(Login, Name, Phone_Num, House_Num, Flat_Num, Street, City, Email, Login, Password, ConfirmPassword, IsAdmin);
+                RegistrationResult result = authentication.Register(Login, Name, Phone_Num, House_Num, Flat_Num, Street,
+                    City, Email, Login, Password, ConfirmPassword, IsAdmin);
 
                 if (result == RegistrationResult.Success)
                 {
@@ -138,7 +134,7 @@ namespace JParts.MVVM.ViewModel
                 {
                     MessageBox.Show("Пароли не совпадают");
                 }
-            }/*, param => CanRegister*/);       //повисает при передаче параметра (StackOverflowException)
+            }, param => CanRegister);       //повисает при передаче параметра (StackOverflowException) fixed
         }
 
         void CloseWindow()
