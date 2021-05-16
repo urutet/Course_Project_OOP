@@ -13,9 +13,12 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand AddPartCommand { get; set; }
 
+        public RelayCommand UpdatePartCommand { get; set; }
+
         public UnitOfWork.UnitOfWork uoW;
 
-        public List<Part> PartsList { get; set; }
+        private List<Part> partsList;
+        public List<Part> PartsList { get => partsList; set { partsList = value; OnPropertyChanged(); } }
 
         private Part _selectedPart;
 
@@ -35,9 +38,24 @@ namespace JParts.MVVM.ViewModel
             {
                 AddPartWindow window = new AddPartWindow()
                 {
-                    DataContext = new AddPartViewModel()
+                    DataContext = new AddPartViewModel(this, Enums.PartOperation.Add)
                 };
                 window.Show();
+            });
+
+            UpdatePartCommand = new RelayCommand(o =>
+            {
+                if (o != null)
+                {
+                    var UpdatedPart = o as Part;
+                    AddPartWindow window = new AddPartWindow()
+                    {
+                        DataContext = new AddPartViewModel(this, Enums.PartOperation.Edit, UpdatedPart)
+                    };
+                    window.Show();
+                }
+
+
             });
 
             uoW = new UnitOfWork.UnitOfWork(new JPartsContext());

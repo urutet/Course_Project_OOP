@@ -8,8 +8,8 @@ namespace JParts.Repositories.Generic
 {
     public interface IRepository<TEntity> where TEntity: class
     {
-        TEntity Get(string id);
-        Task<TEntity> GetAsync(string id);
+        TEntity Get(int id);
+        Task<TEntity> GetAsync(int id);
         IEnumerable<TEntity> GetAll();
         Task<IEnumerable<TEntity>> GetAllAsync();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);

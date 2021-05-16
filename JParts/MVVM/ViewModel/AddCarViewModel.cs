@@ -11,6 +11,9 @@ namespace JParts.MVVM.ViewModel
 {
     class AddCarViewModel : ViewModelBase, IDataErrorInfo
     {
+        //VM to add the car to list
+        AddPartViewModel AddPartViewModel;
+
         public string Error => throw new NotImplementedException();
 
         public string this[string columnName]
@@ -41,6 +44,30 @@ namespace JParts.MVVM.ViewModel
 
         public UnitOfWork.UnitOfWork uoW;
 
+        public AddCarViewModel(AddPartViewModel addPartViewModel)
+        {
+            AddPartViewModel = addPartViewModel;
+
+            uoW = new UnitOfWork.UnitOfWork(new DBContext.JPartsContext());
+
+            AddCarCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    Car car = new Car(Manufacturer, Model, Year);
+                    uoW.Cars.Add(car);
+                    uoW.Complete();
+                    MessageBox.Show("Машина успешно добавлена");
+
+                    AddPartViewModel.LoadManufacturers();
+                }
+                catch(Exception e)
+                {
+                    //Dummy
+                }
+            });
+        }
+
         public AddCarViewModel()
         {
             uoW = new UnitOfWork.UnitOfWork(new DBContext.JPartsContext());
@@ -53,10 +80,12 @@ namespace JParts.MVVM.ViewModel
                     uoW.Cars.Add(car);
                     uoW.Complete();
                     MessageBox.Show("Машина успешно добавлена");
+
+                    AddPartViewModel.LoadManufacturers();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    //Dummy
                 }
             });
         }

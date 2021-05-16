@@ -56,48 +56,48 @@ namespace JParts.MVVM.ViewModel
         {
             get
             {
+                string error = String.Empty;
                 switch (columnName)
                 {
-                    
                     case "Phone_Num":
                         Regex phRegex = new Regex("^(\\+375|80)(29|25|44|33)(\\d{3})(\\d{2})(\\d{2})$");
                         if (!phRegex.IsMatch(Phone_Num))
                         {
-                            Error = "Введите корректный номер (прим. +375291111111)";
+                            error = "Введите корректный номер (прим. +375291111111)";
                         }
                         break;
                     case "Email":
                         Regex eRegex = new Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
                         if (!eRegex.IsMatch(Email))
                         {
-                            Error = "Введите корректный Email";
+                            error = "Введите корректный Email";
                         }
                         break;
                     case "Login":
                         Regex lRegex = new Regex("^[A-Za-z0-9]+$");
                         if (!lRegex.IsMatch(Login))
                         {
-                            Error = "Используйте только символы латинского алфавита и цифры";
+                            error = "Используйте только символы латинского алфавита и цифры";
                         }
                         break;
                     case "Password":
                         Regex pRegex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
                         if (!pRegex.IsMatch(Password))
                         {
-                            Error = "Введите верный пароль (8 символов, из которых 2 - буквы латинского алфавита)";
+                            error = "Введите верный пароль (8 символов, из которых 2 - буквы латинского алфавита)";
                         }
                         break;
                     case "ConfirmPassword":
                         if (ConfirmPassword != Password)
                         {
-                            Error = "Пароли не совпадают";
+                            error = "Пароли не совпадают";
                         }
                         break;
                     default:
-                        Error = null;
+                        error = null;
                         break;
                 }
-                return Error;
+                return error;
             }
         }
 
@@ -118,21 +118,29 @@ namespace JParts.MVVM.ViewModel
             {
                 UnitOfWork.UnitOfWork unitOfWork = new UnitOfWork.UnitOfWork(new JPartsContext());
                 IAuthenticationService authentication = new AuthenticationService(unitOfWork);
-                RegistrationResult result = authentication.Register(Login, Name, Phone_Num, House_Num, Flat_Num, Street,
-                    City, Email, Login, Password, ConfirmPassword, IsAdmin);
+                try
+                {
+                    RegistrationResult result = authentication.Register(Login, Name, Phone_Num, House_Num, Flat_Num, Street,
+                        City, Email, Login, Password, ConfirmPassword, IsAdmin);
 
-                if (result == RegistrationResult.Success)
-                {
-                    MessageBox.Show("Регистрация прошла успешно");
-                    CloseWindow();
+
+                    if (result == RegistrationResult.Success)
+                    {
+                        MessageBox.Show("Регистрация прошла успешно");
+                        CloseWindow();
+                    }
+                    if (result == RegistrationResult.LoginAlreadyExists)
+                    {
+                        MessageBox.Show("Пользователь с таким именем уже существует");
+                    }
+                    if (result == RegistrationResult.PasswordDoNotMatch)
+                    {
+                        MessageBox.Show("Пароли не совпадают");
+                    }
                 }
-                if (result == RegistrationResult.LoginAlreadyExists)
+                catch
                 {
-                    MessageBox.Show("Пользователь с таким именем уже существует");
-                }
-                if (result == RegistrationResult.PasswordDoNotMatch)
-                {
-                    MessageBox.Show("Пароли не совпадают");
+                    MessageBox.Show("Заполните все поля корректно");
                 }
             }, param => CanRegister);       //повисает при передаче параметра (StackOverflowException) fixed
         }

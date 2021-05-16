@@ -95,7 +95,7 @@
                       Grid.ColumnSpan="5"
                       FontFamily="Montserrat">
             <ListBox x:Name="catalogList" Background="Transparent"
-                     BorderThickness="0" ItemsSource="{Binding PartsList}">
+                     BorderThickness="0" ItemsSource="{Binding PartsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="PartTemplate"
@@ -118,7 +118,7 @@
                                 <TextBlock Text="{Binding Name}" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Center"/>
                                 <Button Content="Add To Cart" Grid.Column="3" Margin="5"/>
-                                <Button Content="Update" Grid.Column="4" Margin="5"/>
+                                <Button Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdatePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

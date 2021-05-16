@@ -5,14 +5,34 @@ using JParts.Windows;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using JParts.Enums;
 
 namespace JParts.MVVM.ViewModel
 {
     class AddPartViewModel : ViewModelBase
     {
+        //Dictionnary
+        string partButton;
+        public string PartButton { get => partButton; set { partButton = value; OnPropertyChanged(); } }
+
+        string imageButton;
+        public string ImageButton { get => imageButton; set { imageButton = value; OnPropertyChanged(); } }
+
+        string headerText;
+        public string HeaderText { get => headerText; set { headerText = value; OnPropertyChanged(); } }
+        //VM for its update
+        CatalogViewModel CatalogVM;
+
+        Part _partToUpdate;
+        public Part PartToUpdate { get => _partToUpdate; set { _partToUpdate = value; OnPropertyChanged(); } }
+
+        //Enum for operation
+        PartOperation partOperation;
         //Part
         public string PartID { get; set; }
 
@@ -56,7 +76,7 @@ namespace JParts.MVVM.ViewModel
         {
             get { return _selectedManufacturer; }
             set
-            {   _selectedManufacturer = value;
+             {   _selectedManufacturer = value;
                 OnPropertyChanged();
                 if (_selectedManufacturer != null)
                     LoadModels();
@@ -94,8 +114,56 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand AddCarCommand { get; set; }
 
-        public AddPartViewModel()
+        public AddPartViewModel(CatalogViewModel catalogVM, PartOperation _partOperation, Part part = null)
         {
+            CatalogVM = catalogVM;
+
+
+            partOperation = _partOperation;
+
+            if(partOperation == PartOperation.Add)
+            {
+                PartButton = "Добавить запчасть";
+                ImageButton = "Добавить картинку";
+                HeaderText = "Добавить запчасть";
+
+                AddPartCommand = new RelayCommand(o =>
+                {
+                    Part part = new Part(GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID, Name, Type, Price, Availability, Image);
+
+                    UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
+                    uoW.Parts.Add(part);
+                    uoW.Complete();
+                    MessageBox.Show("Деталь успешно добавлена");
+                    CatalogVM.PartsList = uoW.Parts.GetAllParts();
+                    ClearAllFields();
+                });
+
+            }
+            else if(partOperation == PartOperation.Edit && part != null)
+            {
+                PartButton = "Обновить запчасть";
+                ImageButton = "Обновить картинку";
+                HeaderText = "Обновить запчасть";
+
+                Name = part.Name;
+                Type = part.Type;
+                Price = part.Price;
+
+                AddPartCommand = new RelayCommand(o =>
+                {
+                    UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
+                    var partToEdit = uoW.Parts.Get(part.PartID);
+                    partToEdit.Name = Name;
+                    partToEdit.Type = Type;
+                    partToEdit.Price = Price;
+                    partToEdit.CarID = GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID;
+                    uoW.Complete();
+                    MessageBox.Show("Деталь успешно обновлена");
+                    CatalogVM.PartsList = uoW.Parts.GetAllParts();
+                });
+            }
+
             AddImageCommand = new RelayCommand(o =>
             {
                 OpenFileDialog openDialog = new OpenFileDialog();
@@ -107,26 +175,21 @@ namespace JParts.MVVM.ViewModel
                 }
             });
 
-            AddPartCommand = new RelayCommand(o =>
-            {
-                Part part = new Part(GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID, Name, Type, Price, Availability, Image);
-
-                UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
-                uoW.Parts.Add(part);
-                uoW.Complete();
-                MessageBox.Show("Деталь успешно добавлена");
-            });
+            
 
             AddCarCommand = new RelayCommand(o =>
             {
-                AddCarWindow window = new AddCarWindow();
+                AddCarWindow window = new AddCarWindow()
+                {
+                    DataContext = new AddCarViewModel(this)
+                };
                 window.Show();
             });
 
             LoadManufacturers();
         }
 
-        private async void LoadManufacturers()
+        public async void LoadManufacturers()
         {
             UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
             Manufacturer =  await uoW.Cars.GetAllManufacturers();
@@ -148,5 +211,13 @@ namespace JParts.MVVM.ViewModel
             return uoW.Cars.GetCar(manufacturer, model, year);
         }
 
+        private void ClearAllFields()
+        {
+            Name = null;
+            Type = null;
+            Price = null;
+            Availability = false;
+            Image = null;
+        }
     }
 }

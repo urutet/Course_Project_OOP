@@ -33,7 +33,7 @@ namespace JParts.Repositories.Generic
             return Context.Set<TEntity>().Where(predicate);
         }
 
-        public async Task<TEntity> GetAsync(string id)
+        public async Task<TEntity> GetAsync(int id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }
@@ -43,7 +43,7 @@ namespace JParts.Repositories.Generic
             return await Context.Set<TEntity>().ToListAsync();
         }
 
-        public TEntity Get(string id)
+        public TEntity Get(int id)
         {
             return Context.Set<TEntity>().Find(id);
         }
