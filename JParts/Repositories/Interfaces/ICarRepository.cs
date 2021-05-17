@@ -13,6 +13,7 @@ namespace JParts.Repositories.Interfaces
         public Task<List<string>> GetManufacturerModels(string manufacturer);
         public Task<List<int?>> GetModelsYears(string manufacturer, string model);
         public Car GetCar(string manufacturer, string model, int? year);
+        public Task<List<Car>> GetAllCarsAsync();
 
     }
 }

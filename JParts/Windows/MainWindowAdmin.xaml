@@ -36,6 +36,9 @@
                          Style="{StaticResource MenuButtonStyle}"
                          IsChecked="True"
                          Command="{Binding CatalogViewCommand}"/>
+            <RadioButton Content="Автомобили"
+                         Style="{StaticResource MenuButtonStyle}"
+                         Command="{Binding CarsViewCommand}"/>
             <RadioButton Content="Заказы"
                          Style="{StaticResource MenuButtonStyle}"
                          Command="{Binding OrdersViewCommand}"/>

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JParts.MVVM.ViewModel
+namespace JParts.Enums
 {
-    class OrdersViewModel  : ViewModelBase
+    public enum CarOperation
     {
-
+        Add,
+        Edit
     }
 }

@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace JParts.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for CatalogView.xaml
+    /// Interaction logic for CarsView.xaml
     /// </summary>
-    public partial class CatalogView : UserControl
+    public partial class CarsView : UserControl
     {
-        public CatalogView()
+        public CarsView()
         {
             InitializeComponent();
         }

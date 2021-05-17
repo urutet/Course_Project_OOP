@@ -16,6 +16,8 @@ namespace JParts.MVVM.ViewModel
 
         public ContactsViewModel ContactsVM { get; set; }
 
+        public CarsViewModel CarsVM { get; set; }
+
         private object _currentView;
 
         public object CurrentView
@@ -39,6 +41,8 @@ namespace JParts.MVVM.ViewModel
         public RelayCommand ContactsViewCommand { get; set; }
 
         public RelayCommand ExitToLoginCommand { get; set; }
+
+        public RelayCommand CarsViewCommand { get; set; }
 
         /*public MainViewModel()
         {
@@ -69,6 +73,7 @@ namespace JParts.MVVM.ViewModel
             CatalogVM = new CatalogViewModel();
             OrdersVM = new OrdersViewModel();
             ContactsVM = new ContactsViewModel();
+            CarsVM = new CarsViewModel();
 
             AuthorisedClient = authorisedClient;
 
@@ -97,6 +102,11 @@ namespace JParts.MVVM.ViewModel
                 };
                 loginWindow.Show();
                 CloseWindow();
+            });
+
+            CarsViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = CarsVM;
             });
 
         }

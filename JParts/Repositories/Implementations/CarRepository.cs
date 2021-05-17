@@ -20,6 +20,11 @@ namespace JParts.Repositories.Implementations
 
         public JPartsContext JpartsContext { get { return Context as JPartsContext; } private set { } }
 
+        public async Task<List<Car>> GetAllCarsAsync()
+        {
+            return await JpartsContext.Cars.Distinct().ToListAsync();
+        }
+
         public async Task<List<string>> GetAllManufacturers()
         {
             return await JpartsContext.Cars.Select(c => c.Manufacturer).Distinct().ToListAsync();
