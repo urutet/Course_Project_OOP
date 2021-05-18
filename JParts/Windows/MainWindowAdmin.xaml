@@ -25,11 +25,14 @@
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                Source="/Images/Logo200x75.png"/>
-        
+
         <StackPanel Grid.Row="0" Grid.Column="1">
             <TextBlock Text="{Binding AuthorisedClient.Login}" HorizontalAlignment="Right" FontSize="14" FontFamily="Montserrat" Margin="0,0,5,0"/>
             <Button Content="Выйти" HorizontalAlignment="Right" FontSize="12" FontFamily="Montserrat" Command="{Binding ExitToLoginCommand}" Margin="0,0,5,0"/>
         </StackPanel>
+        <Button HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Width="40" Height="40" Margin="0, 0, 150, 0" Command="{Binding CartCommand}">
+            <Image Source="/Images/Cart.png"/>
+            </Button>
 
         <StackPanel Grid.Row="1">
             <RadioButton Content="Каталог"

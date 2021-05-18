@@ -1,5 +1,6 @@
 ﻿using JParts.MVVM.Commands;
 using JParts.MVVM.Model;
+using JParts.Windows;
 using JParts.Windows.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,15 @@ namespace JParts.MVVM.ViewModel
 
         private Client _authorisedClient;
 
+        private List<Part> partsToAdd;
+
+        public List<Part> PartsToAdd
+        {
+            get { return partsToAdd; }
+            set { partsToAdd = value; OnPropertyChanged() ; }
+        }
+
+
         public Client AuthorisedClient { get => _authorisedClient; set { _authorisedClient = value; OnPropertyChanged(); } }
 
         public RelayCommand CatalogViewCommand { get; set; }
@@ -43,6 +53,9 @@ namespace JParts.MVVM.ViewModel
         public RelayCommand ExitToLoginCommand { get; set; }
 
         public RelayCommand CarsViewCommand { get; set; }
+
+        public RelayCommand CartCommand { get; set; }
+
 
         /*public MainViewModel()
         {
@@ -70,7 +83,7 @@ namespace JParts.MVVM.ViewModel
 
         public MainViewModel(Client authorisedClient)
         {
-            CatalogVM = new CatalogViewModel();
+            CatalogVM = new CatalogViewModel(this);
             OrdersVM = new OrdersViewModel();
             ContactsVM = new ContactsViewModel();
             CarsVM = new CarsViewModel();
@@ -109,11 +122,20 @@ namespace JParts.MVVM.ViewModel
                 CurrentView = CarsVM;
             });
 
+            CartCommand = new RelayCommand(o =>
+            {
+                CartWindow window = new CartWindow()
+                {
+                    DataContext = new CartViewModel(this)
+                };
+                window.Show();
+            });
+
         }
 
         public MainViewModel()
         {
-            CatalogVM = new CatalogViewModel();
+            CatalogVM = new CatalogViewModel(this);
             OrdersVM = new OrdersViewModel();
             ContactsVM = new ContactsViewModel();
 
