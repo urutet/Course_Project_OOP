@@ -4,6 +4,7 @@ using JParts.Windows;
 using JParts.Windows.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace JParts.MVVM.ViewModel
@@ -33,9 +34,9 @@ namespace JParts.MVVM.ViewModel
 
         private Client _authorisedClient;
 
-        private List<Part> partsToAdd;
+        private ObservableCollection<Part> partsToAdd;
 
-        public List<Part> PartsToAdd
+        public ObservableCollection<Part> PartsToAdd
         {
             get { return partsToAdd; }
             set { partsToAdd = value; OnPropertyChanged() ; }

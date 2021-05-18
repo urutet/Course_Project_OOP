@@ -4,6 +4,8 @@ using JParts.MVVM.Model;
 using JParts.Windows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace JParts.MVVM.ViewModel
@@ -17,11 +19,16 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand AddToCartCommand { get; set; }
 
+        public RelayCommand DeletePartCommand { get; set; }
+
 
         public UnitOfWork.UnitOfWork uoW;
 
-        private List<Part> partsList;
-        public List<Part> PartsList { get => partsList; set { partsList = value; OnPropertyChanged(); } }
+        private ObservableCollection<Part> partsList;
+        public ObservableCollection<Part> PartsList { get => partsList; set { partsList = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Part> defaultList;
+        public ObservableCollection<Part> DefaultList { get => defaultList; set { defaultList = value; OnPropertyChanged(); } }
 
         private Part _selectedPart;
 
@@ -35,9 +42,21 @@ namespace JParts.MVVM.ViewModel
             }
         }
 
-        private List<Part> partsToAdd;
+        private string _searchExpression;
+        public string SearchExpression
+        {
+            get => _searchExpression;
+            set
+            {
+                _searchExpression = value;
+                SearchExpressionChanged();
+                OnPropertyChanged();
+            }
+        }
 
-        public List<Part> PartsToAdd
+        private ObservableCollection<Part> partsToAdd;
+
+        public ObservableCollection<Part> PartsToAdd
         {
             get { return partsToAdd; }
             set { partsToAdd = value; OnPropertyChanged(); }
@@ -45,7 +64,7 @@ namespace JParts.MVVM.ViewModel
 
         public CatalogViewModel(MainViewModel mainViewModel)
         {
-            PartsToAdd = new List<Part>();
+            PartsToAdd = new ObservableCollection<Part>();
 
             AddPartCommand = new RelayCommand(o => 
             {
@@ -79,13 +98,32 @@ namespace JParts.MVVM.ViewModel
                     PartsToAdd.Add(_partToAdd);
                     mainViewModel.PartsToAdd = PartsToAdd;
                 }
+            });
 
+            DeletePartCommand = new RelayCommand(o =>
+            {
+                uoW.Parts.Remove(SelectedPart);
+                uoW.Complete();
 
+                DefaultList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+                PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
             });
 
             uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
 
-            PartsList = uoW.Parts.GetAllParts();
+            PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+
+            DefaultList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+        }
+
+        private void SearchExpressionChanged()
+        {
+            if (SearchExpression == string.Empty)
+                PartsList = DefaultList;
+            else
+            {
+                PartsList = new ObservableCollection<Part>(DefaultList.Where(p => p.Name.ToLower().Contains(SearchExpression)).ToList());
+            }
         }
     }
 }

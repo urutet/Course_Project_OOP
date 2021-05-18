@@ -3,6 +3,7 @@ using JParts.MVVM.Commands;
 using JParts.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 
@@ -10,7 +11,13 @@ namespace JParts.MVVM.ViewModel
 {
     class CartViewModel : ViewModelBase
     {
-        private List<Part> orderedPartsList;
+        private ObservableCollection<Part> orderedPartsList;
+
+        public ObservableCollection<Part> OrderedPartsList
+        {
+            get { return orderedPartsList; }
+            set { orderedPartsList = value; OnPropertyChanged(); }
+        }
 
         UnitOfWork.UnitOfWork uoW { get; set; }
 
@@ -25,11 +32,9 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand AddOrderCommand { get; set; }
 
-        public List<Part> OrderedPartsList
-        {
-            get { return orderedPartsList; }
-            set { orderedPartsList = value; OnPropertyChanged(); }
-        }
+        public RelayCommand DeletePartCommand { get; set; }
+
+
 
         public CartViewModel(MainViewModel mainViewModel)
         {
@@ -41,23 +46,54 @@ namespace JParts.MVVM.ViewModel
 
             AddOrderCommand = new RelayCommand(o =>
             {
-                //try
-                //{
-                    Order order = new Order(mainViewModel.AuthorisedClient.ClientID, OrderedPartsList, mainViewModel.AuthorisedClient.AddressID, Price, false, DateTime.Now);
-                    uoW.Orders.Add(order);
-                    uoW.Complete();
-                //}
-                //catch(Exception e)
-                //{
-                //    MessageBox.Show(e.Message);
-                //}
+                try
+                {
+                    if (OrderedPartsList.Count > 0)
+                    {
+                        Order order = new Order(mainViewModel.AuthorisedClient.ClientID, new List<Part>(OrderedPartsList), mainViewModel.AuthorisedClient.AddressID, Price, false, DateTime.Now);
+                        uoW.Orders.Add(order);
+                        uoW.Complete();
+
+                        ClearAllFields();
+
+                        MessageBox.Show("Заказ успешно добавлен");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не выбрано ни одного товара");
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+        });
+
+            DeletePartCommand = new RelayCommand(o =>
+            {
+                if(o != null)
+                {
+                    var PartToDelete = o as Part;
+                    OrderedPartsList.Remove(PartToDelete);
+                    mainViewModel.PartsToAdd.Remove(PartToDelete);
+                    mainViewModel.CatalogVM.PartsToAdd.Remove(PartToDelete);
+
+                    GetSum();
+                }
             });
         }
 
         private void GetSum()
         {
+            Price = 0;
             foreach (Part part in OrderedPartsList)
                 Price += Convert.ToDecimal(part.Price);
+        }
+
+        private void ClearAllFields()
+        {
+            OrderedPartsList.Clear();
+            Price = 0;
         }
 
 

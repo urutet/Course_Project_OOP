@@ -35,7 +35,7 @@
             <Image Source="/Images/Add.png"/>
         </Button>
         <!--Delete Button-->
-        <Button Grid.Row="0" Grid.Column="3" Width="40" Height="40">
+        <Button Grid.Row="0" Grid.Column="3" Width="40" Height="40" Command="{Binding DeletePartCommand}">
             <Image Source="/Images/Remove.png"/>
         </Button>
 
@@ -47,7 +47,8 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Stretch"
                                 FontFamily="Montserrat"
-                                Height="20"/>
+                                Height="20"
+                                TextBind="{Binding SearchExpression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Button x:Name="SearchBtn"
                 Grid.Row="0"
                 Grid.Column="5"
@@ -103,7 +104,8 @@
                       FontFamily="Montserrat"
                       PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
             <ListBox x:Name="catalogList" Background="Transparent"
-                     BorderThickness="0" ItemsSource="{Binding PartsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     BorderThickness="0" ItemsSource="{Binding PartsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedPart}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="PartTemplate"

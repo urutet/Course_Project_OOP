@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using JParts.Enums;
+using System.Collections.ObjectModel;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -135,7 +136,7 @@ namespace JParts.MVVM.ViewModel
                     uoW.Parts.Add(part);
                     uoW.Complete();
                     MessageBox.Show("Деталь успешно добавлена");
-                    CatalogVM.PartsList = uoW.Parts.GetAllParts();
+                    CatalogVM.PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
                     ClearAllFields();
                 });
 
@@ -160,7 +161,7 @@ namespace JParts.MVVM.ViewModel
                     partToEdit.CarID = GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID;
                     uoW.Complete();
                     MessageBox.Show("Деталь успешно обновлена");
-                    CatalogVM.PartsList = uoW.Parts.GetAllParts();
+                    CatalogVM.PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
                 });
             }
 
