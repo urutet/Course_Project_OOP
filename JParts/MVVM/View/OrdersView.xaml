@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JParts.MVVM.View"
+             xmlns:converters="clr-namespace:JParts.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:OrderConverter x:Key="OrderConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -24,10 +28,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddPartCommand}">
-            <Image Source="/Images/Add.png"/>
-        </Button>
-
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                       Grid.RowSpan="5"
@@ -35,62 +35,28 @@
                       Grid.ColumnSpan="5"
                       FontFamily="Montserrat">
             <ListBox x:Name="ordersList" Background="Transparent"
-                     BorderThickness="0">
+                     BorderThickness="0" ItemsSource="{Binding OrdersList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="orderTemplate"
                                 Background="#f0f0f0"
                                 Orientation="Horizontal">
-                            <Grid>
+                            <Grid Width="500">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition MinWidth="150" />
-                                    <ColumnDefinition MinWidth="300" />
-                                    <ColumnDefinition MinWidth="100" />
-                                    <ColumnDefinition MinWidth="50" />
-                                    <ColumnDefinition MinWidth="50" />
-                                    <ColumnDefinition MinWidth="50" />
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="0.5*" />
+                                    <ColumnDefinition Width="0.5*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition MaxHeight="50"/>
+                                    <RowDefinition Height="70"/>
                                 </Grid.RowDefinitions>
                                 <Image  MinWidth="50" MaxWidth="50"
-                                                MinHeight="50" MaxHeight="50"
-                               Grid.Column="0" Source="{Binding Path=image}"></Image>
-                                <TextBlock Margin="5" 
-                                   VerticalAlignment="Center"
-                                   Grid.Column="1"
-                                   TextWrapping="Wrap" Text="{Binding Path=Name}"></TextBlock>
-                                <TextBlock 
-                                   VerticalAlignment="Center"
-                                   Grid.Column="2"
-                                   MaxWidth="300"
-                                   TextWrapping="Wrap" Text="{Binding Path=ShortDef}"></TextBlock>
-                                <TextBlock Margin="20" 
-                                   VerticalAlignment="Center"
-                                   Grid.Column="3"
-                                   TextWrapping="Wrap" Text="{Binding Path=Price}"></TextBlock>
-                                <Button       Margin="5"
-                                   Grid.Column="4"
-                                   Background="#b6002c">
-                                    <Image Source="/Images/Cart.png"
-                                       Width="50"
-                                       Height="50"/>
-                                </Button>
-                                <Button       Margin="5"
-                                   Grid.Column="5"
-                                   Background="#b6002c">
-                                    <Image Source="/Images/Cart.png"
-                                       Width="50"
-                                       Height="50"/>
-                                </Button>
-                                <Button       Margin="5"
-                                   Grid.Column="6"
-                                   Background="#b6002c">
-                                    <Image Source="/Images/Cart.png"
-                                       Width="50"
-                                       Height="50"/>
-                                </Button>
+                        MinHeight="50" MaxHeight="50"
+                        Grid.Column="0" Margin="5" Source="{Binding Image}"/>
+                                <!--<TextBlock Text="{Binding OrderID, Converter={StaticResource OrderConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>-->
+                                <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Top"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

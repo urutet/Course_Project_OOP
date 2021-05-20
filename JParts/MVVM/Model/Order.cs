@@ -44,5 +44,10 @@ namespace JParts.MVVM.Model
             Status = status;
             OrderDate = orderDate;
         }
+
+        public Order()
+        {
+
+        }
     }
 }

@@ -5,6 +5,7 @@ using JParts.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Text;
 
 namespace JParts.Repositories.Implementations
@@ -17,5 +18,10 @@ namespace JParts.Repositories.Implementations
         }
 
         public JPartsContext JpartsContext { get { return Context as JPartsContext; } private set { } }
+
+        public List<Order> GetAllOrders()
+        {
+            return JpartsContext.Orders.Distinct().ToList();
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -102,11 +103,19 @@ namespace JParts.MVVM.ViewModel
 
             DeletePartCommand = new RelayCommand(o =>
             {
-                uoW.Parts.Remove(SelectedPart);
-                uoW.Complete();
+                if (SelectedPart != null)
+                {
+                    uoW.Parts.Remove(SelectedPart);
+                    uoW.Complete();
 
-                DefaultList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
-                PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+                    DefaultList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+                    PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+                }
+                else
+                {
+                    MessageBox.Show("Не выбран элемент для удаления");
+                }
+
             });
 
             uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
