@@ -52,6 +52,15 @@ namespace JParts.MVVM.ViewModel
         private string image;
         public string Image { get => image; set { image = value; OnPropertyChanged(); } }
 
+        private int? amount;
+
+        public int? Amount
+        {
+            get { return amount; }
+            set { amount = value; OnPropertyChanged(); }
+        }
+
+
         //Car
         public string CarID { get; set; }
 
@@ -130,13 +139,17 @@ namespace JParts.MVVM.ViewModel
 
                 AddPartCommand = new RelayCommand(o =>
                 {
-                    Part part = new Part(GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID, Name, Type, Price, Availability, Image);
+                    Part part = new Part(GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID, Name, Type, Price, Availability, Image, Amount);
 
                     UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
                     uoW.Parts.Add(part);
                     uoW.Complete();
                     MessageBox.Show("Деталь успешно добавлена");
-                    CatalogVM.PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+                    CatalogVM.PartsList = new ObservableCollection<CartPart>();
+                    foreach(var p in uoW.Parts.GetAllParts())
+                    {
+                        catalogVM.PartsList.Add(new CartPart(p, p.Amount));
+                    }
                     ClearAllFields();
                 });
 
@@ -161,7 +174,11 @@ namespace JParts.MVVM.ViewModel
                     partToEdit.CarID = GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID;
                     uoW.Complete();
                     MessageBox.Show("Деталь успешно обновлена");
-                    CatalogVM.PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+                    foreach(var p in uoW.Parts.GetAllParts())
+                    {
+                        catalogVM.DefaultList.Add(new CartPart(p, p.Amount));
+                        catalogVM.PartsList = CatalogVM.DefaultList;
+                    }
                 });
             }
 

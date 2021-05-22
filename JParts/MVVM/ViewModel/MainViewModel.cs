@@ -34,9 +34,9 @@ namespace JParts.MVVM.ViewModel
 
         private Client _authorisedClient;
 
-        private ObservableCollection<Part> partsToAdd;
+        private ObservableCollection<CartPart> partsToAdd;
 
-        public ObservableCollection<Part> PartsToAdd
+        public ObservableCollection<CartPart> PartsToAdd
         {
             get { return partsToAdd; }
             set { partsToAdd = value; OnPropertyChanged() ; }

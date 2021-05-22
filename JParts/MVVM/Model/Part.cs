@@ -16,13 +16,16 @@ namespace JParts.MVVM.Model
         public double? Price { get; set; }
         public bool Availability { get; set; }
         public string Image { get; set; }
+        public int? Amount { get; set; }
+
+        public List<PartsOrders> PartsOrders { get; set; }
 
         public Part()
         {
 
         }
 
-        public Part(int car_ID, string name, string type, double? price, bool availability, string image)
+        public Part(int car_ID, string name, string type, double? price, bool availability, string image, int? amount)
         {
             CarID = car_ID;
             Name = name;
@@ -30,6 +33,7 @@ namespace JParts.MVVM.Model
             Price = price;
             Availability = availability;
             Image = image;
+            Amount = amount;
         }
     }
 }

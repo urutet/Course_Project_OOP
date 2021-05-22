@@ -4,7 +4,7 @@ using JParts.Repositories.Generic;
 using JParts.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Linq;
 

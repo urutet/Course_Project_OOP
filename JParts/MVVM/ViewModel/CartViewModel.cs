@@ -6,14 +6,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
+using System.Linq;
 
 namespace JParts.MVVM.ViewModel
 {
     class CartViewModel : ViewModelBase
     {
-        private ObservableCollection<Part> orderedPartsList;
+        private ObservableCollection<CartPart> orderedPartsList;
 
-        public ObservableCollection<Part> OrderedPartsList
+        public ObservableCollection<CartPart> OrderedPartsList
         {
             get { return orderedPartsList; }
             set { orderedPartsList = value; OnPropertyChanged(); }
@@ -26,7 +27,7 @@ namespace JParts.MVVM.ViewModel
         public decimal Price
         {
             get { return price; }
-            set { price = value; }
+            set { price = value; OnPropertyChanged(); }
         }
 
 
@@ -50,8 +51,34 @@ namespace JParts.MVVM.ViewModel
                 {
                     if (OrderedPartsList.Count > 0)
                     {
-                        Order order = new Order(mainViewModel.AuthorisedClient.ClientID, new List<Part>(OrderedPartsList), mainViewModel.AuthorisedClient.AddressID, Price, false, DateTime.Now);
-                        uoW.Orders.Add(order);
+                        //Order order = new Order(mainViewModel.AuthorisedClient.ClientID, new List<Part>(OrderedPartsList),
+                        //    mainViewModel.AuthorisedClient.AddressID, Price, false, DateTime.Now);
+                        var newOrder = new Order()
+                        {
+                            ClientID = mainViewModel.AuthorisedClient.ClientID,
+                            PartsOrders = new List<PartsOrders>(),
+                            AddressID = mainViewModel.AuthorisedClient.AddressID,
+                            Price = this.Price,
+                            Status = false,
+                            OrderDate = DateTime.Now
+                        };
+                        foreach(var el in OrderedPartsList)
+                        {
+                            newOrder.PartsOrders.Add(new PartsOrders
+                            {
+                                Order = newOrder,
+                                Part = uoW.Parts.Get(el.Part.PartID),
+                                Amount = el.Amount
+                            });
+                        }
+                        uoW.Orders.Add(newOrder);
+                        uoW.Complete();
+
+                        foreach(var el in OrderedPartsList)
+                        {
+                            uoW.Parts.Get(el.Part.PartID).Amount -= el.Amount;
+                        }
+
                         uoW.Complete();
 
                         ClearAllFields();
@@ -62,18 +89,18 @@ namespace JParts.MVVM.ViewModel
                     {
                         MessageBox.Show("Не выбрано ни одного товара");
                     }
-                }
+            }
                 catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+            {
+                MessageBox.Show(e.Message);
+            }
         });
 
             DeletePartCommand = new RelayCommand(o =>
             {
                 if(o != null)
                 {
-                    var PartToDelete = o as Part;
+                    var PartToDelete = o as CartPart;
                     OrderedPartsList.Remove(PartToDelete);
                     mainViewModel.PartsToAdd.Remove(PartToDelete);
                     mainViewModel.CatalogVM.PartsToAdd.Remove(PartToDelete);
@@ -86,8 +113,7 @@ namespace JParts.MVVM.ViewModel
         private void GetSum()
         {
             Price = 0;
-            foreach (Part part in OrderedPartsList)
-                Price += Convert.ToDecimal(part.Price);
+            Price = Convert.ToDecimal(OrderedPartsList.Sum(p => p.Part.Price * p.Amount));
         }
 
         private void ClearAllFields()

@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <converters:AvailabilityConverter x:Key="AvailabilityConverter"/>
         <converters:CarConverter x:Key="CarConverter"/>
+        <converters:AmountConverter x:Key="AmountConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -125,11 +126,12 @@
                                 <Image  MinWidth="50" MaxWidth="50"
                         MinHeight="50" MaxHeight="50"
                         Grid.Column="0" Margin="5" Source="{Binding Image}"/>
-                                <TextBlock Text="{Binding Name}" Grid.Column="1" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Type}" Grid.Column="1" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding CarID, Converter={StaticResource CarConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>
-                                <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Availability, Converter={StaticResource AvailabilityConverter}}" Grid.Column="2" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Part.Name}" Grid.Column="1" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Part.Type}" Grid.Column="1" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Part.CarID, Converter={StaticResource CarConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>
+                                <TextBlock Text="{Binding Part.Price}" Grid.Column="2" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Part.Amount}" Grid.Column="2" VerticalAlignment="Center"/>
+                                <textboxes:WatermarkTextBox Watermark="Количество для заказа" TextBind="{Binding Amount, Mode=TwoWay}" Grid.Column="2" VerticalAlignment="Bottom"/>
                                 <Button Content="Add To Cart" Grid.Column="3" Margin="5" Command="{Binding DataContext.AddToCartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                                 <Button Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdatePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                             </Grid>

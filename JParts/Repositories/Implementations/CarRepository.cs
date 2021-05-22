@@ -4,10 +4,10 @@ using JParts.Repositories.Generic;
 using JParts.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace JParts.Repositories.Implementations
 {

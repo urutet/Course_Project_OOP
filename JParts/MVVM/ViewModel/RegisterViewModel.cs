@@ -138,11 +138,11 @@ namespace JParts.MVVM.ViewModel
                         MessageBox.Show("Пароли не совпадают");
                     }
                 }
-                catch
+                catch(Exception e)
                 {
                     MessageBox.Show("Заполните все поля корректно");
                 }
-            }, param => CanRegister);       //повисает при передаче параметра (StackOverflowException) fixed
+            }, param => CanRegister);
         }
 
         void CloseWindow()

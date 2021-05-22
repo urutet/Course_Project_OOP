@@ -14,7 +14,6 @@ namespace JParts.MVVM.Model
         public int OrderID { get; set; }
         //public Client ClientID { get; set; }
         public int ClientID { get; set; }
-        public List<Part> OrderedParts { get; set; }
 
         [ForeignKey("AddressOf")]
         public int AddressID { get; set; }
@@ -24,10 +23,12 @@ namespace JParts.MVVM.Model
 
         public Address AddressOf { get; set; }
 
+        public List<PartsOrders> PartsOrders { get; set; }
+
         public Order(int clientID, List<Part> orderedParts, int addressID, decimal price, bool status, DateTime orderDate, Address addressOf)
         {
             ClientID = clientID;
-            OrderedParts = orderedParts;
+            //OrderedParts = orderedParts;
             AddressID = addressID;
             Price = price;
             Status = status;
@@ -38,7 +39,7 @@ namespace JParts.MVVM.Model
         public Order(int clientID, List<Part> orderedParts, int addressID, decimal price, bool status, DateTime orderDate)
         {
             ClientID = clientID;
-            OrderedParts = orderedParts;
+            //OrderedParts = orderedParts;
             AddressID = addressID;
             Price = price;
             Status = status;

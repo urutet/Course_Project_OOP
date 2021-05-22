@@ -25,15 +25,17 @@ namespace JParts.MVVM.ViewModel
 
         public UnitOfWork.UnitOfWork uoW;
 
-        private ObservableCollection<Part> partsList;
-        public ObservableCollection<Part> PartsList { get => partsList; set { partsList = value; OnPropertyChanged(); } }
+        private ObservableCollection<CartPart> partsList;
+        public ObservableCollection<CartPart> PartsList { get => partsList; set { partsList = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Part> defaultList;
-        public ObservableCollection<Part> DefaultList { get => defaultList; set { defaultList = value; OnPropertyChanged(); } }
 
-        private Part _selectedPart;
 
-        public Part SelectedPart
+        private ObservableCollection<CartPart> defaultList;
+        public ObservableCollection<CartPart> DefaultList { get => defaultList; set { defaultList = value; OnPropertyChanged(); } }
+
+        private CartPart _selectedPart;
+
+        public CartPart SelectedPart
         {
             get => _selectedPart;
             set
@@ -55,17 +57,20 @@ namespace JParts.MVVM.ViewModel
             }
         }
 
-        private ObservableCollection<Part> partsToAdd;
+        private ObservableCollection<CartPart> partsToAdd;
 
-        public ObservableCollection<Part> PartsToAdd
+        public ObservableCollection<CartPart> PartsToAdd
         {
             get { return partsToAdd; }
             set { partsToAdd = value; OnPropertyChanged(); }
         }
 
+
         public CatalogViewModel(MainViewModel mainViewModel)
         {
-            PartsToAdd = new ObservableCollection<Part>();
+            PartsToAdd = new ObservableCollection<CartPart>();
+            DefaultList = new ObservableCollection<CartPart>();
+            PartsList = new ObservableCollection<CartPart>();
 
             AddPartCommand = new RelayCommand(o => 
             {
@@ -95,7 +100,8 @@ namespace JParts.MVVM.ViewModel
             {
                 if (o != null)
                 {
-                    var _partToAdd = o as Part;
+                    var _partToAdd = o as CartPart;
+
                     PartsToAdd.Add(_partToAdd);
                     mainViewModel.PartsToAdd = PartsToAdd;
                 }
@@ -105,11 +111,17 @@ namespace JParts.MVVM.ViewModel
             {
                 if (SelectedPart != null)
                 {
-                    uoW.Parts.Remove(SelectedPart);
+                    uoW.Parts.Remove(SelectedPart.Part);
                     uoW.Complete();
 
-                    DefaultList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
-                    PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+                    PartsList = new ObservableCollection<CartPart>();
+                    DefaultList = new ObservableCollection<CartPart>();
+
+                    foreach(var p in uoW.Parts.GetAllParts())
+                    {
+                        PartsList.Add(new CartPart(p, p.Amount));
+                        DefaultList.Add(new CartPart(p, p.Amount));
+                    }
                 }
                 else
                 {
@@ -120,9 +132,13 @@ namespace JParts.MVVM.ViewModel
 
             uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
 
-            PartsList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+            foreach (var p in uoW.Parts.GetAllParts())
+            {
+                DefaultList.Add(new CartPart(p, p.Amount));
+            }
 
-            DefaultList = new ObservableCollection<Part>(uoW.Parts.GetAllParts());
+            PartsList = DefaultList;
+
         }
 
         private void SearchExpressionChanged()
@@ -131,7 +147,7 @@ namespace JParts.MVVM.ViewModel
                 PartsList = DefaultList;
             else
             {
-                PartsList = new ObservableCollection<Part>(DefaultList.Where(p => p.Name.ToLower().Contains(SearchExpression)).ToList());
+                PartsList = new ObservableCollection<CartPart>(DefaultList.Where(p => p.Part.Name.ToLower().Contains(SearchExpression)).ToList());
             }
         }
     }

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using JParts.DBContext;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,9 +12,9 @@ namespace JParts.Repositories.Generic
     public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        protected readonly DbContext Context;
+        protected readonly JPartsContext Context;
 
-        public Repository(DbContext context)
+        public Repository(JPartsContext context)
         {
             Context = context;
         }

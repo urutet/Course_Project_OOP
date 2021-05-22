@@ -62,11 +62,11 @@
                                 <Image  MinWidth="50" MaxWidth="50"
                         MinHeight="50" MaxHeight="50"
                         Grid.Column="0" Margin="5" Source="{Binding Image}"/>
-                                <TextBlock Text="{Binding Name}" Grid.Column="1" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Type}" Grid.Column="1" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding CarID, Converter={StaticResource CarConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>
-                                <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Availability, Converter={StaticResource AvailabilityConverter}}" Grid.Column="2" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Part.Name}" Grid.Column="1" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Part.Type}" Grid.Column="1" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Part.CarID, Converter={StaticResource CarConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>
+                                <TextBlock Text="{Binding Part.Price}" Grid.Column="2" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Amount}" Grid.Column="2" VerticalAlignment="Center"/>
                                 <Button Content="Delete" Grid.Column="4" Margin="5" Command="{Binding DataContext.DeletePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                             </Grid>
                         </StackPanel>

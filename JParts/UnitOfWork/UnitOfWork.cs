@@ -2,7 +2,7 @@
 using JParts.Repositories.Implementations;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Threading.Tasks;
 using JParts.DBContext;

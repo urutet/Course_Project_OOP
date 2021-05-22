@@ -42,8 +42,8 @@ namespace JParts.MVVM.ViewModel
 
             LoginCommand = new RelayCommand(obj =>
             {
-                try
-                {
+                //try
+                //{
                     Client result = authenticationService.Login(Login, Password);
                     if (result.IsAdmin == true)
                     {
@@ -65,11 +65,11 @@ namespace JParts.MVVM.ViewModel
                     //};
                     //windowAdmin.Show();
                     //CloseWindow();
-                }
-                catch(Exception e)
-                {
-                    MessageBox.Show("Неверный логин или пароль!");
-                }
+                //}
+                //catch(Exception e)
+                //{
+                //    MessageBox.Show("Неверный логин или пароль!");
+                //}
             });
 
         }

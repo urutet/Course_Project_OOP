@@ -1,4 +1,5 @@
-﻿using JParts.Services.AuthenticationServices;
+﻿using JParts.DBContext;
+using JParts.Services.AuthenticationServices;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,10 @@ namespace JParts
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-
+            using (JPartsContext Context = new JPartsContext())
+            {
+                Context.Database.EnsureCreated();
+            }
             base.OnStartup(e);
         }
     }

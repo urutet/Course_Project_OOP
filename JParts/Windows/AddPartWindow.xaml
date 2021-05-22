@@ -36,7 +36,7 @@
                 <watermark:WatermarkTextBox Watermark="Тип" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Type, Mode=TwoWay}"/>
                 <watermark:WatermarkTextBox Watermark="Стоимость, руб" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Price, Mode=TwoWay}"/>
                 <!--<xceed:DecimalUpDown Watermark="Стоимость" TextAlignment="Left"/>-->
-                <CheckBox Content="В наличии" Margin="5" IsChecked="{Binding Availability, Mode=TwoWay}"/>
+                <watermark:WatermarkTextBox  Margin="5" Height="20" Watermark="Количество" TextBind="{Binding Amount, Mode=TwoWay}"/> <!--Add regex-->
             </ItemsControl>
         </GroupBox>
         <GroupBox Header="Машина" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Montserrat" FontSize="14">
