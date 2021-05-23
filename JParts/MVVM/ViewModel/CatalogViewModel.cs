@@ -22,6 +22,16 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand DeletePartCommand { get; set; }
 
+        private Visibility _visibility;
+
+        public Visibility visibility
+        {
+            get { return _visibility; }
+            set { _visibility = value; OnPropertyChanged(); }
+        }
+
+
+
         //Car filter
         private List<string> manufacturer;
         public List<string> Manufacturer
@@ -110,8 +120,8 @@ namespace JParts.MVVM.ViewModel
             set
             {
                 _searchExpression = value;
-                SearchExpressionChanged();
                 OnPropertyChanged();
+                SearchExpressionChanged();
             }
         }
 
@@ -129,6 +139,11 @@ namespace JParts.MVVM.ViewModel
             PartsToAdd = new ObservableCollection<CartPart>();
             DefaultList = new ObservableCollection<CartPart>();
             PartsList = new ObservableCollection<CartPart>();
+
+            if (mainViewModel.AuthorisedClient.IsAdmin == true)
+                visibility = Visibility.Visible;
+            else
+                visibility = Visibility.Collapsed;
 
             LoadManufacturers();
 

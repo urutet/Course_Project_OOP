@@ -45,32 +45,24 @@ namespace JParts.MVVM.ViewModel
                 //try
                 //{
                     Client result = authenticationService.Login(Login, Password);
-                    if (result.IsAdmin == true)
-                    {
                         MainWindowAdmin windowAdmin = new MainWindowAdmin()
                         {
                             DataContext = new MainViewModel(result)
                         };
                         windowAdmin.Show();
                         CloseWindow();
-                    }
-                    else if (result.IsAdmin == false)
-                    {
-                        //Add default user implementation
-                        CloseWindow();
-                    }
-                    //MainWindowAdmin windowAdmin = new MainWindowAdmin()
-                    //{
-                    //    DataContext = new MainViewModel()
-                    //};
-                    //windowAdmin.Show();
-                    //CloseWindow();
-                //}
-                //catch(Exception e)
+                //MainWindowAdmin windowAdmin = new MainWindowAdmin()
                 //{
-                //    MessageBox.Show("Неверный логин или пароль!");
-                //}
-            });
+                //    DataContext = new MainViewModel()
+                //};
+                //windowAdmin.Show();
+                //CloseWindow();
+            //}
+            //    catch (Exception e)
+            //{
+            //    MessageBox.Show("Неверный логин или пароль!");
+            //}
+        });
 
         }
 

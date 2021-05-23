@@ -26,34 +26,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Add Button-->
-        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddCarCommand}">
+        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddCarCommand}" Visibility="{Binding visibility}">
             <Image Source="/Images/Add.png"/>
         </Button>
         <!--Delete Button-->
         <!--<Button Grid.Row="0" Grid.Column="3" Width="40" Height="40" Command="{Binding DeleteCarCommand}">
             <Image Source="/Images/Remove.png"/>
         </Button>-->
-
-        <!--Search-->
-        <textboxes:WatermarkTextBox Watermark="Поиск"
-                                Grid.Row="0"
-                                Grid.Column="4"
-                                Grid.ColumnSpan="2"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Stretch"
-                                FontFamily="Montserrat"
-                                Height="20"/>
-        <Button x:Name="SearchBtn"
-                Grid.Row="0"
-                Grid.Column="5"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Right"
-                Width="20"
-                Height="20"
-                Background="Transparent"
-                BorderThickness="0">
-            <Image Source="/Images/Search.png"/>
-        </Button>
 
 
 
@@ -94,7 +73,7 @@
                                 <TextBlock Text="{Binding Model}" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Year}" Grid.Column="1" VerticalAlignment="Bottom"/>
                                 <!--Needs rework-->
-                                <Button Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdateCarCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
+                                <Button Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdateCarCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" Visibility="{Binding visibility}"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

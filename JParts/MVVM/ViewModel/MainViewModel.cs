@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -20,7 +21,18 @@ namespace JParts.MVVM.ViewModel
 
         public CarsViewModel CarsVM { get; set; }
 
+        public RegisterViewModel RegisterVM { get; set; }
+
         public UnitOfWork.UnitOfWork uoW { get; }
+
+        private Visibility _visibility;
+
+        public Visibility visibility
+        {
+            get { return _visibility; }
+            set { _visibility = value; }
+        }
+
 
         private object _currentView;
 
@@ -52,6 +64,8 @@ namespace JParts.MVVM.ViewModel
         public RelayCommand OrdersViewCommand { get; set; }
 
         public RelayCommand ContactsViewCommand { get; set; }
+
+        public RelayCommand RegisterViewCommand { get; set; }
 
         public RelayCommand ExitToLoginCommand { get; set; }
 
@@ -86,14 +100,21 @@ namespace JParts.MVVM.ViewModel
 
         public MainViewModel(Client authorisedClient)
         {
+            AuthorisedClient = authorisedClient;
+
             CatalogVM = new CatalogViewModel(this);
-            OrdersVM = new OrdersViewModel();
+            OrdersVM = new OrdersViewModel(this);
             ContactsVM = new ContactsViewModel();
-            CarsVM = new CarsViewModel();
+            CarsVM = new CarsViewModel(this);
+            RegisterVM = new RegisterViewModel();
 
             uoW = new UnitOfWork.UnitOfWork(new DBContext.JPartsContext());
 
-            AuthorisedClient = authorisedClient;
+            if (authorisedClient.IsAdmin == true)
+                visibility = Visibility.Visible;
+            else
+                visibility = Visibility.Collapsed;
+            
 
             CurrentView = CatalogVM;
 
@@ -136,12 +157,17 @@ namespace JParts.MVVM.ViewModel
                 window.Show();
             });
 
+            RegisterViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = RegisterVM;
+            });
+
         }
 
         public MainViewModel()
         {
             CatalogVM = new CatalogViewModel(this);
-            OrdersVM = new OrdersViewModel();
+            OrdersVM = new OrdersViewModel(this);
             ContactsVM = new ContactsViewModel();
 
             CurrentView = CatalogVM;

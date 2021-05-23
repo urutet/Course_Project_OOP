@@ -93,7 +93,10 @@ namespace JParts.MVVM.ViewModel
 
                         ClearAllFields();
 
-                        mainViewModel.OrdersVM.OrdersList = new ObservableCollection<Order>(uoW.Orders.GetAllOrders());
+                        if (mainViewModel.AuthorisedClient.IsAdmin == true)
+                            mainViewModel.OrdersVM.LoadOrders();
+                        else
+                            mainViewModel.OrdersVM.LoadClientsOrders(mainViewModel.AuthorisedClient.ClientID);
 
                         MessageBox.Show("Заказ успешно добавлен");
                     }

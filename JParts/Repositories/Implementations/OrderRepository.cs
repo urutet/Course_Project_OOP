@@ -23,5 +23,10 @@ namespace JParts.Repositories.Implementations
         {
             return JpartsContext.Orders.Distinct().ToList();
         }
+
+        public List<Order> GetClientOrders(int clientID)
+        {
+            return JpartsContext.Orders.Where(o => o.ClientID == clientID).ToList();
+        }
     }
 }

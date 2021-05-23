@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:JParts.Themes">
+    <!--<Style x:Key="CollapseItem">
+        <Setter Property="Visibility" Value="{Binding IsAdmin}"/>
+    </Style>-->
+</ResourceDictionary>

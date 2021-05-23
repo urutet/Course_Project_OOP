@@ -51,6 +51,10 @@
             <RadioButton Content="Контакты"
                          Style="{StaticResource MenuButtonStyle}"
                          Command="{Binding ContactsViewCommand}"/>
+            <RadioButton Content="Регистрация"
+                         Style="{StaticResource MenuButtonStyle}"
+                         Command="{Binding RegisterViewCommand}"
+                         Visibility="{Binding visibility}"/>
 
         </StackPanel>
 

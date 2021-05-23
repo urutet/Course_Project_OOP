@@ -33,11 +33,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Add Button-->
-        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddPartCommand}">
+        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddPartCommand}" Visibility="{Binding visibility}">
             <Image Source="/Images/Add.png"/>
         </Button>
         <!--Delete Button-->
-        <Button Grid.Row="0" Grid.Column="3" Width="40" Height="40" Command="{Binding DeletePartCommand}">
+        <Button Grid.Row="0" Grid.Column="3" Width="40" Height="40" Command="{Binding DeletePartCommand}" Visibility="{Binding visibility}">
             <Image Source="/Images/Remove.png"/>
         </Button>
 
@@ -162,7 +162,7 @@
                                 <TextBlock Text="{Binding Part.Amount}" Grid.Column="2" VerticalAlignment="Center"/>
                                 <textboxes:WatermarkTextBox Watermark="Количество для заказа" TextBind="{Binding Amount, Mode=TwoWay}" Grid.Column="2" VerticalAlignment="Bottom"/>
                                 <Button Content="Add To Cart" Grid.Column="3" Margin="5" Command="{Binding DataContext.AddToCartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
-                                <Button Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdatePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
+                                <Button x:Name="updButton" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdatePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

@@ -128,7 +128,7 @@ namespace JParts.MVVM.ViewModel
                     if (result == RegistrationResult.Success)
                     {
                         MessageBox.Show("Регистрация прошла успешно");
-                        CloseWindow();
+                        ClearAllFields();
                     }
                     if (result == RegistrationResult.LoginAlreadyExists)
                     {
@@ -144,6 +144,23 @@ namespace JParts.MVVM.ViewModel
                     MessageBox.Show("Заполните все поля корректно");
                 }
             }, param => CanRegister);
+        }
+
+        private void ClearAllFields()
+        {
+            ClientID = null;
+            Name = null;
+            Phone_Num = null;
+            AddressID = null;
+            Email = null;
+            Login = null;
+            Password = null;
+            ConfirmPassword = null;
+            IsAdmin = false;
+            City = null;
+            Street = null;
+            House_Num = null;
+            Flat_Num = null;
         }
 
         void CloseWindow()

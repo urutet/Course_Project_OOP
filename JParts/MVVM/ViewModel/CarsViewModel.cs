@@ -6,6 +6,7 @@ using JParts.Windows;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -15,13 +16,25 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand UpdateCarCommand { get; set; }
 
+        private Visibility _visibility;
+
+        public Visibility visibility
+        {
+            get { return _visibility; }
+            set { _visibility = value; }
+        }
 
 
         private List<Car> cars;
         public List<Car> Cars { get => cars; set { cars = value; OnPropertyChanged(); } }
 
-        public CarsViewModel()
+        public CarsViewModel(MainViewModel mainViewModel)
         {
+            if (mainViewModel.AuthorisedClient.IsAdmin == true)
+                visibility = Visibility.Visible;
+            else
+                visibility = Visibility.Hidden;
+
             AddCarCommand = new RelayCommand(o =>
             {
                 AddCarWindow window = new AddCarWindow()
