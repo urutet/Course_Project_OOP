@@ -25,6 +25,11 @@ namespace JParts.Repositories.Implementations
             return JpartsContext.Clients.AsNoTracking().FirstOrDefault(c => c.Email == email);
         }
 
+        public Client GetByID(int id)
+        {
+            return JpartsContext.Clients.AsNoTracking().FirstOrDefault(c => c.ClientID == id);
+        }
+
         public Client GetByUsername(string username)
         {
             return JpartsContext.Clients.AsNoTracking().FirstOrDefault(c => c.Login == username);

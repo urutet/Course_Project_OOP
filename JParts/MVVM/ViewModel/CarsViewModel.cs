@@ -44,6 +44,8 @@ namespace JParts.MVVM.ViewModel
                 }
             });
 
+
+
             LoadCars();
         }
 

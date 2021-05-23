@@ -80,9 +80,6 @@
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Bottom">
-            <Hyperlink Command="">
-                <TextBlock Text="Забыли пароль?"/>
-            </Hyperlink>
             <Hyperlink Command="{Binding RegisterViewCommand}">
                 <TextBlock Text="Регистрация"/>
             </Hyperlink>

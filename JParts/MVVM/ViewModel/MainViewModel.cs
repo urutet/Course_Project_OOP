@@ -114,8 +114,8 @@ namespace JParts.MVVM.ViewModel
                 {
                     DataContext = new LoginViewModel()
                 };
-                loginWindow.Show();
                 CloseWindow();
+                loginWindow.Show();
             });
 
             CarsViewCommand = new RelayCommand(o =>

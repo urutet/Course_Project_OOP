@@ -8,6 +8,7 @@
         xmlns:views="clr-namespace:JParts.MVVM.View"
         mc:Ignorable="d"
         Title="JParts" Height="450" Width="800"
+        Loaded="Window_Loaded"
         Style="{StaticResource WindowStyle}">
 
 

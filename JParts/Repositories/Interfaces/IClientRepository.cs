@@ -11,5 +11,6 @@ namespace JParts.Repositories.Interfaces
     {
         Client GetByUsername(string username);
         Client GetByEmail(string email);
+        Client GetByID(int id);
     }
 }

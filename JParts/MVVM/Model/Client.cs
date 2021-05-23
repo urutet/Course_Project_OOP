@@ -8,6 +8,7 @@ namespace JParts.MVVM.Model
 {
     public class Client
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ClientID { get; set; }
         public string Name { get; set; }
         public string Phone_Num { get; set; }

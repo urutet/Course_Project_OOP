@@ -19,8 +19,8 @@ namespace JParts.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Order order = uoW.Orders.Get((int)value);
-            Client client = uoW.Clients.Get(order.ClientID);
-            return order.OrderDate + client.Name;
+            Client client = uoW.Clients.GetByID(order.ClientID);
+            return client.Name;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -31,8 +31,8 @@
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                       Grid.RowSpan="5"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="5"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="6"
                       FontFamily="Montserrat">
             <ListBox x:Name="ordersList" Background="Transparent"
                      BorderThickness="0" ItemsSource="{Binding OrdersList}">
@@ -41,22 +41,18 @@
                         <StackPanel x:Name="orderTemplate"
                                 Background="#f0f0f0"
                                 Orientation="Horizontal">
-                            <Grid Width="500">
+                            <Grid Width="600">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="0.5*" />
-                                    <ColumnDefinition Width="0.5*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="70"/>
                                 </Grid.RowDefinitions>
-                                <Image  MinWidth="50" MaxWidth="50"
-                        MinHeight="50" MaxHeight="50"
-                        Grid.Column="0" Margin="5" Source="{Binding Image}"/>
-                                <!--<TextBlock Text="{Binding OrderID, Converter={StaticResource OrderConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>-->
-                                <TextBlock Text="{Binding Price}" Grid.Column="2" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding OrderDate}" Margin="5" VerticalAlignment="Center" Grid.Column="0"/>
+                                <TextBlock Text="{Binding OrderID, Converter={StaticResource OrderConverter}}" Margin="5" TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Price}" Margin="5" Grid.Column="2" VerticalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

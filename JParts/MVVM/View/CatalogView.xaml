@@ -125,7 +125,7 @@
                                 </Grid.RowDefinitions>
                                 <Image  MinWidth="50" MaxWidth="50"
                         MinHeight="50" MaxHeight="50"
-                        Grid.Column="0" Margin="5" Source="{Binding Image}"/>
+                        Grid.Column="0" Margin="5" Source="{Binding Part.Image}"/>
                                 <TextBlock Text="{Binding Part.Name}" Grid.Column="1" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Part.Type}" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Part.CarID, Converter={StaticResource CarConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>

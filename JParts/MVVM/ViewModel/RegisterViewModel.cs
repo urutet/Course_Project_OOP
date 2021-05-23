@@ -6,10 +6,11 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using JParts.Enums;
+using JParts.Windows.Interfaces;
 
 namespace JParts.MVVM.ViewModel
 {
-    class RegisterViewModel : ViewModelBase, IDataErrorInfo
+    class RegisterViewModel : ViewModelBase, ICloseWindows, IDataErrorInfo
     {
 
         //Client
