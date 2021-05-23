@@ -7,6 +7,7 @@
              xmlns:textboxes="clr-namespace:JParts.UserControls"
              xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:converters="clr-namespace:JParts.Converters"
+             xmlns:viewmodels="clr-namespace:JParts.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -66,17 +67,19 @@
 
         <!--        Filter      -->
         <!--Generate manufacturers from database-->
-        <xceed:WatermarkComboBox x:Name="manufacturerCombobox"
+        <xceed:WatermarkComboBox x:Name="ManufacturerCB"
                   Grid.Row="1"
                   Grid.Column="0"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Stretch"
                   Watermark="Произвоитель"
                   FontFamily="Montserrat"
-                  Height="20"/>
+                  Height="20"
+                  ItemsSource="{Binding Manufacturer, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedManufacturer}"/>
 
         <!--Generate models for each manufacturer selected-->
-        <xceed:WatermarkComboBox x:Name="modelCombobox"
+        <xceed:WatermarkComboBox x:Name="ModelCB"
                   IsEnabled="False"
                   Grid.Row="1"
                   Grid.Column="0"
@@ -84,19 +87,45 @@
                   HorizontalAlignment="Stretch"
                   Watermark="Модель"
                   FontFamily="Montserrat"
-                  Height="20"/>
-        
+                  Height="20"
+                  ItemsSource="{Binding Model, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedModel}">
+            <xceed:WatermarkComboBox.Resources>
+                <Style TargetType="{x:Type xceed:WatermarkComboBox}">
+                    <Setter Property="IsEnabled" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ManufacturerCB, Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </xceed:WatermarkComboBox.Resources>
+        </xceed:WatermarkComboBox>
+
         <!--Generate years for each model selected-->
-        <xceed:WatermarkComboBox x:Name="yearCombobox"
+        <xceed:WatermarkComboBox x:Name="YearCB"
                   IsEnabled="False"
                   Grid.Row="1"
                   Grid.Column="0"
                   VerticalAlignment="Bottom"
                   HorizontalAlignment="Stretch"
-                  Watermark="Модель"
+                  Watermark="Год"
                   FontFamily="Montserrat"
-                  Height="20"/>
-        
+                  Height="20"
+                  ItemsSource="{Binding Year, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedYear}">
+            <xceed:WatermarkComboBox.Resources>
+                <Style TargetType="{x:Type xceed:WatermarkComboBox}">
+                    <Setter Property="IsEnabled" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ModelCB, Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </xceed:WatermarkComboBox.Resources>
+        </xceed:WatermarkComboBox>
+
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                       Grid.RowSpan="5"

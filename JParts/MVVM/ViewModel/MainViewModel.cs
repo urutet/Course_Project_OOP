@@ -20,6 +20,8 @@ namespace JParts.MVVM.ViewModel
 
         public CarsViewModel CarsVM { get; set; }
 
+        public UnitOfWork.UnitOfWork uoW { get; }
+
         private object _currentView;
 
         public object CurrentView
@@ -88,6 +90,8 @@ namespace JParts.MVVM.ViewModel
             OrdersVM = new OrdersViewModel();
             ContactsVM = new ContactsViewModel();
             CarsVM = new CarsViewModel();
+
+            uoW = new UnitOfWork.UnitOfWork(new DBContext.JPartsContext());
 
             AuthorisedClient = authorisedClient;
 

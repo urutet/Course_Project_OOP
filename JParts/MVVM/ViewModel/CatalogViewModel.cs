@@ -22,6 +22,64 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand DeletePartCommand { get; set; }
 
+        //Car filter
+        private List<string> manufacturer;
+        public List<string> Manufacturer
+        {
+            get => manufacturer;
+            set { manufacturer = value; OnPropertyChanged(); }
+        }
+
+        private List<string> model;
+        public List<string> Model
+        {
+            get => model;
+            set { model = value; OnPropertyChanged(); }
+        }
+
+        private List<int?> year;
+        public List<int?> Year
+        {
+            get => year;
+            set { year = value; OnPropertyChanged(); }
+        }
+
+        private string _selectedManufacturer;
+
+        public string SelectedManufacturer
+        {
+            get { return _selectedManufacturer; }
+            set
+            {
+                _selectedManufacturer = value;
+                OnPropertyChanged();
+                if (_selectedManufacturer != null)
+                    LoadModels();
+            }
+        }
+
+        private string _selectedModel;
+
+        public string SelectedModel
+        {
+            get { return _selectedModel; }
+            set
+            {
+                _selectedModel = value;
+                OnPropertyChanged();
+                if (_selectedManufacturer != null && _selectedModel != null)
+                    LoadYears();
+
+            }
+        }
+
+        private int? _selectedYear;
+
+        public int? SelectedYear
+        {
+            get { return _selectedYear; }
+            set { _selectedYear = value; FilterExpressionChanged(); OnPropertyChanged(); }
+        }
 
         public UnitOfWork.UnitOfWork uoW;
 
@@ -71,6 +129,9 @@ namespace JParts.MVVM.ViewModel
             PartsToAdd = new ObservableCollection<CartPart>();
             DefaultList = new ObservableCollection<CartPart>();
             PartsList = new ObservableCollection<CartPart>();
+
+            LoadManufacturers();
+
 
             AddPartCommand = new RelayCommand(o => 
             {
@@ -149,6 +210,33 @@ namespace JParts.MVVM.ViewModel
             {
                 PartsList = new ObservableCollection<CartPart>(DefaultList.Where(p => p.Part.Name.ToLower().Contains(SearchExpression)).ToList());
             }
+        }
+
+        private void FilterExpressionChanged()
+        {
+            if (SelectedYear == null)
+                PartsList = DefaultList;
+            else
+            {
+                Car car = uoW.Cars.GetCar(SelectedManufacturer, SelectedModel, SelectedYear);
+                PartsList = new ObservableCollection<CartPart>(DefaultList.Where(p => p.Part.CarID == car.CarID).ToList());
+            }
+        }
+
+        public async void LoadManufacturers()
+        {
+            UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
+            Manufacturer = await uoW.Cars.GetAllManufacturers();
+        }
+        private async void LoadModels()
+        {
+            UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
+            Model = await uoW.Cars.GetManufacturerModels(SelectedManufacturer);
+        }
+        private async void LoadYears()
+        {
+            UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
+            Year = await uoW.Cars.GetModelsYears(SelectedManufacturer, SelectedModel);
         }
     }
 }

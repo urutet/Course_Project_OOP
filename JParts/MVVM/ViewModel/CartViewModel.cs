@@ -30,6 +30,17 @@ namespace JParts.MVVM.ViewModel
             set { price = value; OnPropertyChanged(); }
         }
 
+        public bool CanAdd
+        {
+            get
+            {
+                if (Price > 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
 
         public RelayCommand AddOrderCommand { get; set; }
 
@@ -40,7 +51,6 @@ namespace JParts.MVVM.ViewModel
         public CartViewModel(MainViewModel mainViewModel)
         {
             OrderedPartsList = mainViewModel.PartsToAdd;
-
             GetSum();
 
             uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
@@ -94,7 +104,7 @@ namespace JParts.MVVM.ViewModel
             {
                 MessageBox.Show(e.Message);
             }
-        });
+        }, param => CanAdd);
 
             DeletePartCommand = new RelayCommand(o =>
             {
@@ -113,7 +123,10 @@ namespace JParts.MVVM.ViewModel
         private void GetSum()
         {
             Price = 0;
-            Price = Convert.ToDecimal(OrderedPartsList.Sum(p => p.Part.Price * p.Amount));
+            if (OrderedPartsList != null)
+                Price = Convert.ToDecimal(OrderedPartsList.Sum(p => p.Part.Price * p.Amount));
+            else
+                MessageBox.Show("Корзина пуста");
         }
 
         private void ClearAllFields()
@@ -121,7 +134,5 @@ namespace JParts.MVVM.ViewModel
             OrderedPartsList.Clear();
             Price = 0;
         }
-
-
     }
 }
