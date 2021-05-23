@@ -17,6 +17,8 @@ namespace JParts.MVVM.ViewModel
 {
     class AddPartViewModel : ViewModelBase
     {
+        //VM
+        public MainViewModel MainVM { get; set; }
         //Dictionnary
         string partButton;
         public string PartButton { get => partButton; set { partButton = value; OnPropertyChanged(); } }
@@ -124,10 +126,11 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand AddCarCommand { get; set; }
 
-        public AddPartViewModel(CatalogViewModel catalogVM, PartOperation _partOperation, Part part = null)
+        public AddPartViewModel(CatalogViewModel catalogVM, PartOperation _partOperation, Part part = null, MainViewModel mainViewModel = null)
         {
             CatalogVM = catalogVM;
 
+            MainVM = mainViewModel;
 
             partOperation = _partOperation;
 
@@ -199,7 +202,7 @@ namespace JParts.MVVM.ViewModel
             {
                 AddCarWindow window = new AddCarWindow()
                 {
-                    DataContext = new AddCarViewModel(this)
+                    DataContext = new AddCarViewModel(this, MainVM.CarsVM)
                 };
                 window.Show();
             });

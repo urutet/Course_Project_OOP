@@ -82,9 +82,9 @@ namespace JParts.MVVM.ViewModel
                     try
                     {
 
-                            Car car = new Car(Manufacturer, Model, Year);
-                            uoW.Cars.Add(car);
-                            uoW.Complete();
+                        Car car = new Car(Manufacturer, Model, Year);
+                        uoW.Cars.Add(car);
+                        uoW.Complete();
                         MessageBox.Show("Машина успешно добавлена");
                         if(carsViewModel != null)
                             carsViewModel.LoadCars();
@@ -94,7 +94,7 @@ namespace JParts.MVVM.ViewModel
                     catch (Exception e)
                     {
                     //Dummy
-                }
+                    }
                 });
             }
             if (_carOperation == CarOperation.Edit && _car != null)

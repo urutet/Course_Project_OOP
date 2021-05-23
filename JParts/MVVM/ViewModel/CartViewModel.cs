@@ -93,6 +93,8 @@ namespace JParts.MVVM.ViewModel
 
                         ClearAllFields();
 
+                        mainViewModel.OrdersVM.OrdersList = new ObservableCollection<Order>(uoW.Orders.GetAllOrders());
+
                         MessageBox.Show("Заказ успешно добавлен");
                     }
                     else

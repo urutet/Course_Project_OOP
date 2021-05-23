@@ -137,7 +137,7 @@ namespace JParts.MVVM.ViewModel
             {
                 AddPartWindow window = new AddPartWindow()
                 {
-                    DataContext = new AddPartViewModel(this, Enums.PartOperation.Add)
+                    DataContext = new AddPartViewModel(this, Enums.PartOperation.Add, null, mainViewModel)
                 };
                 window.Show();
             });
@@ -149,7 +149,7 @@ namespace JParts.MVVM.ViewModel
                     var UpdatedPart = o as Part;
                     AddPartWindow window = new AddPartWindow()
                     {
-                        DataContext = new AddPartViewModel(this, Enums.PartOperation.Edit, UpdatedPart)
+                        DataContext = new AddPartViewModel(this, Enums.PartOperation.Edit, UpdatedPart, mainViewModel)
                     };
                     window.Show();
                 }
