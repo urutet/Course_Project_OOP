@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:JParts.MVVM.View"
              xmlns:converters="clr-namespace:JParts.Converters"
              xmlns:viewmodels="clr-namespace:JParts.MVVM.ViewModel"
+             xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -56,14 +57,17 @@
                                 <TextBlock Text="{Binding OrderDate}" Margin="5" VerticalAlignment="Center" Grid.Column="0"/>
                                 <TextBlock Text="{Binding OrderID, Converter={StaticResource OrderConverter}}" Margin="5" TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Price}" Margin="5" Grid.Column="2" VerticalAlignment="Center"/>
-                                <ComboBox ItemsSource="{Binding status, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding Status, Mode=TwoWay}" Margin="5" Grid.Column="3" VerticalAlignment="Center">
-                                    <ComboBox.ItemTemplate>
+                                <xceed:WatermarkComboBox ItemsSource="{Binding DataContext.StatusList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}" SelectedItem="{Binding Status, Mode=TwoWay}" Margin="5" Grid.Column="3" VerticalAlignment="Center">
+                                    <xceed:WatermarkComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Converter={StaticResource OrderConverter}}"/>
+                                            <TextBlock Text="{Binding Converter={StaticResource StatusConverter}}"/>
                                         </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
+                                    </xceed:WatermarkComboBox.ItemTemplate>
+                                </xceed:WatermarkComboBox>
                             </Grid>
+                            <StackPanel.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick" CommandParameter="{Binding}"/> <!--Добавить команду-->
+                            </StackPanel.InputBindings>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

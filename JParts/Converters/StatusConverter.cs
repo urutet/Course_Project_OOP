@@ -16,6 +16,7 @@ namespace JParts.Converters
                     return "Доставлен";
                 else
                     return "В обработке";
+                //return new List<string>() { new string("Доставлен"), new string("В обработке") };
             }
             else
                 return null;
