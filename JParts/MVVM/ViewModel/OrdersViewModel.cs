@@ -20,7 +20,7 @@ namespace JParts.MVVM.ViewModel
             set { _visibility = value; OnPropertyChanged(); }
         }
 
-
+        public List<bool> status { get; set; }
 
         private ObservableCollection<Order> ordersList;
 
@@ -32,6 +32,10 @@ namespace JParts.MVVM.ViewModel
 
         public OrdersViewModel(MainViewModel mainViewModel)
         {
+            status = new List<bool>();
+            status.Add(true);
+            status.Add(false);
+
             if (mainViewModel.AuthorisedClient.IsAdmin == true)
             {
                 visibility = Visibility.Visible;

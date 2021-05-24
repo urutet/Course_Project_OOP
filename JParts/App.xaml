@@ -36,7 +36,9 @@
             <DataTemplate DataType="{x:Type viewmodels:CarsViewModel}">
                 <views:CarsView/>
             </DataTemplate>
-
+            <DataTemplate DataType="{x:Type viewmodels:PopupViewModel}">
+                <windows:PopupWindow/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

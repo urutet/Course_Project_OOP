@@ -5,10 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JParts.MVVM.View"
              xmlns:converters="clr-namespace:JParts.Converters"
+             xmlns:viewmodels="clr-namespace:JParts.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:OrderConverter x:Key="OrderConverter"/>
+        <converters:StatusConverter x:Key="StatusConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -46,6 +48,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="70"/>
@@ -53,6 +56,13 @@
                                 <TextBlock Text="{Binding OrderDate}" Margin="5" VerticalAlignment="Center" Grid.Column="0"/>
                                 <TextBlock Text="{Binding OrderID, Converter={StaticResource OrderConverter}}" Margin="5" TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Price}" Margin="5" Grid.Column="2" VerticalAlignment="Center"/>
+                                <ComboBox ItemsSource="{Binding status, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding Status, Mode=TwoWay}" Margin="5" Grid.Column="3" VerticalAlignment="Center">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Converter={StaticResource OrderConverter}}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

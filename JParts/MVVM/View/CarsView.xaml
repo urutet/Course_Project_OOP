@@ -66,9 +66,6 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="70"/>
                                 </Grid.RowDefinitions>
-                                <Image  MinWidth="50" MaxWidth="50"
-                        MinHeight="50" MaxHeight="50"
-                        Grid.Column="0" Margin="5" Source="{Binding Image}"/>
                                 <TextBlock Text="{Binding Manufacturer}" Grid.Column="1" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Model}" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Year}" Grid.Column="1" VerticalAlignment="Bottom"/>
