@@ -16,7 +16,6 @@ namespace JParts.Converters
                     return "Доставлен";
                 else
                     return "В обработке";
-                //return new List<string>() { new string("Доставлен"), new string("В обработке") };
             }
             else
                 return null;
@@ -24,7 +23,15 @@ namespace JParts.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (value != null)
+            {
+                if ((string)value == "Доставлен")
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return null;
         }
     }
 }

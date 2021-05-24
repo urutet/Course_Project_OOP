@@ -30,7 +30,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
+        <Button Content="Update" Grid.Column="3" Command="{Binding UpdateOrders}"/>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                       Grid.RowSpan="5"
