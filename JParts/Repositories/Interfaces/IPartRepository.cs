@@ -10,5 +10,6 @@ namespace JParts.Repositories.Interfaces
     public interface IPartRepository : IRepository<Part>
     {
         public List<Part> GetAllParts();
+        public List<PartsOrders> GetPartsByOrderID(int orderID);
     }
 }

@@ -166,6 +166,11 @@ namespace JParts.MVVM.ViewModel
                 Name = part.Name;
                 Type = part.Type;
                 Price = part.Price;
+                UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
+                Car car = uoW.Cars.Get(part.CarID);
+                SelectedManufacturer = car.Manufacturer;
+                SelectedModel = car.Model;
+                SelectedYear = car.Year;
 
                 AddPartCommand = new RelayCommand(o =>
                 {
@@ -174,9 +179,11 @@ namespace JParts.MVVM.ViewModel
                     partToEdit.Name = Name;
                     partToEdit.Type = Type;
                     partToEdit.Price = Price;
+                    partToEdit.Amount = Amount;
                     partToEdit.CarID = GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID;
                     uoW.Complete();
                     MessageBox.Show("Деталь успешно обновлена");
+                    CatalogVM.DefaultList.Clear();
                     foreach(var p in uoW.Parts.GetAllParts())
                     {
                         catalogVM.DefaultList.Add(new CartPart(p, p.Amount));

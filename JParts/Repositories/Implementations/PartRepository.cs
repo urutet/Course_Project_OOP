@@ -24,5 +24,10 @@ namespace JParts.Repositories.Implementations
         {
             return JpartsContext.Parts.Distinct().ToList();
         }
+
+        public List<PartsOrders> GetPartsByOrderID(int orderID)
+        {
+            return JpartsContext.PartsOrders.Where(p => p.OrderID == orderID).ToList();
+        }
     }
 }

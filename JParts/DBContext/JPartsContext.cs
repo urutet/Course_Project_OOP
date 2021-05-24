@@ -21,6 +21,7 @@ namespace JParts.DBContext
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Part> Parts { get; set; }
         public virtual DbSet<Shop> Shops { get; set; }
+        public virtual DbSet<PartsOrders> PartsOrders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

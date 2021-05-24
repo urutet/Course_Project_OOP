@@ -22,6 +22,8 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand DeletePartCommand { get; set; }
 
+        public RelayCommand ShowPartCommand { get; set; }
+
         private Visibility _visibility;
 
         public Visibility visibility
@@ -161,15 +163,28 @@ namespace JParts.MVVM.ViewModel
             {
                 if (o != null)
                 {
-                    var UpdatedPart = o as Part;
+                    var UpdatedPart = o as CartPart;
                     AddPartWindow window = new AddPartWindow()
                     {
-                        DataContext = new AddPartViewModel(this, Enums.PartOperation.Edit, UpdatedPart, mainViewModel)
+                        DataContext = new AddPartViewModel(this, Enums.PartOperation.Edit, UpdatedPart.Part, mainViewModel)
                     };
                     window.Show();
                 }
 
 
+            });
+
+            ShowPartCommand = new RelayCommand(o =>
+            {
+                if (o != null)
+                {
+                    var UpdatedPart = o as CartPart;
+                    ShowPartWindow window = new ShowPartWindow()
+                    {
+                        DataContext = new AddPartViewModel(this, Enums.PartOperation.Edit, UpdatedPart.Part, mainViewModel)
+                    };
+                    window.Show();
+                }
             });
 
             AddToCartCommand = new RelayCommand(o =>

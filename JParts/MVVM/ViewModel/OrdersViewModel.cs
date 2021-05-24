@@ -8,6 +8,7 @@ using System.Windows;
 using System.Net.Mail;
 using System.Net;
 using JParts.MVVM.Commands;
+using JParts.Windows;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -37,14 +38,23 @@ namespace JParts.MVVM.ViewModel
             set { ordersList = value; OnPropertyChanged(); }
         }
 
+        private List<PartsOrders> _orderedPartsList;
+
+        public List<PartsOrders> OrderedPartsList
+        {
+            get { return _orderedPartsList; }
+            set { _orderedPartsList = value; OnPropertyChanged(); }
+        }
+
         public RelayCommand UpdateOrders { get; set; }
 
-        public OrdersViewModel(MainViewModel mainViewModel)
+        public OrdersViewModel(MainViewModel mainViewModel, Order order = null)
         {
             statusList = new ObservableCollection<bool>();
             statusList.Add(true);
             statusList.Add(false);
 
+            
             //Mail
             from = new MailAddress("ilyshka88@gmail.com", "JParts");
 
@@ -62,6 +72,7 @@ namespace JParts.MVVM.ViewModel
             UpdateOrders = new RelayCommand(o =>
             {
                 OnStatusChanged();
+                uoW.Complete();
             });
 
         }
@@ -94,8 +105,6 @@ namespace JParts.MVVM.ViewModel
                     smtp.Send(mail);
                     MessageBox.Show("Сообщение отправлено");
                 }
-
-                uoW.Complete();
             }
         }
     }

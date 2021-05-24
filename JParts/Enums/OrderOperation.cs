@@ -4,10 +4,9 @@ using System.Text;
 
 namespace JParts.Enums
 {
-    public enum PartOperation
+    public enum OrderOperation
     {
         Add,
-        Edit,
         Show
     }
 }

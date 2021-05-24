@@ -164,6 +164,9 @@
                                 <Button Content="Add To Cart" Grid.Column="3" Margin="5" Command="{Binding DataContext.AddToCartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                                 <Button x:Name="updButton" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdatePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                             </Grid>
+                            <StackPanel.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.ShowPartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
+                            </StackPanel.InputBindings>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
