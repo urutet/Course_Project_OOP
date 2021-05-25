@@ -108,6 +108,7 @@ namespace JParts.MVVM.ViewModel
             {
                 OnStatusChanged().GetAwaiter();
                 uoW.Complete();
+                LoadOrders();
             });
 
             ShowOrder = new RelayCommand(o =>
@@ -194,7 +195,6 @@ namespace JParts.MVVM.ViewModel
                 }
             }
             client.SendCompleted += Client_SendCompleted;
-            LoadOrders();
         }
 
         private void Client_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
