@@ -28,5 +28,10 @@ namespace JParts.Repositories.Implementations
         {
             return JpartsContext.Orders.Where(o => o.ClientID == clientID).ToList();
         }
+
+        public List<Order> GetAllOrdersAsNoTracking()
+        {
+            return JpartsContext.Orders.AsNoTracking().ToList();
+        }
     }
 }

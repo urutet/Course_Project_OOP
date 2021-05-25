@@ -10,6 +10,7 @@ using System.Net;
 using JParts.MVVM.Commands;
 using JParts.Windows;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -35,6 +36,14 @@ namespace JParts.MVVM.ViewModel
         {
             get { return ordersList; }
             set { ordersList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Order> ordersNoTrackingList;
+
+        public ObservableCollection<Order> OrdersNoTrackingList
+        {
+            get { return ordersNoTrackingList; }
+            set { ordersNoTrackingList = value; OnPropertyChanged(); }
         }
 
         private DateTime _date;
@@ -82,7 +91,7 @@ namespace JParts.MVVM.ViewModel
             statusList.Add(false);
 
             OrderedPartsList = new List<Part>();
-            
+
 
             if (mainViewModel.AuthorisedClient.IsAdmin == true)
             {
@@ -127,6 +136,7 @@ namespace JParts.MVVM.ViewModel
         {
             uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
             OrdersList = new ObservableCollection<Order>(uoW.Orders.GetAllOrders());
+            OrdersNoTrackingList = new ObservableCollection<Order>(uoW.Orders.GetAllOrdersAsNoTracking());
         }
 
         public void LoadClientsOrders(int clientID)
@@ -159,8 +169,8 @@ namespace JParts.MVVM.ViewModel
 
             foreach (Order order in OrdersList)
             {
-                Order orderFromBase = uoW.Orders.Get(order.OrderID);
-                if (order.Status == true /*&& orderFromBase.Status == false*/)      //Need more "Advanced" logic to check the change of property status
+                Order oldOrder = ordersNoTrackingList.Where(o => o.OrderID == order.OrderID).First();
+                if (order.Status == true && oldOrder.Status == false)      //Need more "Advanced" logic to check the change of property status
                 {
                     
                     Client reciever = uoW.Clients.GetByID(order.ClientID);
@@ -184,6 +194,7 @@ namespace JParts.MVVM.ViewModel
                 }
             }
             client.SendCompleted += Client_SendCompleted;
+            LoadOrders();
         }
 
         private void Client_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)

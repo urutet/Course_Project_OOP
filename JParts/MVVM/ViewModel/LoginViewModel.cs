@@ -60,7 +60,7 @@ namespace JParts.MVVM.ViewModel
             }
                 catch (Exception e)
             {
-                    //MessageBox.Show("Неверный логин или пароль!");
+                    MessageBox.Show("Неверный логин или пароль!");
                     //PopupWindow window = new PopupWindow()
                     //{
                     //    DataContext = new PopupViewModel("Неверный логин или пароль")

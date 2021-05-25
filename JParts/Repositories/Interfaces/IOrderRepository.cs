@@ -10,5 +10,6 @@ namespace JParts.Repositories.Interfaces
     {
         public List<Order> GetAllOrders();
         public List<Order> GetClientOrders(int clientID);
+        public List<Order> GetAllOrdersAsNoTracking();
     }
 }
