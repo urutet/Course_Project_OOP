@@ -30,7 +30,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Content="Update" Grid.Column="3" Command="{Binding UpdateOrders}"/>
+        <Button Content="Update" Grid.Column="3" Command="{Binding UpdateOrders}" Visibility="{Binding visibility}"/>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       Grid.Row="1"
                       Grid.RowSpan="5"
@@ -57,7 +57,8 @@
                                 <TextBlock Text="{Binding OrderDate}" Margin="5" VerticalAlignment="Center" Grid.Column="0"/>
                                 <TextBlock Text="{Binding OrderID, Converter={StaticResource OrderConverter}}" Margin="5" TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Price}" Margin="5" Grid.Column="2" VerticalAlignment="Center"/>
-                                <xceed:WatermarkComboBox ItemsSource="{Binding DataContext.StatusList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}" SelectedItem="{Binding Status, Mode=TwoWay}" Margin="5" Grid.Column="3" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Status, Converter={StaticResource StatusConverter}}" Margin="5" Grid.Column="3" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                                <xceed:WatermarkComboBox ItemsSource="{Binding DataContext.StatusList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}" SelectedItem="{Binding Status, Mode=TwoWay}" Margin="5" Grid.Column="3" VerticalAlignment="Center" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}">
                                     <xceed:WatermarkComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Converter={StaticResource StatusConverter}}"/>
@@ -66,7 +67,7 @@
                                 </xceed:WatermarkComboBox>
                             </Grid>
                             <StackPanel.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.ShowOrder, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/> <!--Добавить команду-->
+                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.ShowOrder, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                             </StackPanel.InputBindings>
                         </StackPanel>
                     </DataTemplate>
