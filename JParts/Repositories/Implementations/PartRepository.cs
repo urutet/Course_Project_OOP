@@ -27,7 +27,7 @@ namespace JParts.Repositories.Implementations
 
         public List<PartsOrders> GetPartsByOrderID(int orderID)
         {
-            return JpartsContext.PartsOrders.Where(p => p.OrderID == orderID).ToList();
+            return JpartsContext.PartsOrders.Where(p => p.OrderID == orderID).Include(p => p.Part).ToList();
         }
     }
 }

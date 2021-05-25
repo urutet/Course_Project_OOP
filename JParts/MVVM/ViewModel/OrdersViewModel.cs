@@ -38,9 +38,35 @@ namespace JParts.MVVM.ViewModel
             set { ordersList = value; OnPropertyChanged(); }
         }
 
-        private List<PartsOrders> _orderedPartsList;
+        private DateTime _date;
 
-        public List<PartsOrders> OrderedPartsList
+        public DateTime Date
+        {
+            get { return _date; }
+            set { _date = value; OnPropertyChanged(); }
+        }
+
+        private decimal _price;
+
+        public decimal Price
+        {
+            get { return _price; }
+            set { _price = value; OnPropertyChanged(); }
+        }
+
+
+
+        private List<PartsOrders> _orderedPartsOrdersList;
+
+        public List<PartsOrders> OrderedPartsOrdersList
+        {
+            get { return _orderedPartsOrdersList; }
+            set { _orderedPartsOrdersList = value; OnPropertyChanged(); }
+        }
+
+        private List<Part> _orderedPartsList;
+
+        public List<Part> OrderedPartsList
         {
             get { return _orderedPartsList; }
             set { _orderedPartsList = value; OnPropertyChanged(); }
@@ -48,13 +74,16 @@ namespace JParts.MVVM.ViewModel
 
         public RelayCommand UpdateOrders { get; set; }
 
+        public RelayCommand ShowOrder { get; set; }
+
         public OrdersViewModel(MainViewModel mainViewModel, Order order = null)
         {
             statusList = new ObservableCollection<bool>();
             statusList.Add(true);
             statusList.Add(false);
 
-            
+            OrderedPartsList = new List<Part>();
+
             //Mail
             from = new MailAddress("ilyshka88@gmail.com", "JParts");
 
@@ -75,6 +104,26 @@ namespace JParts.MVVM.ViewModel
                 uoW.Complete();
             });
 
+            ShowOrder = new RelayCommand(o =>
+            {
+                if (o != null)
+                {
+                    Order order = o as Order;
+                    OrderWindow window = new OrderWindow()
+                    {
+                        DataContext = new OrdersViewModel(mainViewModel, order)
+                    };
+                    window.Show();
+                }
+            });
+
+            if (order != null)
+            {
+                OrderedPartsByOrderID(order.OrderID);
+                Price = order.Price;
+                Date = order.OrderDate;
+            }
+
         }
 
         public void LoadOrders()
@@ -87,6 +136,11 @@ namespace JParts.MVVM.ViewModel
         {
             uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
             OrdersList = new ObservableCollection<Order>(uoW.Orders.GetClientOrders(clientID));
+        }
+
+        public void OrderedPartsByOrderID(int orderID)
+        {
+            OrderedPartsOrdersList = uoW.Parts.GetPartsByOrderID(orderID);
         }
 
         private void OnStatusChanged()

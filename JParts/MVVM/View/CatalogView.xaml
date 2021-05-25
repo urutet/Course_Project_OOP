@@ -80,7 +80,6 @@
 
         <!--Generate models for each manufacturer selected-->
         <xceed:WatermarkComboBox x:Name="ModelCB"
-                  IsEnabled="False"
                   Grid.Row="1"
                   Grid.Column="0"
                   VerticalAlignment="Center"
@@ -104,7 +103,6 @@
 
         <!--Generate years for each model selected-->
         <xceed:WatermarkComboBox x:Name="YearCB"
-                  IsEnabled="False"
                   Grid.Row="1"
                   Grid.Column="0"
                   VerticalAlignment="Bottom"
