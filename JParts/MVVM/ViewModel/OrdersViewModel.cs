@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Net;
 using JParts.MVVM.Commands;
 using JParts.Windows;
+using System.Threading.Tasks;
 
 namespace JParts.MVVM.ViewModel
 {
@@ -16,8 +17,6 @@ namespace JParts.MVVM.ViewModel
     {
         public UnitOfWork.UnitOfWork uoW { get; set; }
 
-        MailAddress from;
-        MailMessage mail;
 
         private Visibility _visibility;
 
@@ -83,9 +82,7 @@ namespace JParts.MVVM.ViewModel
             statusList.Add(false);
 
             OrderedPartsList = new List<Part>();
-
-            //Mail
-            from = new MailAddress("ilyshka88@gmail.com", "JParts");
+            
 
             if (mainViewModel.AuthorisedClient.IsAdmin == true)
             {
@@ -100,7 +97,7 @@ namespace JParts.MVVM.ViewModel
 
             UpdateOrders = new RelayCommand(o =>
             {
-                OnStatusChanged();
+                OnStatusChanged().GetAwaiter();
                 uoW.Complete();
             });
 
@@ -143,22 +140,62 @@ namespace JParts.MVVM.ViewModel
             OrderedPartsOrdersList = uoW.Parts.GetPartsByOrderID(orderID);
         }
 
-        private void OnStatusChanged()
+        private async Task OnStatusChanged()
         {
-            foreach(Order order in OrdersList)
+            SmtpClient client = new SmtpClient()
             {
-                if (order.Status == true && uoW.Orders.Get(order.OrderID).Status == false)
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential()
                 {
-                    MailAddress to = new MailAddress("buz-14@mail.ru");
-                    mail = new MailMessage(from, to);
-                    mail.Subject = "Заказ доставлен";
-                    mail.Body = $@"Заказ №{order.OrderID} был успешно доставлен";
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                    smtp.Credentials = new NetworkCredential("ilyshka88@gmail.com", "2876544Iy");
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
-                    MessageBox.Show("Сообщение отправлено");
+                    UserName = "jpartsshop24@gmail.com",
+                    Password = "Jpartsshop24@!"
                 }
+            };
+            MailAddress From = new MailAddress("jpartsshop24@gmail.com", "JParts");
+
+            foreach (Order order in OrdersList)
+            {
+                Order orderFromBase = uoW.Orders.Get(order.OrderID);
+                if (order.Status == true /*&& orderFromBase.Status == false*/)      //Need more "Advanced" logic to check the change of property status
+                {
+                    
+                    Client reciever = uoW.Clients.GetByID(order.ClientID);
+                    MailAddress To = new MailAddress(reciever.Email);
+                    MailMessage message = new MailMessage()
+                    {
+                        From = From,
+                        Subject = "Заказ JParts",
+                        Body = $"Здравствуйте, {reciever.Name}! ваш заказ №{order.OrderID} доставлен."
+                    };
+                    message.To.Add(To);
+
+                    try
+                    {
+                        await client.SendMailAsync(message);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
+                }
+            }
+            client.SendCompleted += Client_SendCompleted;
+        }
+
+        private void Client_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            if(e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Сообщения успешно отправлены");
             }
         }
     }
