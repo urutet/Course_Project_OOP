@@ -30,9 +30,6 @@ namespace JParts.MVVM.ViewModel
         private ObservableCollection<bool> statusList;
         public ObservableCollection<bool> StatusList { get => statusList; set { statusList = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<bool> filterStatusList;
-        public ObservableCollection<bool> FilterStatusList { get => filterStatusList; set { filterStatusList = value; OnPropertyChanged(); } }
-
         private ObservableCollection<Client> clientsList;
         public ObservableCollection<Client> ClientsList { get => clientsList; set { clientsList = value; OnPropertyChanged(); } }
 
@@ -124,10 +121,6 @@ namespace JParts.MVVM.ViewModel
             statusList = new ObservableCollection<bool>();
             statusList.Add(true);
             statusList.Add(false);
-
-            FilterStatusList = new ObservableCollection<bool>();
-            FilterStatusList.Add(true);
-            FilterStatusList.Add(false);
 
             OrderedPartsList = new List<Part>();
 

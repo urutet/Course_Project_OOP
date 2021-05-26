@@ -33,7 +33,7 @@
         </Grid.RowDefinitions>
         <Button Content="Update" Grid.Column="3" Command="{Binding UpdateOrders}" Visibility="{Binding visibility}"/>
 
-        <xceed:WatermarkComboBox ItemsSource="{Binding FilterStatusList}" SelectedItem="{Binding FilterStatus, Mode=TwoWay}" Margin="5" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center">
+        <xceed:WatermarkComboBox ItemsSource="{Binding StatusList}" SelectedItem="{Binding FilterStatus, Mode=TwoWay}" Margin="5" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center">
             <xceed:WatermarkComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource StatusConverter}}"/>
@@ -90,7 +90,17 @@
                                 <TextBlock Text="{Binding OrderID, Converter={StaticResource OrderConverter}}" Margin="5" TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Price}" Margin="5" Grid.Column="2" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Status, Converter={StaticResource StatusConverter}}" Margin="5" Grid.Column="3" VerticalAlignment="Center" IsHitTestVisible="False"/>
-                                <xceed:WatermarkComboBox ItemsSource="{Binding DataContext.StatusList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}" SelectedItem="{Binding Status, Mode=TwoWay}" Margin="5" Grid.Column="3" VerticalAlignment="Center" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}">
+                                <xceed:WatermarkComboBox x:Name="StatusCB" ItemsSource="{Binding DataContext.StatusList, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}" SelectedItem="{Binding Status, Mode=TwoWay}" Margin="5" Grid.Column="3" VerticalAlignment="Center" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}">
+                                    <xceed:WatermarkComboBox.Resources>
+                                        <Style TargetType="{x:Type xceed:WatermarkComboBox}">
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=StatusCB, Path=SelectedItem}" Value="true">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </xceed:WatermarkComboBox.Resources>
                                     <xceed:WatermarkComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Converter={StaticResource StatusConverter}}"/>
