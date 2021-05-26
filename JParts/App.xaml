@@ -28,7 +28,7 @@
                 <windows:AddCarWindow/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:RegisterViewModel}">
-                <windows:RegisterWindow/>
+                <views:AdminRegisterView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AddPartViewModel}">
                 <windows:AddPartWindow/>

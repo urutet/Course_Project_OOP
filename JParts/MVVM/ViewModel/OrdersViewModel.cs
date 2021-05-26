@@ -30,12 +30,47 @@ namespace JParts.MVVM.ViewModel
         private ObservableCollection<bool> statusList;
         public ObservableCollection<bool> StatusList { get => statusList; set { statusList = value; OnPropertyChanged(); } }
 
+        private ObservableCollection<bool> filterStatusList;
+        public ObservableCollection<bool> FilterStatusList { get => filterStatusList; set { filterStatusList = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Client> clientsList;
+        public ObservableCollection<Client> ClientsList { get => clientsList; set { clientsList = value; OnPropertyChanged(); } }
+
+        private string _searchExpression;
+        public string SearchExpression
+        {
+            get => _searchExpression;
+            set
+            {
+                _searchExpression = value;
+                OnPropertyChanged();
+                SearchExpressionChanged();
+            }
+        }
+
+        private bool filterStatus;
+
+        public bool FilterStatus
+        {
+            get { return filterStatus; }
+            set { filterStatus = value; if (OrdersList != null) { OnFilterStatusChanged(); } OnPropertyChanged(); }
+        }
+
+
         private ObservableCollection<Order> ordersList;
 
         public ObservableCollection<Order> OrdersList
         {
             get { return ordersList; }
             set { ordersList = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<Order> filteredList;
+
+        public ObservableCollection<Order> FilteredList
+        {
+            get { return filteredList; }
+            set { filteredList = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<Order> ordersNoTrackingList;
@@ -90,6 +125,10 @@ namespace JParts.MVVM.ViewModel
             statusList.Add(true);
             statusList.Add(false);
 
+            FilterStatusList = new ObservableCollection<bool>();
+            FilterStatusList.Add(true);
+            FilterStatusList.Add(false);
+
             OrderedPartsList = new List<Part>();
 
 
@@ -130,6 +169,9 @@ namespace JParts.MVVM.ViewModel
                 Price = order.Price;
                 Date = order.OrderDate;
             }
+
+            OnFilterStatusChanged();
+            ClientsList = new ObservableCollection<Client>(uoW.Clients.GetAll());
 
         }
 
@@ -207,6 +249,28 @@ namespace JParts.MVVM.ViewModel
             else
             {
                 MessageBox.Show("Сообщения успешно отправлены");
+            }
+        }
+
+        private void OnFilterStatusChanged()
+        {
+            if(FilterStatus == false)
+            {
+                FilteredList = new ObservableCollection<Order>(OrdersList.Where(o => o.Status == false).ToList());
+            }
+            else
+            {
+                FilteredList = new ObservableCollection<Order>(OrdersList.Where(o => o.Status == true).ToList());
+            }
+        }
+
+        private void SearchExpressionChanged()
+        {
+            if (SearchExpression == string.Empty)
+                FilteredList = new ObservableCollection<Order>(OrdersList.Where(o => o.Status == FilterStatus).ToList());
+            else
+            {
+                FilteredList = new ObservableCollection<Order>(OrdersList.Where(o => o.ClientID == ClientsList.Where(c => c.Name.ToLower().Contains(SearchExpression.ToLower())).First().ClientID).ToList());
             }
         }
     }

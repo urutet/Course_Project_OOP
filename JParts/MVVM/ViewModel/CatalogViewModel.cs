@@ -243,7 +243,7 @@ namespace JParts.MVVM.ViewModel
                 PartsList = DefaultList;
             else
             {
-                PartsList = new ObservableCollection<CartPart>(DefaultList.Where(p => p.Part.Name.ToLower().Contains(SearchExpression)).ToList());
+                PartsList = new ObservableCollection<CartPart>(DefaultList.Where(p => p.Part.Name.ToLower().Contains(SearchExpression.ToLower())).ToList());
             }
         }
 

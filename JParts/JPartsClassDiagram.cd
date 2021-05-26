@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="JParts.MVVM.Model.Address">
+    <Position X="12.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAIEAAAAgAA=</HashCode>
+      <FileName>MVVM\Model\Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JParts.MVVM.Model.Car">
+    <Position X="10" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAAAABAAAAAAAABAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\Car.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JParts.MVVM.Model.CartPart">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\CartPart.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Part" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="JParts.MVVM.Model.Client">
+    <Position X="0.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAGAAAAAACIAAAAAQAAAAAQACAAAAAAAEAAQAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\Client.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddressOf" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="JParts.MVVM.Model.Order">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAAAABAEAYIAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\Order.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddressOf" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="JParts.MVVM.Model.Part">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAYAAAAAAAAABAASAAAAAABAAAQAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\Part.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JParts.MVVM.Model.PartsOrders">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAEAABAAIAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\PartsOrders.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Order" />
+      <Property Name="Part" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

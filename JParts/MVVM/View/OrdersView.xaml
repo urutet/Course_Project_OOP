@@ -7,6 +7,7 @@
              xmlns:converters="clr-namespace:JParts.Converters"
              xmlns:viewmodels="clr-namespace:JParts.MVVM.ViewModel"
              xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:textboxes="clr-namespace:JParts.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -31,14 +32,45 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Content="Update" Grid.Column="3" Command="{Binding UpdateOrders}" Visibility="{Binding visibility}"/>
+
+        <xceed:WatermarkComboBox ItemsSource="{Binding FilterStatusList}" SelectedItem="{Binding FilterStatus, Mode=TwoWay}" Margin="5" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center">
+            <xceed:WatermarkComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource StatusConverter}}"/>
+                </DataTemplate>
+            </xceed:WatermarkComboBox.ItemTemplate>
+        </xceed:WatermarkComboBox>
+
+        <textboxes:WatermarkTextBox Watermark="Поиск"
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Grid.ColumnSpan="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                FontFamily="Montserrat"
+                                Height="20"
+                                Margin="5"
+                                TextBind="{Binding SearchExpression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button x:Name="SearchBtn"
+                Grid.Row="1"
+                Grid.Column="5"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Width="20"
+                Height="20"
+                Background="Transparent"
+                BorderThickness="0">
+            <Image Source="/Images/Search.png" Margin="0, 0, 5, 0"/>
+        </Button>
+
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      Grid.Row="1"
-                      Grid.RowSpan="5"
+                      Grid.Row="2"
+                      Grid.RowSpan="4"
                       Grid.Column="0"
                       Grid.ColumnSpan="6"
                       FontFamily="Montserrat">
             <ListBox x:Name="ordersList" Background="Transparent"
-                     BorderThickness="0" ItemsSource="{Binding OrdersList}">
+                     BorderThickness="0" ItemsSource="{Binding FilteredList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="orderTemplate"
