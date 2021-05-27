@@ -142,18 +142,32 @@ namespace JParts.MVVM.ViewModel
 
                 AddPartCommand = new RelayCommand(o =>
                 {
-                    Part part = new Part(GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID, Name, Type, Price, Availability, Image, Amount);
-
-                    UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
-                    uoW.Parts.Add(part);
-                    uoW.Complete();
-                    MessageBox.Show("Деталь успешно добавлена");
-                    CatalogVM.PartsList = new ObservableCollection<CartPart>();
-                    foreach(var p in uoW.Parts.GetAllParts())
+                    try
                     {
-                        catalogVM.PartsList.Add(new CartPart(p, p.Amount));
+                        Part part = new Part(GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID, Name, Type, Price, Availability, Image, Amount);
+
+                        UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
+                        uoW.Parts.Add(part);
+                        uoW.Complete();
+                        MessageBox.Show("Деталь успешно добавлена");
+                        CatalogVM.DefaultList = new ObservableCollection<CartPart>();
+                        foreach (var p in uoW.Parts.GetAllParts())
+                        {
+                            catalogVM.DefaultList.Add(new CartPart(p, p.Amount));
+                        }
+                        CatalogVM.DefaultList.Clear();
+
+                        foreach (var p in uoW.Parts.GetAllParts())
+                        {
+                            catalogVM.DefaultList.Add(new CartPart(p, p.Amount));
+                        }
+                        catalogVM.PartsList = CatalogVM.DefaultList;
+                        ClearAllFields();
                     }
-                    ClearAllFields();
+                    catch(Exception e)
+                    {
+                        MessageBox.Show("Заполните все поля");
+                    }
                 });
 
             }
@@ -166,6 +180,8 @@ namespace JParts.MVVM.ViewModel
                 Name = part.Name;
                 Type = part.Type;
                 Price = part.Price;
+                Image = part.Image;
+                Amount = part.Amount;
                 UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
                 Car car = uoW.Cars.Get(part.CarID);
                 SelectedManufacturer = car.Manufacturer;
@@ -174,20 +190,29 @@ namespace JParts.MVVM.ViewModel
 
                 AddPartCommand = new RelayCommand(o =>
                 {
-                    UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
-                    var partToEdit = uoW.Parts.Get(part.PartID);
-                    partToEdit.Name = Name;
-                    partToEdit.Type = Type;
-                    partToEdit.Price = Price;
-                    partToEdit.Amount = Amount;
-                    partToEdit.CarID = GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID;
-                    uoW.Complete();
-                    MessageBox.Show("Деталь успешно обновлена");
-                    CatalogVM.DefaultList.Clear();
-                    foreach(var p in uoW.Parts.GetAllParts())
+                    try
                     {
-                        catalogVM.DefaultList.Add(new CartPart(p, p.Amount));
+                        UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(new JPartsContext());
+                        var partToEdit = uoW.Parts.Get(part.PartID);
+                        partToEdit.Name = Name;
+                        partToEdit.Type = Type;
+                        partToEdit.Price = Price;
+                        partToEdit.Amount = Amount;
+                        partToEdit.CarID = GetCar(SelectedManufacturer, SelectedModel, SelectedYear).CarID;
+                        uoW.Complete();
+                        MessageBox.Show("Деталь успешно обновлена");
+                        CatalogVM.DefaultList.Clear();
+
+                        foreach (var p in uoW.Parts.GetAllParts())
+                        {
+                            catalogVM.DefaultList.Add(new CartPart(p, p.Amount));
+                        }
                         catalogVM.PartsList = CatalogVM.DefaultList;
+
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Заполните все поля");
                     }
                 });
             }
@@ -246,6 +271,7 @@ namespace JParts.MVVM.ViewModel
             Price = null;
             Availability = false;
             Image = null;
+            Amount = null;
         }
     }
 }

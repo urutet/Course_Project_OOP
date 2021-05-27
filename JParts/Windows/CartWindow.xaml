@@ -66,9 +66,11 @@
                                     <TextBlock Text="{Binding Part.Name}" Grid.Column="1" VerticalAlignment="Top"/>
                                     <TextBlock Text="{Binding Path=Part.Type, StringFormat='Тип: {0}'}" Grid.Column="1" VerticalAlignment="Center"/>
                                     <TextBlock Text="{Binding Path=Part.CarID, Converter={StaticResource CarConverter}, StringFormat='Машина: {0}'}" Grid.Column="1" VerticalAlignment="Bottom"/>
-                                    <TextBlock Text="{Binding Path=Part.Price, StringFormat='Цена: {0}'}" Grid.Column="2" VerticalAlignment="Top"/>
-                                    <TextBlock Text="{Binding Path=Amount, StringFormat='Количество: {0}'}" Grid.Column="2" VerticalAlignment="Center"/>
-                                    <Button Content="Delete" Grid.Column="4" Margin="5" Command="{Binding DataContext.DeletePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
+                                    <TextBlock Text="{Binding Path=Part.Price, StringFormat='Цена: {0} руб.'}" Grid.Column="2" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding Path=Amount, StringFormat='Количество: {0} шт.'}" Grid.Column="2" VerticalAlignment="Center"/>
+                                    <Button Width="30" Height="30" Grid.Column="4" Margin="5" Command="{Binding DataContext.DeletePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}">
+                                        <Image Source="/Images/Remove.png"/>
+                                    </Button>
                                 </Grid>
                             </StackPanel>
                         </Border>

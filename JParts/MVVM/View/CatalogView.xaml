@@ -157,12 +157,16 @@
                                 <TextBlock Text="{Binding Part.Name}" Grid.Column="1" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Path=Part.Type, StringFormat='Тип: {0}'}" Grid.Column="1" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding Path=Part.CarID, Converter={StaticResource CarConverter}, StringFormat='Машина: {0}'}" Grid.Column="1" VerticalAlignment="Bottom"/>
-                                <TextBlock Text="{Binding Path=Part.Price, StringFormat='Цена: {0}'}" Grid.Column="2" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Path=Part.Amount, StringFormat='В наличии: {0}'}" Grid.Column="2" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Path=Part.Price, StringFormat='Цена: {0} руб.'}" Grid.Column="2" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Path=Part.Amount, StringFormat='В наличии: {0} шт.'}" Grid.Column="2" VerticalAlignment="Center"/>
                                 <textboxes:WatermarkTextBox Watermark="Количество для заказа" TextBind="{Binding Amount, Mode=TwoWay}" Grid.Column="2" VerticalAlignment="Bottom"/>
-                                <Button Content="Add To Cart" Grid.Column="3" Margin="5" Command="{Binding DataContext.AddToCartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
-                                <Button x:Name="updButton" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdatePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
-                            </Grid>
+                                    <Button Width="30" Height="30" Template="{StaticResource btTemplate}" Grid.Column="3" Margin="5" Command="{Binding DataContext.AddToCartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}">
+                                        <Image Source="/Images/Cart.png"/>
+                                    </Button>
+                                    <Button Width="30" Height="30" Template="{StaticResource btTemplate}" x:Name="updButton" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdatePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}">
+                                        <Image Source="/Images/Upload.png"/>
+                                    </Button>
+                                </Grid>
                             <StackPanel.InputBindings>
                                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.ShowPartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                             </StackPanel.InputBindings>
