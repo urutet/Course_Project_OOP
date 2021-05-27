@@ -26,7 +26,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Add Button-->
-        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddCarCommand}" Visibility="{Binding visibility}">
+        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddCarCommand}" Visibility="{Binding visibility}" Template="{StaticResource btTemplate}">
             <Image Source="/Images/Add.png"/>
         </Button>
         <!--Delete Button-->
@@ -52,27 +52,29 @@
                      BorderThickness="0" ItemsSource="{Binding Cars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="PartTemplate"
+                        <Border BorderBrush="#b6002c" BorderThickness="2" CornerRadius="10" Background="#f0f0f0">
+                            <StackPanel x:Name="PartTemplate"
                                 Background="#f0f0f0"
-                                Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4">
-                            <Grid Width="500">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="0.5*" />
-                                    <ColumnDefinition Width="0.5*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Manufacturer}" Grid.Column="1" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Model}" Grid.Column="1" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding Year}" Grid.Column="1" VerticalAlignment="Bottom"/>
-                                <!--Needs rework-->
-                                <Button Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdateCarCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"/>
-                            </Grid>
-                        </StackPanel>
+                                Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Margin="5">
+                                <Grid Width="480">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="70"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding Path=Manufacturer, StringFormat='Производитель: {0}'}" Grid.Column="1" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding Path=Model, StringFormat='Модель: {0}'}" Grid.Column="1" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Path=Year, StringFormat='Год: {0}'}" Grid.Column="1" VerticalAlignment="Bottom"/>
+                                    <!--Needs rework-->
+                                    <Button Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdateCarCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

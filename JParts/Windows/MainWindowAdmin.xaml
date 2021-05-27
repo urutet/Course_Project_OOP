@@ -27,11 +27,11 @@
                VerticalAlignment="Center"
                Source="/Images/Logo200x75.png"/>
 
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <TextBlock Text="{Binding AuthorisedClient.Login}" HorizontalAlignment="Right" FontSize="14" FontFamily="Montserrat" Margin="0,0,5,0"/>
-            <Button Content="Выйти" HorizontalAlignment="Right" FontSize="12" FontFamily="Montserrat" Command="{Binding ExitToLoginCommand}" Margin="0,0,5,0"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Bottom">
+            <TextBlock Text="{Binding AuthorisedClient.Login}" HorizontalAlignment="Center" FontSize="14" FontFamily="Montserrat" Margin="0,0,5,0"/>
+            <Button Content="Выйти" HorizontalAlignment="Center" FontSize="12" FontFamily="Montserrat" Margin="10" Command="{Binding ExitToLoginCommand}"  Template="{StaticResource btTemplate}"/>
         </StackPanel>
-        <Button HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Width="40" Height="40" Margin="0, 0, 150, 0" Command="{Binding CartCommand}">
+        <Button HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Width="40" Height="40" Margin="0, 100, 0, 0" Command="{Binding CartCommand}"  Template="{StaticResource btTemplate}">
             <Image Source="/Images/Cart.png"/>
             </Button>
 
@@ -42,7 +42,8 @@
                          Command="{Binding CatalogViewCommand}"/>
             <RadioButton Content="Автомобили"
                          Style="{StaticResource MenuButtonStyle}"
-                         Command="{Binding CarsViewCommand}"/>
+                         Command="{Binding CarsViewCommand}"
+                          Visibility="{Binding visibility}"/>
             <RadioButton Content="Заказы"
                          Style="{StaticResource MenuButtonStyle}"
                          Command="{Binding OrdersViewCommand}"/>

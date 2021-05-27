@@ -22,5 +22,12 @@ namespace JParts.MVVM.View
         {
             InitializeComponent();
         }
+
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta / 7);
+            e.Handled = true;
+        }
     }
 }

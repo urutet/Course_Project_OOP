@@ -2,11 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:JParts.Themes">
     <ControlTemplate TargetType="Button" x:Key="btTemplate">
-        <Border x:Name="buttonBackgrnd" Background="#b6002c"
+        <Border x:Name="buttonBackgrnd" Background="#e3e3e3"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            CornerRadius="10">
-            <ContentControl Foreground="White"
+                            CornerRadius="10"
+                            BorderBrush="#b6002c"
+                            BorderThickness="2">
+            <ContentControl x:Name="fnt" Foreground="Black"
                                    FontSize="{TemplateBinding FontSize}"
                                    FontFamily="Montserrat"
                                    FontWeight="SemiBold"
@@ -14,7 +16,8 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter TargetName="buttonBackgrnd" Property="Background" Value="Black"/>
+                <Setter TargetName="buttonBackgrnd" Property="Background" Value="#b6002c"/>
+                <Setter TargetName="fnt" Property="Foreground" Value="White"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
                 <Setter Property="Foreground" Value="LightGray"/>

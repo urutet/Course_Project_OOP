@@ -45,30 +45,32 @@
                      BorderThickness="0" ItemsSource="{Binding OrderedPartsOrdersList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="PartTemplate"
+                        <Border BorderBrush="#b6002c" BorderThickness="2" CornerRadius="10" Background="#f0f0f0">
+                            <StackPanel x:Name="PartTemplate"
                                 Background="#f0f0f0"
-                                Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4">
-                            <Grid Width="500">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="0.5*" />
-                                    <ColumnDefinition Width="0.5*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70"/>
-                                </Grid.RowDefinitions>
-                                <Image  MinWidth="50" MaxWidth="50"
+                                Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Margin="5">
+                                <Grid Width="590">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="70"/>
+                                    </Grid.RowDefinitions>
+                                    <Image  MinWidth="50" MaxWidth="50"
                         MinHeight="50" MaxHeight="50"
                         Grid.Column="0" Margin="5" Source="{Binding Part.Image}"/>
-                                <TextBlock Text="{Binding Part.Name}" Grid.Column="1" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Part.Type}" Grid.Column="1" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding Part.CarID, Converter={StaticResource CarConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>
-                                <TextBlock Text="{Binding Part.Price}" Grid.Column="2" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Amount}" Grid.Column="2" VerticalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
+                                    <TextBlock Text="{Binding Part.Name}" Grid.Column="1" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding Path=Part.Type, StringFormat='Тип: {0}'}" Grid.Column="1" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Path=Part.CarID, Converter={StaticResource CarConverter}, StringFormat='Машина: {0}'}" Grid.Column="1" VerticalAlignment="Bottom"/>
+                                    <TextBlock Text="{Binding Path=Part.Price, StringFormat='Цена: {0}'}" Grid.Column="2" VerticalAlignment="Top"/>
+                                    <TextBlock Text="{Binding Path=Amount, StringFormat='Количество: {0}'}" Grid.Column="2" VerticalAlignment="Center"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

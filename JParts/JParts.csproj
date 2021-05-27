@@ -13,6 +13,7 @@
     <None Remove="Images\Logo200x75.png" />
     <None Remove="Images\Remove.png" />
     <None Remove="Images\Search.png" />
+    <None Remove="Images\Upload.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,7 @@
     <Resource Include="Images\Logo200x75.png" />
     <Resource Include="Images\Remove.png" />
     <Resource Include="Images\Search.png" />
+    <Resource Include="Images\Upload.png" />
   </ItemGroup>
 
 </Project>

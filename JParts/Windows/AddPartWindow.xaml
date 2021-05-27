@@ -32,9 +32,9 @@
                    FontFamily="Montserrat" FontSize="30" FontWeight="Bold"/>
         <GroupBox Header="Запчасть" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Montserrat" FontSize="14">
             <ItemsControl>
-                <watermark:WatermarkTextBox Watermark="Название" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Name, Mode=TwoWay}"/>
-                <watermark:WatermarkTextBox Watermark="Тип" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Type, Mode=TwoWay}"/>
-                <watermark:WatermarkTextBox Watermark="Стоимость, руб" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Price, Mode=TwoWay}"/>
+                <watermark:WatermarkTextBox Watermark="Название" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Name, Mode=TwoWay}"  Style="{StaticResource WaterMarkTextBoxValidationStyle}"/>
+                <watermark:WatermarkTextBox Watermark="Тип" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Type, Mode=TwoWay}"  Style="{StaticResource WaterMarkTextBoxValidationStyle}"/>
+                <watermark:WatermarkTextBox Watermark="Стоимость, руб" Margin="5" Height="20" VerticalAlignment="Top" TextBind="{Binding Price, Mode=TwoWay}"  Style="{StaticResource WaterMarkTextBoxValidationStyle}"/>
                 <!--<xceed:DecimalUpDown Watermark="Стоимость" TextAlignment="Left"/>-->
                 <watermark:WatermarkTextBox  Margin="5" Height="20" Watermark="Количество" TextBind="{Binding Amount, Mode=TwoWay}"/> <!--Add regex-->
             </ItemsControl>
@@ -69,10 +69,10 @@
             </ItemsControl>
         </GroupBox>
         <Image Source="{Binding Image}" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2"/>
-        <Button Content="{Binding ImageButton, Mode=TwoWay}" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10" Command="{Binding AddImageCommand}"/>
-        <Button Content="{Binding PartButton, Mode=TwoWay}" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10" Command="{Binding AddPartCommand}"/>
+        <Button Content="{Binding ImageButton, Mode=TwoWay}" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10" Command="{Binding AddImageCommand}" Template="{StaticResource btTemplate}"/>
+        <Button Content="{Binding PartButton, Mode=TwoWay}" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontSize="14" Margin="10" Command="{Binding AddPartCommand}" Template="{StaticResource btTemplate}"/>
 
-        <Button Grid.Row="1" Grid.Column="6" Width="40" Height="40" Command="{Binding AddCarCommand}">
+        <Button Grid.Row="1" Grid.Column="6" Width="40" Height="40" Command="{Binding AddCarCommand}" Template="{StaticResource btTemplate}">
             <Image Source="/Images/Add.png"/>
         </Button>
     </Grid>

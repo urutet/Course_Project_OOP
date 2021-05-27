@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="JParts.UnitOfWork.UnitOfWork">
+    <Position X="9.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAFQAAACACAABAIAEDAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UnitOfWork\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Addresses" />
+      <Property Name="Cars" />
+      <Property Name="Clients" />
+      <Property Name="Orders" />
+      <Property Name="Parts" />
+      <Property Name="Shops" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="JParts.Repositories.Generic.IRepository&lt;TEntity&gt;">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAAAAAAAAAAABAAAAABAAAAAAIAAAAAgAAIIAEAAA=</HashCode>
+      <FileName>Repositories\Generic\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="JParts.Repositories.Interfaces.IAddressRepository" Collapsed="true">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IAddressRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="JParts.Repositories.Interfaces.ICarRepository" Collapsed="true">
+    <Position X="11" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAABAAAAAAAAAAAAAAAAAAAAAAABAAAABAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\ICarRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="JParts.Repositories.Interfaces.IClientRepository" Collapsed="true">
+    <Position X="14.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAACAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IClientRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="JParts.Repositories.Interfaces.IOrderRepository" Collapsed="true">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Repositories\Interfaces\IOrderRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="JParts.Repositories.Interfaces.IPartRepository" Collapsed="true">
+    <Position X="12.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IPartRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="JParts.Repositories.Interfaces.IPartsOrdersRepository" Collapsed="true">
+    <Position X="16.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IPartsOrdersRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="JParts.Repositories.Interfaces.IShopRepository" Collapsed="true">
+    <Position X="9.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IShopRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

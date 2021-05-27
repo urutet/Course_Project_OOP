@@ -29,20 +29,20 @@
                    FontFamily="Montserrat" FontSize="30" FontWeight="Bold"/>
         <GroupBox Header="Запчасть" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Montserrat" FontSize="14">
             <ItemsControl>
-                <TextBlock Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Name, Mode=TwoWay}"/>
-                <TextBlock Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Type, Mode=TwoWay}"/>
-                <TextBlock Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Price, Mode=TwoWay}"/>
+                <TextBlock Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Path=Name, Mode=TwoWay}"/>
+                <TextBlock Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Path=Type, Mode=TwoWay, StringFormat='Тип: {0}'}"/>
+                <TextBlock Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Path=Price, Mode=TwoWay, StringFormat='Цена: {0}'}"/>
                 <!--<xceed:DecimalUpDown Watermark="Стоимость" TextAlignment="Left"/>-->
-                <TextBlock  Margin="5" Height="20" Text="{Binding Amount, Mode=TwoWay}"/>
+                <TextBlock  Margin="5" Height="20" Text="{Binding Path=Amount, Mode=TwoWay, StringFormat='В наличии: {0}'}"/>
                 <!--Add regex-->
             </ItemsControl>
         </GroupBox>
         <GroupBox Header="Машина" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Montserrat" FontSize="14">
             <ItemsControl>
-                <TextBlock x:Name="ManufacturerCB" Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding SelectedManufacturer, Mode=TwoWay}"/>
-                <TextBlock x:Name="ModelCB" Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding SelectedModel, Mode=TwoWay}"/>
+                <TextBlock x:Name="ManufacturerCB" Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Path=SelectedManufacturer, Mode=TwoWay, StringFormat='Марка: {0}'}"/>
+                <TextBlock x:Name="ModelCB" Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Path=SelectedModel, Mode=TwoWay, StringFormat='Модель: {0}'}"/>
 
-                <TextBlock Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding SelectedYear, Mode=TwoWay}"/>
+                <TextBlock Margin="5" Height="20" VerticalAlignment="Top" Text="{Binding Path=SelectedYear, Mode=TwoWay, StringFormat='Год: {0}'}"/>
 
             </ItemsControl>
         </GroupBox>

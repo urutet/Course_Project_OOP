@@ -26,7 +26,7 @@ namespace JParts.DBContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<PartsOrders>()
+                .Entity<PartsOrders>()  
                 .HasKey(k => new { k.PartID, k.OrderID });
 
             modelBuilder

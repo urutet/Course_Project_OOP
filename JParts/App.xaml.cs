@@ -21,6 +21,14 @@ namespace JParts
             using (JPartsContext Context = new JPartsContext())
             {
                 Context.Database.EnsureCreated();
+                UnitOfWork.UnitOfWork uoW = new UnitOfWork.UnitOfWork(Context);
+                if(uoW.Clients.GetByUsername("admin") == null)
+                {
+                    AuthenticationService authenticationService = new AuthenticationService(uoW);
+                    authenticationService.Register("admin", "admin", "+375291111111", 1, 1, "Street1", "Minsk", "admin@gmail.com", "admin", "admin", "admin", true);
+                }
+
+
             }
             base.OnStartup(e);
         }

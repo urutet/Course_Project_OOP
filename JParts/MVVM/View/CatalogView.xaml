@@ -33,11 +33,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Add Button-->
-        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddPartCommand}" Visibility="{Binding visibility}">
+        <Button Grid.Row="0" Grid.Column="2" Width="40" Height="40" Command="{Binding AddPartCommand}" Visibility="{Binding visibility}" Template="{StaticResource btTemplate}">
             <Image Source="/Images/Add.png"/>
         </Button>
         <!--Delete Button-->
-        <Button Grid.Row="0" Grid.Column="3" Width="40" Height="40" Command="{Binding DeletePartCommand}" Visibility="{Binding visibility}">
+        <Button Grid.Row="0" Grid.Column="3" Width="40" Height="40" Command="{Binding DeletePartCommand}" Visibility="{Binding visibility}" Template="{StaticResource btTemplate}">
             <Image Source="/Images/Remove.png"/>
         </Button>
 
@@ -50,7 +50,7 @@
                                 HorizontalAlignment="Stretch"
                                 FontFamily="Montserrat"
                                 Height="20"
-                                TextBind="{Binding SearchExpression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                TextBind="{Binding SearchExpression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource WaterMarkTextBoxValidationStyle}"/>
         <Button x:Name="SearchBtn"
                 Grid.Row="0"
                 Grid.Column="5"
@@ -136,10 +136,11 @@
                       SelectedItem="{Binding SelectedPart}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
+                        <Border BorderBrush="#b6002c" BorderThickness="2" CornerRadius="10" Background="#f0f0f0">
                         <StackPanel x:Name="PartTemplate"
-                                Background="#f0f0f0"
-                                Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4">
-                            <Grid Width="500">
+                                Background="Transparent"
+                                Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Margin="5">
+                            <Grid Width="480">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="2*" />
@@ -154,10 +155,10 @@
                         MinHeight="50" MaxHeight="50"
                         Grid.Column="0" Margin="5" Source="{Binding Part.Image}"/>
                                 <TextBlock Text="{Binding Part.Name}" Grid.Column="1" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Part.Type}" Grid.Column="1" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding Part.CarID, Converter={StaticResource CarConverter}}" Grid.Column="1" VerticalAlignment="Bottom"/>
-                                <TextBlock Text="{Binding Part.Price}" Grid.Column="2" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Part.Amount}" Grid.Column="2" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Path=Part.Type, StringFormat='Тип: {0}'}" Grid.Column="1" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Path=Part.CarID, Converter={StaticResource CarConverter}, StringFormat='Машина: {0}'}" Grid.Column="1" VerticalAlignment="Bottom"/>
+                                <TextBlock Text="{Binding Path=Part.Price, StringFormat='Цена: {0}'}" Grid.Column="2" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Path=Part.Amount, StringFormat='В наличии: {0}'}" Grid.Column="2" VerticalAlignment="Center"/>
                                 <textboxes:WatermarkTextBox Watermark="Количество для заказа" TextBind="{Binding Amount, Mode=TwoWay}" Grid.Column="2" VerticalAlignment="Bottom"/>
                                 <Button Content="Add To Cart" Grid.Column="3" Margin="5" Command="{Binding DataContext.AddToCartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                                 <Button x:Name="updButton" Visibility="{Binding DataContext.visibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" Content="Update" Grid.Column="4" Margin="5" Command="{Binding DataContext.UpdatePartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
@@ -166,6 +167,7 @@
                                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.ShowPartCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"/>
                             </StackPanel.InputBindings>
                         </StackPanel>
+                       </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

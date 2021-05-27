@@ -98,6 +98,16 @@ namespace JParts.MVVM.ViewModel
                         else
                             mainViewModel.OrdersVM.LoadClientsOrders(mainViewModel.AuthorisedClient.ClientID);
 
+                        mainViewModel.CatalogVM.DefaultList.Clear();
+                        mainViewModel.CatalogVM.PartsList.Clear();
+
+                        foreach (var p in uoW.Parts.GetAllParts())
+                        {
+                            mainViewModel.CatalogVM.DefaultList.Add(new CartPart(p, p.Amount));
+                        }
+
+                        mainViewModel.CatalogVM.PartsList = mainViewModel.CatalogVM.DefaultList;
+
                         MessageBox.Show("Заказ успешно добавлен");
                     }
                     else

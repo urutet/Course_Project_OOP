@@ -42,8 +42,8 @@ namespace JParts.MVVM.ViewModel
 
             LoginCommand = new RelayCommand(obj =>
             {
-                //try
-                //{
+                try
+                {
                     Client result = authenticationService.Login(Login, Password);
                         MainWindowAdmin windowAdmin = new MainWindowAdmin()
                         {
@@ -57,16 +57,16 @@ namespace JParts.MVVM.ViewModel
                 //};
                 //windowAdmin.Show();
                 //CloseWindow();
-            //}
-            //    catch (Exception e)
-            //{
-            //        MessageBox.Show("Неверный логин или пароль!");
-            //        //PopupWindow window = new PopupWindow()
-            //        //{
-            //        //    DataContext = new PopupViewModel("Неверный логин или пароль")
-            //        //};
-            //        //window.Show();
-            //}
+            }
+                catch (Exception e)
+            {
+                    //MessageBox.Show("Неверный логин или пароль!");
+                    PopupWindow window = new PopupWindow()
+                    {
+                        DataContext = new PopupViewModel("Неверный логин или пароль")
+                    };
+                    window.Show();
+                }
         });
 
         }

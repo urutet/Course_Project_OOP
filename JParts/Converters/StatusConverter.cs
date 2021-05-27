@@ -12,10 +12,14 @@ namespace JParts.Converters
         {
             if (value != null)
             {
-                if ((bool)value == true)
-                    return "Доставлен";
-                else
-                    return "В обработке";
+                if (value is bool)
+                {
+                    if ((bool)value == true)
+                        return "Доставлен";
+                    else
+                        return "В обработке";
+                }
+                else return null;
             }
             else
                 return null;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,24 +24,26 @@ namespace JParts.Windows
             InitializeComponent();
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width;
             this.Top = SystemParameters.PrimaryScreenHeight - this.Height - 50;
-            StartCloseTimer();
+            StartCloseTimer().GetAwaiter();
         }
 
-        private void StartCloseTimer()
+        private async Task StartCloseTimer()
         {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(5d);
-            timer.Tick += TimerTick;                                                        //Переписать методы (скорее всего прога ложится из-за них)
-            timer.Start();
-        }
-
-        private void TimerTick(object sender, EventArgs e)
-        {
-            DispatcherTimer timer = (DispatcherTimer)sender;
-            timer.Stop();
-            timer.Tick -= TimerTick;
+            //DispatcherTimer timer = new DispatcherTimer();
+            //timer.Interval = TimeSpan.FromSeconds(5d);
+            //timer.Tick += TimerTick;                                                        //Переписать методы (скорее всего прога ложится из-за них)
+            //timer.Start();
+            await Task.Delay(5000);
             Close();
         }
+
+        //private void TimerTick(object sender, EventArgs e)
+        //{
+        //    DispatcherTimer timer = (DispatcherTimer)sender;
+        //    timer.Stop();
+        //    timer.Tick -= TimerTick;
+        //    Close();
+        //}
 
     }
 }

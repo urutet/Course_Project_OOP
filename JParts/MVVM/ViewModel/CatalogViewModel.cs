@@ -192,7 +192,7 @@ namespace JParts.MVVM.ViewModel
                 if (o != null)
                 {
                     var _partToAdd = o as CartPart;
-                    if (_partToAdd.Amount <= 0 || (_partToAdd.Part.Amount - _partToAdd.Amount) <= 0)
+                    if (_partToAdd.Amount <= 0 || (_partToAdd.Part.Amount - _partToAdd.Amount) < 0)
                         MessageBox.Show("Нет в наличии");
                     else
                     {
